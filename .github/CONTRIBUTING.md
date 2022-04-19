@@ -5,7 +5,7 @@
 1. Fork and clone this repository.
 2. Create a new branch in your fork based off the **main** branch.
 3. Make your changes, and push them.
-4. Submit a Pull Request [here](https://github.com/josh-development/template/pulls)!
+4. Submit a Pull Request [here](https://github.com/josh-development/middlewares/pulls)!
 
 ## Contributing to the code
 

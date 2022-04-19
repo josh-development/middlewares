@@ -21,7 +21,7 @@ export default {
     {
       file: './dist/index.umd.js',
       format: 'umd',
-      name: 'JoshCore',
+      name: 'AutoEnsure',
       sourcemap: true
     }
   ],
