@@ -7,7 +7,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -19,7 +19,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
     payload.data = defaultValue as unknown as Value;
 
     return payload;
@@ -36,7 +36,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
 
       const { defaultValue } = this.context;
 
-      await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+      await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
       payload.data[key] = defaultValue;
     }
 
@@ -48,7 +48,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -58,7 +58,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -68,7 +68,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -81,7 +81,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -91,7 +91,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -101,7 +101,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { entries } = payload;
     const { defaultValue } = this.context;
 
-    for (const [{ key }] of entries) await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    for (const [{ key }] of entries) await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
@@ -111,7 +111,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider.ensure({ method: Method.Ensure, key, data: defaultValue, defaultValue });
+    await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
 
     return payload;
   }
