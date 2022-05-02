@@ -10,6 +10,7 @@
     "docs": "typedoc",
     "lint": "eslint packages scripts --ext mjs,ts --fix",
     "format": "prettier --write \"{packages,scripts}/**/*.{mjs,ts}\"",
+    "test": "yarn workspaces foreach -v --no-private run test",
     "build": "yarn workspaces foreach -v --no-private run build",
     "update": "yarn upgrade-interactive",
     "publish": "yarn workspaces foreach -v --no-private npm publish",
