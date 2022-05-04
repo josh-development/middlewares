@@ -918,13 +918,13 @@ __metadata:
   linkType: soft
 
 "@joshdb/core@npm:next":
-  version: 3.0.0-next.7b155ed9e89f985eeb2e055cf00e11d2d4ba706f.0
-  resolution: "@joshdb/core@npm:3.0.0-next.7b155ed9e89f985eeb2e055cf00e11d2d4ba706f.0"
+  version: 3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0
+  resolution: "@joshdb/core@npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
   dependencies:
     "@sapphire/utilities": ^3.6.2
     property-helpers: ^1.1.0
     reflect-metadata: ^0.1.13
-  checksum: 0d1d14375b1194f5ae70d5098caea5ec12453a2ca410e47eaa07cd208aa5c54abb4134ca5279e50c35efe7957e3b0ada9f1b1130a7d3611f06848b35db0bcb7e
+  checksum: cdbc1a3949eea322e6869aabac014ccc24898ba8f3622b1fdd3ee92d34fa7017ee179e5c4ab1a9c57c951fe11640cc4ce17f5e15a3e53c866b08e0bb7bf53976
   languageName: node
   linkType: hard
 
@@ -2715,9 +2715,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.118":
-  version: 1.4.130
-  resolution: "electron-to-chromium@npm:1.4.130"
-  checksum: b3912b8073b66eef01ac1096bf5e6be492fff2be3af9e87f01e9c046d31443fd9192e1230113f26bbe77b8671e1196d4e5aa9f58d3191e2760bebf7cd3ea413b
+  version: 1.4.131
+  resolution: "electron-to-chromium@npm:1.4.131"
+  checksum: adf3159d22dd8ae3e46e86fe89e91ad39f622855ece36a0f73e53171792dead8e6876c3246e8b54b259b3a7d68ef093e020a12d55adf34692ed38d4c172b0376
   languageName: node
   linkType: hard
 
