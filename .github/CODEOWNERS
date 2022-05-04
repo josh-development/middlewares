@@ -1,5 +1,8 @@
 /.github/ @RealShadowNova
 /.husky/ @RealShadowNova
 /.vscode/ @RealShadowNova
-/src/ @RealShadowNova
-/tests/ @RealShadowNova
+/.yarn/ @RealShadowNova
+/packages/auto-ensure/ @RealShadowNova
+/scripts/ @RealShadowNova
+LICENSE @eslachance
+package.json @RealShadowNova

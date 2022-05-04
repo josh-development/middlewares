@@ -50,8 +50,13 @@ jobs:
       - name: Install Dependencies if Cache Miss
         if: ${{ !steps.cache-restore.outputs.cache-hit }}
         run: yarn --immutable
-      - name: Run tests
+      - name: Run Tests
         run: yarn test --coverage
+      - name: Store Code Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage/
 
   Building:
     name: Compile Source Code

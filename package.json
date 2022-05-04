@@ -1,31 +1,20 @@
 {
-  "name": "@joshdb/template",
-  "version": "1.0.0",
-  "description": "Template to be used for Josh repositories",
-  "author": "Évelyne Lachance <eslachance@gmail.com> (https://evie.codes/)",
-  "contributors": [
-    "Hezekiah Hendry <real.shadow.nova@gmail.com>"
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "license": "Apache-2.0",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "browser": "dist/index.umd.js",
-  "unpkg": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
-  },
   "scripts": {
-    "clean": "rimraf dist node_modules/.cache",
+    "generate": "node scripts/generate/generate.mjs",
+    "clean": "rimraf \"packages/**/dist\" \"packages/**/node_modules/.cache\"",
     "docs": "typedoc",
-    "lint": "eslint src tests --ext ts --fix",
-    "format": "prettier --write \"{src,tests}/**/*.ts\"",
-    "test": "jest",
-    "build": "rollup -c rollup.bundle.ts",
+    "lint": "eslint packages scripts --ext mjs,ts --fix",
+    "format": "prettier --write \"{packages,scripts}/**/*.{mjs,ts}\"",
+    "test": "yarn workspaces foreach -v --no-private run test",
+    "build": "yarn workspaces foreach -v --no-private run build",
     "update": "yarn upgrade-interactive",
-    "release": "npm publish",
-    "prepublishOnly": "rollup-type-bundler",
+    "publish": "yarn workspaces foreach -v --no-private npm publish",
+    "prepublishOnly": "yarn workspaces foreach -v --no-private run prepublishOnly",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -36,7 +25,7 @@
     "@sapphire/eslint-config": "^4.3.4",
     "@sapphire/ts-config": "^3.3.4",
     "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.25",
     "@types/rimraf": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
@@ -61,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/josh-development/template.git"
+    "url": "git+https://github.com/josh-development/middlewares.git"
   },
   "files": [
     "dist",
@@ -73,9 +62,9 @@
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/josh-development/template/issues"
+    "url": "https://github.com/josh-development/middlewares/issues"
   },
-  "homepage": "https://github.com/josh-development/template",
+  "homepage": "https://github.com/josh-development/middlewares",
   "publishConfig": {
     "access": "public"
   },
@@ -90,7 +79,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": "eslint --fix --ext ts"
+    "*.ts": "eslint --fix --ext mjs,ts"
   },
   "packageManager": "yarn@3.2.0"
 }

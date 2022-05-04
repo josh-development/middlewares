@@ -21,9 +21,13 @@ export default {
     {
       file: './dist/index.umd.js',
       format: 'umd',
-      name: 'JoshCore',
-      sourcemap: true
+      name: 'AutoEnsure',
+      sourcemap: true,
+      globals: {
+        '@joshdb/core': 'JoshCore'
+      }
     }
   ],
+  external: ['@joshdb/core'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') }), versionInjector()]
 };
