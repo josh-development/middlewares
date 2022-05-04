@@ -29,12 +29,10 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
   public async [Method.GetMany](payload: Payloads.GetMany<StoredValue>): Promise<Payloads.GetMany<StoredValue>> {
     payload.data ??= {};
 
-    if (Object.keys(payload.data).length !== 0) return payload;
+    const { defaultValue } = this.context;
 
     for (const key of payload.keys) {
-      if (payload.data[key] !== null) continue;
-
-      const { defaultValue } = this.context;
+      if (key in payload.data && payload.data[key] !== null) continue;
 
       await this.provider.ensure({ method: Method.Ensure, key, defaultValue });
       payload.data[key] = defaultValue;
