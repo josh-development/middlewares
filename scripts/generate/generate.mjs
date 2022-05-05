@@ -4,9 +4,9 @@ import prompts from 'prompts';
 import { jobs } from './jobs.mjs';
 
 const response = await prompts([
-  { type: 'text', name: 'name', message: "What's the name of your middleware?", initial: 'mymiddleware' },
-  { type: 'text', name: 'title', message: "What's the title case name of your Middleware?", initial: 'MyDB' },
-  { type: 'text', name: 'description', message: 'Write a short description of your Middleware', initial: 'A Josh Middleware' },
+  { type: 'text', name: 'name', message: "What's the name of your middleware?", initial: 'my-middleware' },
+  { type: 'text', name: 'title', message: "What's the title case name of your middleware?", initial: 'MyMiddleware' },
+  { type: 'text', name: 'description', message: 'Write a short description of your middleware', initial: 'A Josh middleware' },
   {
     type: 'select',
     name: 'umd',
