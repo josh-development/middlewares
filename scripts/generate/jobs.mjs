@@ -44,7 +44,6 @@ export const jobs = [
                 },
                 scripts: {
                   test: 'jest',
-                  lint: 'eslint src tests --ext ts --fix -c ../../.eslintrc',
                   build: 'rollup -c rollup.bundle.ts',
                   release: 'npm publish',
                   prepublishOnly: 'rollup-type-bundler'
@@ -178,12 +177,15 @@ export default {
     {
       file: './dist/index.umd.js',
       format: 'umd',
+      name: 'Josh${title}',
       exports: 'named',
       sourcemap: true,
-      globals: {}
+      globals: {
+        '@joshdb/core': 'JoshCore'
+      }
     }
   ],
-  external: [],
+  external: ['@joshdb/core'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') }), versionInjector()]
 };`
           : `import { resolve } from 'path';
@@ -259,7 +261,7 @@ export const version = '[VI]{version}[/VI]';
 
       await mkdir(resolvePath(name, 'src', 'lib'));
       await writeFile(
-        resolvePath(name, 'src', 'lib', `${title}Provider.ts`),
+        resolvePath(name, 'src', 'lib', `${title}.ts`),
         `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/core';
 
 @ApplyMiddlewareOptions({ name: '${name}' })
@@ -274,7 +276,7 @@ export namespace ${title} {
   },
   {
     description: 'Generate Tests Folder',
-    callback: async ({ name }) => {
+    callback: async ({ name, title }) => {
       await mkdir(resolvePath(name, 'tests'));
       await writeFile(
         resolvePath(name, 'tests', 'tsconfig.json'),
@@ -288,6 +290,23 @@ export namespace ${title} {
       );
 
       await mkdir(resolvePath(name, 'tests', 'lib'));
+      await writeFile(
+        resolvePath(name, 'tests', 'lib', `${title}.test.ts`),
+        `import { ${title} } from '../../src';
+
+describe('${title}', () => {
+  describe('is a class', () => {
+    test('GIVEN typeof ${title} THEN returns function', () => {
+      expect(typeof ${title}).toBe('function');
+    });
+
+    test('GIVEN typeof ...prototype THEN returns object', () => {
+      expect(typeof ${title}.prototype).toBe('object');
+    });
+  });
+});
+`
+      );
     }
   },
   {
