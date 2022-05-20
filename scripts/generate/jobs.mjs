@@ -30,9 +30,7 @@ export const jobs = [
                 name: `@joshdb/${name}`,
                 version: '1.0.0',
                 description,
-                author: 'Évelyne Lachance <eslachance@gmail.com> (https://evie.codes/)',
-                contributors: [],
-                license: 'Apache-2.0',
+                author: '@joshdb',
                 main: 'dist/index.js',
                 module: 'dist/index.mjs',
                 browser: 'dist/index.umd.js',
@@ -40,32 +38,30 @@ export const jobs = [
                 types: 'dist/index.d.ts',
                 exports: {
                   import: './dist/index.mjs',
-                  require: './dist/index.js'
+                  require: './dist/index.js',
+                  types: './dist/index.d.ts'
                 },
+                sideEffects: false,
                 scripts: {
                   test: 'jest',
                   lint: 'eslint src tests --ext ts --fix -c ../../.eslintrc',
-                  build: 'rollup -c rollup.bundle.ts',
-                  release: 'npm publish',
-                  prepublishOnly: 'rollup-type-bundler'
+                  build: 'rollup -c rollup.config.ts',
+                  prepack: 'rollup-type-bundler',
+                  bump: 'cliff-jumper',
+                  'check-update': 'cliff-jumper --dry-run'
                 },
-                dependencies: {
-                  '@joshdb/core': 'next'
-                },
+                dependencies: {},
                 devDependencies: {
-                  '@favware/rollup-type-bundler': '^1.0.7',
-                  jest: '^27.5.1',
-                  rollup: '^2.70.2',
-                  'standard-version': '^9.3.2'
+                  '@favware/rollup-type-bundler': '^1.0.7'
                 },
                 repository: {
                   type: 'git',
                   url: 'git+https://github.com/josh-development/middlewares.git'
                 },
-                files: ['dist', '!dist/*tsbuildinfo'],
+                files: ['dist', '!dist/*.tsbuildinfo'],
                 engines: {
                   node: '>=16.6.0',
-                  npm: '>=7.0.0'
+                  npm: '>=7'
                 },
                 keywords: [],
                 bugs: {
@@ -80,39 +76,36 @@ export const jobs = [
                 name: `@joshdb/${name}`,
                 version: '1.0.0',
                 description,
-                author: 'Évelyne Lachance <eslachance@gmail.com> (https://evie.codes/)',
-                contributors: [],
-                license: 'Apache-2.0',
+                author: '@joshdb',
                 main: 'dist/index.js',
                 module: 'dist/index.mjs',
                 types: 'dist/index.d.ts',
                 exports: {
                   import: './dist/index.mjs',
-                  require: './dist/index.js'
+                  require: './dist/index.js',
+                  types: './dist/index.d.ts'
                 },
+                sideEffects: false,
                 scripts: {
                   test: 'jest',
-                  build: 'rollup -c rollup.bundle.ts',
-                  release: 'npm publish',
-                  prepublishOnly: 'rollup-type-bundler'
+                  lint: 'eslint src tests --ext ts --fix -c ../../.eslintrc',
+                  build: 'rollup -c rollup.config.ts',
+                  prepack: 'rollup-type-bundler',
+                  bump: 'cliff-jumper',
+                  'check-update': 'cliff-jumper --dry-run'
                 },
-                dependencies: {
-                  '@joshdb/core': 'next'
-                },
+                dependencies: {},
                 devDependencies: {
-                  '@favware/rollup-type-bundler': '^1.0.7',
-                  jest: '^27.5.1',
-                  rollup: '^2.70.2',
-                  'standard-version': '^9.3.2'
+                  '@favware/rollup-type-bundler': '^1.0.7'
                 },
                 repository: {
                   type: 'git',
                   url: 'git+https://github.com/josh-development/middlewares.git'
                 },
-                files: ['dist', '!dist/*tsbuildinfo'],
+                files: ['dist', '!dist/*.tsbuildinfo'],
                 engines: {
                   node: '>=16.6.0',
-                  npm: '>=7.0.0'
+                  npm: '>=7'
                 },
                 keywords: [],
                 bugs: {
@@ -133,29 +126,31 @@ export const jobs = [
     description: 'Generate Configuration Files',
     callback: async ({ name, umd }) => {
       await writeFile(
-        resolvePath(name, 'jest.config.ts'),
-        `import type { Config } from '@jest/types';
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export default async (): Promise<Config.InitialOptions> => ({
+        resolvePath(name, 'jest.config.mjs'),
+        `/** @type {import('@jest/types').Config.InitialOptions} */
+const config = {
   displayName: 'unit test',
   preset: 'ts-jest',
-  testEnvironment: 'node',
-  testRunner: 'jest-circus/runner',
   testMatch: ['<rootDir>/tests/**/*.test.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  setupFilesAfterEnv: ['jest-extended/all'],
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.base.json'
+      tsconfig: '<rootDir>/tests/tsconfig.json'
     }
-  }
-});
+  },
+  coveragePathIgnorePatterns: []
+};
+
+export default config;
+
 `
       );
 
       await writeFile(
         resolvePath(name, 'rollup.bundle.ts'),
         umd
-          ? `import { resolve } from 'path';
+          ? `import { resolve } from 'node:path';
 import cleaner from 'rollup-plugin-cleaner';
 import typescript from 'rollup-plugin-typescript2';
 import versionInjector from 'rollup-plugin-version-injector';
@@ -178,14 +173,15 @@ export default {
     {
       file: './dist/index.umd.js',
       format: 'umd',
-      exports: 'named',
+      name: 'Josh${title}'
       sourcemap: true,
       globals: {}
     }
   ],
   external: [],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') }), versionInjector()]
-};`
+};
+`
           : `import { resolve } from 'path';
 import cleaner from 'rollup-plugin-cleaner';
 import typescript from 'rollup-plugin-typescript2';
@@ -206,23 +202,27 @@ export default {
       exports: 'named',
       sourcemap: true
     },
-    {
-      file: './dist/index.umd.js',
-      format: 'umd',
-      exports: 'named',
-      sourcemap: true,
-      globals: {}
-    }
   ],
   external: [],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') }), versionInjector()]
-};`
+};
+`
       );
 
-      await writeFile(resolvePath(name, 'tsconfig.base.json'), JSON.stringify({ extends: '../../tsconfig.base.json' }, null, 2));
       await writeFile(
         resolvePath(name, 'tsconfig.eslint.json'),
-        JSON.stringify({ extends: './tsconfig.base.json', compilerOptions: { allowJs: true, checkJs: true }, include: ['src', 'tests'] }, null, 2)
+        JSON.stringify(
+          {
+            extends: '../../tsconfig.base.json',
+            compilerOptions: {
+              allowJs: true,
+              checkJs: true
+            },
+            include: ['src', 'tests']
+          },
+          null,
+          2
+        )
       );
     }
   },
@@ -234,13 +234,12 @@ export default {
         resolvePath(name, 'src', 'tsconfig.json'),
         JSON.stringify(
           {
-            extends: '../tsconfig.base.json',
+            extends: '../../../tsconfig.base.json',
             compilerOptions: {
               rootDir: './',
               outDir: '../dist',
               composite: true,
-              preserveConstEnums: true,
-              useDefineForClassFields: false
+              tsBuildInfoFile: '../dist/.tsbuildinfo'
             },
             include: ['.']
           },
@@ -252,15 +251,13 @@ export default {
       await writeFile(
         resolvePath(name, 'src', 'index.ts'),
         `export * from './lib/${title}';
-
-export const version = '[VI]{version}[/VI]';
 `
       );
 
       await mkdir(resolvePath(name, 'src', 'lib'));
       await writeFile(
         resolvePath(name, 'src', 'lib', `${title}Provider.ts`),
-        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/core';
+        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/middleware';
 
 @ApplyMiddlewareOptions({ name: '${name}' })
 export class ${title}<StoredValue = unknown> extends Middleware<${title}.ContextData, StoredValue> {}
@@ -280,7 +277,16 @@ export namespace ${title} {
         resolvePath(name, 'tests', 'tsconfig.json'),
         JSON.stringify(
           {
-            extends: '../tsconfig.base.json'
+            extends: '../../../tsconfig.base.json',
+            compilerOptions: {
+              rootDir: './',
+              outDir: './build',
+              tsBuildInfoFile: './build/.tsbuildinfo',
+              experimentalDecorators: true,
+              emitDecoratorMetadata: true
+            },
+            include: ['./'],
+            references: [{ path: '../src' }]
           },
           null,
           2

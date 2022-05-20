@@ -1,11 +1,12 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "../dist",
     "composite": true,
-    "preserveConstEnums": true,
-    "useDefineForClassFields": false
+    "tsBuildInfoFile": "../dist/.tsbuildinfo",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["."]
 }
