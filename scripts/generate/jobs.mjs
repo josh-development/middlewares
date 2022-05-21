@@ -124,7 +124,7 @@ export const jobs = [
   },
   {
     description: 'Generate Configuration Files',
-    callback: async ({ name, umd }) => {
+    callback: async ({ name, title, umd }) => {
       await writeFile(
         resolvePath(name, 'jest.config.mjs'),
         `/** @type {import('@jest/types').Config.InitialOptions} */
