@@ -148,7 +148,7 @@ export default config;
       );
 
       await writeFile(
-        resolvePath(name, 'rollup.bundle.ts'),
+        resolvePath(name, 'rollup.config.ts'),
         umd
           ? `import { resolve } from 'node:path';
 import cleaner from 'rollup-plugin-cleaner';
