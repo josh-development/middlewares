@@ -237,7 +237,9 @@ export default {
               rootDir: './',
               outDir: '../dist',
               composite: true,
-              tsBuildInfoFile: '../dist/.tsbuildinfo'
+              tsBuildInfoFile: '../dist/.tsbuildinfo',
+              experimentalDecorators: true,
+              emitDecoratorMetadata: true
             },
             include: ['.']
           },
@@ -292,6 +294,22 @@ export namespace ${title}Middleware {
       );
 
       await mkdir(resolvePath(name, 'tests', 'lib'));
+      await writeFile(
+        resolvePath(name, 'tests', 'lib', `${title}Middleware.test.ts`),
+        `import { ${title}Middleware } from '../../src';
+
+describe('${title}Middleware', () => {
+  describe('is a class', () => {
+    test('GIVEN typeof ${title}Middleware THEN returns function', () => {
+      expect(typeof ${title}Middleware).toBe('function');
+    });
+
+    test('GIVEN typeof ...prototype THEN returns object', () => {
+      expect(typeof ${title}Middleware.prototype).toBe('object');
+    });
+});
+`
+      );
     }
   },
   {
