@@ -250,19 +250,19 @@ export default {
 
       await writeFile(
         resolvePath(name, 'src', 'index.ts'),
-        `export * from './lib/${title}';
+        `export * from './lib/${title}Middleware';
 `
       );
 
       await mkdir(resolvePath(name, 'src', 'lib'));
       await writeFile(
-        resolvePath(name, 'src', 'lib', `${title}Provider.ts`),
-        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/middleware';
+        resolvePath(name, 'src', 'lib', `${title}Middleware.ts`),
+        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/core';
 
 @ApplyMiddlewareOptions({ name: '${name}' })
-export class ${title}<StoredValue = unknown> extends Middleware<${title}.ContextData, StoredValue> {}
+export class ${title}Middleware<StoredValue = unknown> extends Middleware<${title}Middleware.ContextData, StoredValue> {}
 
-export namespace ${title} {
+export namespace ${title}Middleware {
   export interface ContextData {}
 }
 `
