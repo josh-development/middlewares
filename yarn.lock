@@ -1060,7 +1060,7 @@ __metadata:
   resolution: "@joshdb/auto-ensure@workspace:packages/auto-ensure"
   dependencies:
     "@favware/rollup-type-bundler": ^1.0.7
-    "@joshdb/core": next
+    "@joshdb/core": "npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
     jest: ^28.1.0
     rollup: ^2.74.1
     rollup-plugin-cleaner: ^1.0.0
@@ -1070,7 +1070,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/core@npm:next":
+"@joshdb/core@npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0":
   version: 3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0
   resolution: "@joshdb/core@npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
   dependencies:
