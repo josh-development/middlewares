@@ -2,17 +2,10 @@
 node_modules/
 .vs/
 
-# Ignore tsc dist folder
-**/dist
-
-# Ignore JavaScript files
-**/*.js
-**/*.mjs
-**/*.js.map
-**/*.d.ts
-!packages/**/*.d.ts
-**/*.tsbuildinfo
-!**/scripts/**/*.mjs
+# Ignore build artifacts
+dist/
+build/
+.turbo/
 
 # Ignore heapsnapshot and log files
 *.heapsnapshot

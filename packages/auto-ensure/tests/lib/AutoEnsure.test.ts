@@ -1,19 +1,19 @@
 import { Josh, MathOperator, Method, Payload } from '@joshdb/core';
-import { AutoEnsure } from '../../src';
+import { AutoEnsureMiddleware } from '../../src';
 
 describe('AutoEnsure', () => {
   describe('is a class', () => {
-    test(`GIVEN typeof ${AutoEnsure.prototype.constructor.name} THEN returns function`, () => {
-      expect(typeof AutoEnsure).toBe('function');
+    test(`GIVEN typeof ${AutoEnsureMiddleware.prototype.constructor.name} THEN returns function`, () => {
+      expect(typeof AutoEnsureMiddleware).toBe('function');
     });
 
     test('GIVEN typeof ...prototype THEN returns object', () => {
-      expect(typeof AutoEnsure.prototype).toBe('object');
+      expect(typeof AutoEnsureMiddleware.prototype).toBe('object');
     });
   });
 
   describe('can manipulate provider data', () => {
-    const autoEnsure = new AutoEnsure<unknown>({ defaultValue: 'test:defaultValue' });
+    const autoEnsure = new AutoEnsureMiddleware<unknown>({ defaultValue: 'test:defaultValue' });
     const josh = new Josh({ name: 'test:name', middlewares: [autoEnsure] });
 
     beforeAll(async () => {

@@ -1,7 +1,7 @@
 import { ApplyMiddlewareOptions, Method, Middleware, Payloads, PostProvider, PreProvider } from '@joshdb/core';
 
 @ApplyMiddlewareOptions({ name: 'autoEnsure' })
-export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.ContextData<StoredValue>, StoredValue> {
+export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<AutoEnsureMiddleware.ContextData<StoredValue>, StoredValue> {
   @PreProvider()
   public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
     const { key } = payload;
@@ -115,7 +115,7 @@ export class AutoEnsure<StoredValue = unknown> extends Middleware<AutoEnsure.Con
   }
 }
 
-export namespace AutoEnsure {
+export namespace AutoEnsureMiddleware {
   export interface ContextData<StoredValue = unknown> {
     defaultValue: StoredValue;
   }

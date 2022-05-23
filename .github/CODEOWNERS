@@ -1,8 +1,11 @@
+/packages/auto-ensure/**/*.ts @RealShadowNova
+/packages/auto-ensure/README.md @RealShadowNova
+
 /.github/ @RealShadowNova
 /.husky/ @RealShadowNova
 /.vscode/ @RealShadowNova
 /.yarn/ @RealShadowNova
-/packages/auto-ensure/ @RealShadowNova
 /scripts/ @RealShadowNova
 LICENSE @eslachance
 package.json @RealShadowNova
+README.md @RealShadowNova

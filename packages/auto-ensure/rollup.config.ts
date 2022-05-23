@@ -1,7 +1,6 @@
 import { resolve } from 'path';
 import cleaner from 'rollup-plugin-cleaner';
 import typescript from 'rollup-plugin-typescript2';
-import versionInjector from 'rollup-plugin-version-injector';
 
 export default {
   input: 'src/index.ts',
@@ -29,5 +28,5 @@ export default {
     }
   ],
   external: ['@joshdb/core'],
-  plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') }), versionInjector()]
+  plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
