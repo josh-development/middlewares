@@ -1,0 +1,51 @@
+{
+  "name": "@joshdb/schema",
+  "version": "1.0.0",
+  "description": "A Josh middleware which adds a schema validation layer",
+  "author": "@joshdb",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "browser": "dist/index.umd.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src tests --ext ts --fix -c ../../.eslintrc",
+    "build": "rollup -c rollup.config.ts",
+    "prepack": "rollup-type-bundler",
+    "bump": "cliff-jumper",
+    "check-update": "cliff-jumper --dry-run"
+  },
+  "dependencies": {
+    "@joshdb/middleware": "next"
+  },
+  "devDependencies": {
+    "@favware/rollup-type-bundler": "^1.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josh-development/middlewares.git"
+  },
+  "files": [
+    "dist",
+    "!dist/*.tsbuildinfo"
+  ],
+  "engines": {
+    "node": ">=16.6.0",
+    "npm": ">=7"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/josh-development/middlewares/issues"
+  },
+  "homepage": "https://josh.evie.dev",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1013,6 +1013,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/middleware@npm:next":
+  version: 1.1.0-next.a419c21.0
+  resolution: "@joshdb/middleware@npm:1.1.0-next.a419c21.0"
+  dependencies:
+    "@joshdb/provider": ^1.1.0-next.a419c21.0
+    "@sapphire/utilities": ^3.6.2
+    reflect-metadata: ^0.1.13
+  checksum: b094cf092221b12543ee181161721bef4f5c0527bc99ca80e090a133d5afc19b6e0098d4908ce903c1164bcac8f4c67a39406499bc80aa97516f1bf77167f54c
+  languageName: node
+  linkType: hard
+
+"@joshdb/provider@npm:^1.1.0-next.a419c21.0":
+  version: 1.1.0-pr-4.d962ff92fb98a59bc3568068a3cedb827bdf66e1.0
+  resolution: "@joshdb/provider@npm:1.1.0-pr-4.d962ff92fb98a59bc3568068a3cedb827bdf66e1.0"
+  dependencies:
+    "@sapphire/utilities": ^3.6.2
+  checksum: 9cc91a35c899e5678834e3c4f60bd30e34c9f11307cee53616d087ef1cfa9909016a889cecf32ceb4a6adeefd44f7762c2ab3d2d8856e0de4ccf4935bf49e09c
+  languageName: node
+  linkType: hard
+
+"@joshdb/schema@workspace:packages/schema":
+  version: 0.0.0-use.local
+  resolution: "@joshdb/schema@workspace:packages/schema"
+  dependencies:
+    "@favware/rollup-type-bundler": ^1.0.7
+    "@joshdb/middleware": next
+  languageName: unknown
+  linkType: soft
+
 "@jridgewell/gen-mapping@npm:^0.1.0":
   version: 0.1.1
   resolution: "@jridgewell/gen-mapping@npm:0.1.1"
