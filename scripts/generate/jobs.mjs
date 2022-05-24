@@ -50,7 +50,9 @@ export const jobs = [
                   bump: 'cliff-jumper',
                   'check-update': 'cliff-jumper --dry-run'
                 },
-                dependencies: {},
+                dependencies: {
+                  '@joshdb/middleware': 'next'
+                },
                 devDependencies: {
                   '@favware/rollup-type-bundler': '^1.0.7'
                 },
@@ -94,7 +96,9 @@ export const jobs = [
                   bump: 'cliff-jumper',
                   'check-update': 'cliff-jumper --dry-run'
                 },
-                dependencies: {},
+                dependencies: {
+                  '@joshdb/middleware': 'next'
+                },
                 devDependencies: {
                   '@favware/rollup-type-bundler': '^1.0.7'
                 },
@@ -262,10 +266,12 @@ export default {
       format: 'umd',
       name: 'Josh${title}',
       sourcemap: true,
-      globals: {}
+      globals: {
+        '@joshdb/middleware': 'JoshMiddleware'
+      }
     }
   ],
-  external: [],
+  external: ['@joshdb/middleware'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
 `
@@ -289,7 +295,7 @@ export default {
       sourcemap: true
     },
   ],
-  external: [],
+  external: ['@joshdb/middleware'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
 `
@@ -358,7 +364,7 @@ export default {
       await mkdir(resolvePath(name, 'src', 'lib'));
       await writeFile(
         resolvePath(name, 'src', 'lib', `${title}Middleware.ts`),
-        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/core';
+        `import { ApplyMiddlewareOptions, Middleware } from '@joshdb/middleware';
 
 @ApplyMiddlewareOptions({ name: '${name}' })
 export class ${title}Middleware<StoredValue = unknown> extends Middleware<${title}Middleware.ContextData, StoredValue> {}
