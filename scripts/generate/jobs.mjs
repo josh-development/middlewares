@@ -319,9 +319,7 @@ export default {
               rootDir: './',
               outDir: '../dist',
               composite: true,
-              tsBuildInfoFile: '../dist/.tsbuildinfo',
-              experimentalDecorators: true,
-              emitDecoratorMetadata: true
+              tsBuildInfoFile: '../dist/.tsbuildinfo'
             },
             include: ['.']
           },
@@ -363,9 +361,7 @@ export namespace ${title}Middleware {
             compilerOptions: {
               rootDir: './',
               outDir: './build',
-              tsBuildInfoFile: './build/.tsbuildinfo',
-              experimentalDecorators: true,
-              emitDecoratorMetadata: true
+              tsBuildInfoFile: './build/.tsbuildinfo'
             },
             include: ['./'],
             references: [{ path: '../src' }]
