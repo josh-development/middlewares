@@ -372,7 +372,7 @@ export namespace ${title}Middleware {
   },
   {
     description: 'Generate Tests Folder',
-    callback: async ({ name }) => {
+    callback: async ({ name, title }) => {
       await mkdir(resolvePath(name, 'tests'));
       await writeFile(
         resolvePath(name, 'tests', 'tsconfig.json'),
@@ -406,6 +406,7 @@ describe('${title}Middleware', () => {
     test('GIVEN typeof ...prototype THEN returns object', () => {
       expect(typeof ${title}Middleware.prototype).toBe('object');
     });
+  });
 });
 `
       );
