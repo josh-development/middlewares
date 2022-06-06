@@ -942,18 +942,37 @@ __metadata:
   resolution: "@joshdb/auto-ensure@workspace:packages/auto-ensure"
   dependencies:
     "@favware/rollup-type-bundler": ^1.0.7
-    "@joshdb/core": "npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
+    "@joshdb/middleware": 1.1.0-next.33fa5b5.0
   languageName: unknown
   linkType: soft
 
-"@joshdb/core@npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0":
-  version: 3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0
-  resolution: "@joshdb/core@npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
+"@joshdb/map@npm:1.1.0-next.acb2e12.0":
+  version: 1.1.0-next.acb2e12.0
+  resolution: "@joshdb/map@npm:1.1.0-next.acb2e12.0"
   dependencies:
     "@sapphire/utilities": ^3.6.2
     property-helpers: ^1.1.0
+  checksum: 09944b25e905e022282e44c055fd6854bb25cff38884aa93888eada646eff24917ea3f095eb32cd431b0d621d45de2cf309ed367eebed2e0660953c02a336de2
+  languageName: node
+  linkType: hard
+
+"@joshdb/middleware@npm:1.1.0-next.33fa5b5.0":
+  version: 1.1.0-next.33fa5b5.0
+  resolution: "@joshdb/middleware@npm:1.1.0-next.33fa5b5.0"
+  dependencies:
+    "@joshdb/provider": ^1.1.0-next.33fa5b5.0
+    "@sapphire/utilities": ^3.6.2
     reflect-metadata: ^0.1.13
-  checksum: cdbc1a3949eea322e6869aabac014ccc24898ba8f3622b1fdd3ee92d34fa7017ee179e5c4ab1a9c57c951fe11640cc4ce17f5e15a3e53c866b08e0bb7bf53976
+  checksum: c7f0819efa931d537d2394a1cf959da673c0505f7328615898ea578da307fd6a503180910d5cf368a4ff5b4ddd8a6dddabccb3ede14db5c4ce3cab228a28d7e1
+  languageName: node
+  linkType: hard
+
+"@joshdb/provider@npm:^1.1.0-next.33fa5b5.0":
+  version: 1.1.0-pr-42.692f619.0
+  resolution: "@joshdb/provider@npm:1.1.0-pr-42.692f619.0"
+  dependencies:
+    "@sapphire/utilities": ^3.6.2
+  checksum: da1aff884f894f05a73ecbdf92822d4a84a690a77e144b323b3f499359a2bd6bb8a07f04a667aa5a2dc354d74d0311e9a127c329c2e60a251212ce4ae4404043
   languageName: node
   linkType: hard
 
@@ -5523,6 +5542,7 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.2
     "@favware/npm-deprecate": ^1.0.4
     "@favware/rollup-type-bundler": ^1.0.7
+    "@joshdb/map": 1.1.0-next.acb2e12.0
     "@sapphire/eslint-config": ^4.3.6
     "@sapphire/ts-config": ^3.3.4
     "@types/jest": ^28.1.1

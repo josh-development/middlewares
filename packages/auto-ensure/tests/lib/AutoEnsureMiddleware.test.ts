@@ -1,9 +1,10 @@
-import { Josh, MathOperator, Method, Payload } from '@joshdb/core';
+import { MapProvider } from '@joshdb/map';
+import { MathOperator, Method, MiddlewareStore, Payload } from '@joshdb/middleware';
 import { AutoEnsureMiddleware } from '../../src';
 
-describe('AutoEnsure', () => {
+describe('AutoEnsureMiddleware', () => {
   describe('is a class', () => {
-    test(`GIVEN typeof ${AutoEnsureMiddleware.prototype.constructor.name} THEN returns function`, () => {
+    test(`GIVEN typeof AutoEnsureMiddleware THEN returns function`, () => {
       expect(typeof AutoEnsureMiddleware).toBe('function');
     });
 
@@ -13,20 +14,20 @@ describe('AutoEnsure', () => {
   });
 
   describe('can manipulate provider data', () => {
+    const store = new MiddlewareStore({ provider: new MapProvider() });
     const autoEnsure = new AutoEnsureMiddleware<unknown>({ defaultValue: 'test:defaultValue' });
-    const josh = new Josh({ name: 'test:name', middlewares: [autoEnsure] });
 
     beforeAll(async () => {
-      await josh.init();
+      await autoEnsure.init(store);
     });
 
     beforeEach(async () => {
-      await josh.provider[Method.Clear]({ method: Method.Clear });
+      await store.provider[Method.Clear]({ method: Method.Clear });
     });
 
     describe(Method.Dec, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -40,15 +41,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -62,7 +63,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -70,7 +71,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Get, () => {
       test('GIVEN provider w/o data THEN middleware ensures data', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -85,13 +86,13 @@ describe('AutoEnsure', () => {
         expect(error).toBeUndefined();
         expect('data' in payload).toBe(true);
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
         const payload = await autoEnsure[Method.Get]({ method: Method.Get, key: 'test:key', path: [], data: 'test:value' });
 
@@ -104,7 +105,7 @@ describe('AutoEnsure', () => {
         expect(error).toBeUndefined();
         expect('data' in payload).toBe(true);
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -127,7 +128,7 @@ describe('AutoEnsure', () => {
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.SetMany]({
+        await store.provider[Method.SetMany]({
           method: Method.SetMany,
           entries: [
             [{ key: 'test:key', path: [] }, 'test:value'],
@@ -158,7 +159,7 @@ describe('AutoEnsure', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures or skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
         const payload = await autoEnsure[Method.GetMany]({
           method: Method.GetMany,
@@ -181,7 +182,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Inc, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -195,15 +196,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -217,7 +218,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -225,7 +226,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Push, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -239,15 +240,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -261,7 +262,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -269,7 +270,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Math, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -289,15 +290,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -317,7 +318,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -325,7 +326,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Remove, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -345,15 +346,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -373,7 +374,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -381,7 +382,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Set, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -395,15 +396,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -417,7 +418,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });
@@ -442,14 +443,14 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getManyAfter = await josh.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
+        const getManyAfter = await store.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
 
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:key', 'test:defaultValue']);
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:anotherKey', 'test:defaultValue']);
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.SetMany]({
+        await store.provider[Method.SetMany]({
           method: Method.SetMany,
           entries: [
             [{ key: 'test:key', path: [] }, 'test:value'],
@@ -458,7 +459,7 @@ describe('AutoEnsure', () => {
           overwrite: true
         });
 
-        const getManyBefore = await josh.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
+        const getManyBefore = await store.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
 
         expect(Object.entries(getManyBefore.data!)).toContainEqual(['test:key', 'test:value']);
         expect(Object.entries(getManyBefore.data!)).toContainEqual(['test:anotherKey', 'test:anotherValue']);
@@ -480,16 +481,16 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getManyAfter = await josh.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
+        const getManyAfter = await store.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
 
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:key', 'test:value']);
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:anotherKey', 'test:anotherValue']);
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures or skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -510,7 +511,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getManyAfter = await josh.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
+        const getManyAfter = await store.provider[Method.GetMany]({ method: Method.GetMany, keys: ['test:key', 'test:anotherKey'] });
 
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:key', 'test:value']);
         expect(Object.entries(getManyAfter.data!)).toContainEqual(['test:anotherKey', 'test:defaultValue']);
@@ -519,7 +520,7 @@ describe('AutoEnsure', () => {
 
     describe(Method.Update, () => {
       test('GIVEN provider w/o data THEN middleware ensures data ', async () => {
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect('data' in getBefore).toBe(false);
 
@@ -533,15 +534,15 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:defaultValue');
       });
 
       test('GIVEN provider w/ data THEN middleware skips over data', async () => {
-        await josh.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'test:key', path: [], value: 'test:value' });
 
-        const getBefore = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getBefore = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getBefore.data).toBe('test:value');
 
@@ -555,7 +556,7 @@ describe('AutoEnsure', () => {
         expect(trigger).toBeUndefined();
         expect(error).toBeUndefined();
 
-        const getAfter = await josh.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
+        const getAfter = await store.provider[Method.Get]({ method: Method.Get, key: 'test:key', path: [] });
 
         expect(getAfter.data).toBe('test:value');
       });

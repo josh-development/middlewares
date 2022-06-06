@@ -23,7 +23,7 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/core": "npm:3.0.0-next.55a98a756cefd58c27a76bc8d495fa57c02fdad8.0"
+    "@joshdb/middleware": "1.1.0-next.33fa5b5.0"
   },
   "devDependencies": {
     "@favware/rollup-type-bundler": "^1.0.7"
