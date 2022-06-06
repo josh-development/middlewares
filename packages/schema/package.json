@@ -23,7 +23,7 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/middleware": "next"
+    "@joshdb/middleware": "1.1.0-next.33fa5b5.0"
   },
   "devDependencies": {
     "@favware/rollup-type-bundler": "^1.0.7"
