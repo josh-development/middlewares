@@ -1,4 +1,4 @@
-import { ApplyMiddlewareOptions, Method, Middleware, Payloads, PostProvider, PreProvider } from '@joshdb/core';
+import { ApplyMiddlewareOptions, Method, Middleware, Payloads, PostProvider, PreProvider } from '@joshdb/middleware';
 
 @ApplyMiddlewareOptions({ name: 'autoEnsure' })
 export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<AutoEnsureMiddleware.ContextData<StoredValue>, StoredValue> {
