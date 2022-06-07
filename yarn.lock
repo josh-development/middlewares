@@ -1019,6 +1019,7 @@ __metadata:
   dependencies:
     "@favware/rollup-type-bundler": ^1.0.7
     "@joshdb/middleware": 1.1.0-next.33fa5b5.0
+    "@sapphire/shapeshift": ^3.1.0
   languageName: unknown
   linkType: soft
 
@@ -1199,6 +1200,13 @@ __metadata:
   version: 2.0.0
   resolution: "@sapphire/result@npm:2.0.0"
   checksum: 24ec5637e128c551332e40b0fbab06ef156a09630a7f812ac183717cadecec021d883894055b4ac3d5ede7ce0a2fff0f2b43f08fafb5d9c6f8f20b813bdd71d6
+  languageName: node
+  linkType: hard
+
+"@sapphire/shapeshift@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@sapphire/shapeshift@npm:3.1.0"
+  checksum: d28035fe9dd2b59feda24daad4ae5f3ae16bf98312e726df85c79cf071de3447a2a0e81f818471a7abb8d6678423e7e6ece57687d162269624e503e62cae26a4
   languageName: node
   linkType: hard
 
