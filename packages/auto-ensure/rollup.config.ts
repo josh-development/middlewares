@@ -23,10 +23,11 @@ export default {
       name: 'AutoEnsure',
       sourcemap: true,
       globals: {
-        '@joshdb/middleware': 'JoshMiddleware'
+        '@joshdb/middleware': 'JoshMiddleware',
+        '@sapphire/utilities': 'SapphireUtilities'
       }
     }
   ],
-  external: ['@joshdb/middleware'],
+  external: ['@joshdb/middleware', '@sapphire/utilities'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
