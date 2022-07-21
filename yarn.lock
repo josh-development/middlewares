@@ -967,37 +967,38 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.5
     "@favware/rollup-type-bundler": ^1.0.9
-    "@joshdb/middleware": 1.1.0-next.33fa5b5.0
+    "@joshdb/middleware": 1.1.0-next.ffebf9f.0
   languageName: unknown
   linkType: soft
 
-"@joshdb/map@npm:1.1.0-next.acb2e12.0":
-  version: 1.1.0-next.acb2e12.0
-  resolution: "@joshdb/map@npm:1.1.0-next.acb2e12.0"
+"@joshdb/map@npm:1.1.0-next.1527db3.0":
+  version: 1.1.0-next.1527db3.0
+  resolution: "@joshdb/map@npm:1.1.0-next.1527db3.0"
   dependencies:
-    "@sapphire/utilities": ^3.6.2
+    "@joshdb/provider": 1.1.0
+    "@sapphire/utilities": ^3.7.0
     property-helpers: ^1.1.0
-  checksum: 09944b25e905e022282e44c055fd6854bb25cff38884aa93888eada646eff24917ea3f095eb32cd431b0d621d45de2cf309ed367eebed2e0660953c02a336de2
+  checksum: 3722ee5209460869bb86b0e6e32f773b350fb3d6a970e8dbaa69776f8ffd13f81f231736d5b0bcfc3b308c4e58309b5038cf6062bf2ae654749d5137900a2cf4
   languageName: node
   linkType: hard
 
-"@joshdb/middleware@npm:1.1.0-next.33fa5b5.0":
-  version: 1.1.0-next.33fa5b5.0
-  resolution: "@joshdb/middleware@npm:1.1.0-next.33fa5b5.0"
+"@joshdb/middleware@npm:1.1.0-next.ffebf9f.0":
+  version: 1.1.0-next.ffebf9f.0
+  resolution: "@joshdb/middleware@npm:1.1.0-next.ffebf9f.0"
   dependencies:
-    "@joshdb/provider": ^1.1.0-next.33fa5b5.0
-    "@sapphire/utilities": ^3.6.2
+    "@joshdb/provider": ^1.0.0
+    "@sapphire/utilities": ^3.7.0
     reflect-metadata: ^0.1.13
-  checksum: c7f0819efa931d537d2394a1cf959da673c0505f7328615898ea578da307fd6a503180910d5cf368a4ff5b4ddd8a6dddabccb3ede14db5c4ce3cab228a28d7e1
+  checksum: fd9857769c393f659e8bd5d826dd0d75bd34c1200eb68f9f94e723545640b8c181d01eb398ae92958fc6233b2f61396f7163a0667a6b1299b9f0e6bf278b92e2
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:^1.1.0-next.33fa5b5.0":
-  version: 1.1.0-pr-42.692f619.0
-  resolution: "@joshdb/provider@npm:1.1.0-pr-42.692f619.0"
+"@joshdb/provider@npm:1.1.0, @joshdb/provider@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@joshdb/provider@npm:1.1.0"
   dependencies:
     "@sapphire/utilities": ^3.6.2
-  checksum: da1aff884f894f05a73ecbdf92822d4a84a690a77e144b323b3f499359a2bd6bb8a07f04a667aa5a2dc354d74d0311e9a127c329c2e60a251212ce4ae4404043
+  checksum: 41778221d905574e7f3752ec68a91ca47349f573038fd1a9f439ebcdf6d34c8292a0f94c9453000bd03db010ff65f124ed1f62399d7a2754e67f235b3e68fd26
   languageName: node
   linkType: hard
 
@@ -1195,6 +1196,13 @@ __metadata:
   version: 3.6.2
   resolution: "@sapphire/utilities@npm:3.6.2"
   checksum: 71210753b446f3f2835dd9d28fb10767f4c6f005b465eea179082d9f2c071acb7dcd2aebdf7c4974b26aad3ab2374a1dd168a66371b06bd65f248bbca4a90cda
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@sapphire/utilities@npm:3.7.0"
+  checksum: 3b574586242f015859e913123a5311774ad2d6cb79241c2a3d447a585282bdb04cddcd8e086f757a8ae5d2c49f4a25b4f848d63cebe605c7641364b51c3cfa11
   languageName: node
   linkType: hard
 
@@ -5720,7 +5728,7 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.5
     "@favware/npm-deprecate": ^1.0.4
     "@favware/rollup-type-bundler": ^1.0.9
-    "@joshdb/map": 1.1.0-next.acb2e12.0
+    "@joshdb/map": 1.1.0-next.1527db3.0
     "@sapphire/eslint-config": ^4.3.7
     "@sapphire/ts-config": ^3.3.4
     "@types/jest": ^28.1.6
