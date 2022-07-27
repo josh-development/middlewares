@@ -134,6 +134,12 @@ packagePath: packages/${name}
       );
 
       await writeFile(
+        resolvePath(name, '.typedoc-json-parserrc.yml'),
+        `json: 'docs/api.json'
+`
+      );
+
+      await writeFile(
         resolvePath(name, 'CHANGELOG.md'),
         `# Changelog
 
@@ -299,6 +305,21 @@ export default {
               checkJs: true
             },
             include: ['src', 'tests']
+          },
+          null,
+          2
+        )
+      );
+
+      await writeFile(
+        resolvePath(name, 'typedoc.json'),
+        JSON.stringify(
+          {
+            $schema: 'https://typedoc.org/schema.json',
+            entryPoints: ['src/index.ts'],
+            json: 'docs/api.json',
+            tsconfig: 'src/tsconfig.json',
+            treatWarningsAsErrors: true
           },
           null,
           2
