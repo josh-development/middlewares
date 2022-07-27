@@ -16,6 +16,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest",
+    "docs": "typedoc-json-parser",
     "lint": "eslint src tests --ext ts --fix -c ../../.eslintrc",
     "build": "rollup -c rollup.config.ts",
     "prepack": "rollup-type-bundler",
@@ -27,7 +28,9 @@
   },
   "devDependencies": {
     "@favware/cliff-jumper": "^1.8.5",
-    "@favware/rollup-type-bundler": "^1.0.9"
+    "@favware/rollup-type-bundler": "^1.0.9",
+    "typedoc": "^0.23.9",
+    "typedoc-json-parser": "^2.0.1"
   },
   "repository": {
     "type": "git",
