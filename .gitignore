@@ -6,6 +6,7 @@ node_modules/
 dist/
 build/
 docs/
+coverage/
 .turbo/
 
 # Ignore heapsnapshot and log files

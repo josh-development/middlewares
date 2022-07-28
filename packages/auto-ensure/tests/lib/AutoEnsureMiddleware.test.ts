@@ -14,10 +14,12 @@ describe('AutoEnsureMiddleware', () => {
   });
 
   describe('can manipulate provider data', () => {
+    // @ts-expect-error 2322
     const store = new MiddlewareStore({ provider: new MapProvider() });
     const autoEnsure = new AutoEnsureMiddleware<unknown>({ defaultValue: 'test:defaultValue' });
 
     beforeAll(async () => {
+      // @ts-expect-error 2345
       await autoEnsure.init(store);
     });
 

@@ -23,11 +23,14 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/middleware": "1.1.0-next.33fa5b5.0",
+    "@joshdb/middleware": "1.1.0-next.afc5762.0",
     "@sapphire/shapeshift": "^3.5.1"
   },
   "devDependencies": {
-    "@favware/rollup-type-bundler": "^1.0.7"
+    "@favware/cliff-jumper": "^1.8.5",
+    "@favware/rollup-type-bundler": "^1.0.9",
+    "typedoc": "^0.23.9",
+    "typedoc-json-parser": "^2.0.1"
   },
   "repository": {
     "type": "git",
