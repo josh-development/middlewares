@@ -1,7 +1,7 @@
 {
-  "name": "@joshdb/auto-ensure",
+  "name": "@joshdb/schema",
   "version": "1.0.0",
-  "description": "An auto ensure middleware for Josh",
+  "description": "A Josh middleware which adds a schema validation layer",
   "author": "@joshdb",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -16,7 +16,6 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest",
-    "docs": "typedoc-json-parser",
     "lint": "eslint src tests --ext ts --fix -c ../../.eslintrc",
     "build": "rollup -c rollup.config.ts",
     "prepack": "rollup-type-bundler",
@@ -24,7 +23,8 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/middleware": "1.1.0-next.afc5762.0"
+    "@joshdb/middleware": "1.1.0-next.afc5762.0",
+    "@sapphire/shapeshift": "^3.5.1"
   },
   "devDependencies": {
     "@favware/cliff-jumper": "^1.8.5",
