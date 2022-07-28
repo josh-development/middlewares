@@ -957,14 +957,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/map@npm:1.1.0-next.7ad7949.0":
-  version: 1.1.0-next.7ad7949.0
-  resolution: "@joshdb/map@npm:1.1.0-next.7ad7949.0"
+"@joshdb/map@npm:1.1.0-next.acd737c.0":
+  version: 1.1.0-next.acd737c.0
+  resolution: "@joshdb/map@npm:1.1.0-next.acd737c.0"
   dependencies:
-    "@joshdb/provider": 1.1.0-next.ffebf9f.0
+    "@joshdb/provider": 1.1.0-next.24ef775.0
     "@sapphire/utilities": ^3.7.0
     property-helpers: ^1.1.0
-  checksum: 36f284017218976891f3754a9085a02a6a96d6ef4de44c943828ca3e14ad7491e5109f5069cb9d33427170ad6bcde9d3a522f377a6cb10da90815ca5056ebf50
+  checksum: a86746fbcd50415d26cd35f1c7a0e91c323cd9b988ab190bd9e4e1bd84851ecc7bc8f6ed22174abff49cb3cf58474851b56bea7ded246ea69b06ca847bc44dbc
   languageName: node
   linkType: hard
 
@@ -979,21 +979,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:1.1.0-next.24ef775.0":
+  version: 1.1.0-next.24ef775.0
+  resolution: "@joshdb/provider@npm:1.1.0-next.24ef775.0"
+  dependencies:
+    "@sapphire/utilities": ^3.7.0
+  checksum: 48f9395122d299687aee65afdccfe3f7389fc11a0a96a1b805fce6e5ff393c7fe9ba114ae668d7c380b5e20451513664248e77d4d431dded012593b89c38b0b7
+  languageName: node
+  linkType: hard
+
 "@joshdb/provider@npm:1.1.0-next.28cedac.0":
   version: 1.1.0-next.28cedac.0
   resolution: "@joshdb/provider@npm:1.1.0-next.28cedac.0"
   dependencies:
     "@sapphire/utilities": ^3.7.0
   checksum: 4f0cd5cbdb977fc021d1161f0c7aaf58e0abda414b0b06592d0b32cae7d3fb793f6eba0282565a42926d8baecf59b1badfdf4862681ccf64c2f699e325108f9a
-  languageName: node
-  linkType: hard
-
-"@joshdb/provider@npm:1.1.0-next.ffebf9f.0":
-  version: 1.1.0-next.ffebf9f.0
-  resolution: "@joshdb/provider@npm:1.1.0-next.ffebf9f.0"
-  dependencies:
-    "@sapphire/utilities": ^3.7.0
-  checksum: bcdc3c12a78d0efc20db04b70c2622ee7cca13f3b9988d204013e8b19c4c7f5c025f21631e276b0f12e9f557a7c3ed8db1544594c1de9293685872ff707448af
   languageName: node
   linkType: hard
 
@@ -5501,7 +5501,7 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.5
     "@favware/npm-deprecate": ^1.0.4
     "@favware/rollup-type-bundler": ^1.0.9
-    "@joshdb/map": 1.1.0-next.7ad7949.0
+    "@joshdb/map": 1.1.0-next.acd737c.0
     "@sapphire/eslint-config": ^4.3.7
     "@sapphire/ts-config": ^3.3.4
     "@types/jest": ^28.1.6
