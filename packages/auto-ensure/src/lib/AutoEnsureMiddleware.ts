@@ -11,7 +11,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -60,7 +64,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -78,7 +86,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -96,7 +108,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -117,7 +133,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -135,7 +155,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
@@ -154,7 +178,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
       if (ensureProperties) {
         const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-        if (!isPayloadWithData(getPayload)) continue;
+        if (!isPayloadWithData(getPayload)) {
+          await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+          continue;
+        }
 
         const { data } = getPayload;
 
@@ -173,7 +201,11 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     if (ensureProperties) {
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) return payload;
+      if (!isPayloadWithData(getPayload)) {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+
+        return payload;
+      }
 
       const { data } = getPayload;
 
