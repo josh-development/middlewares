@@ -4,9 +4,7 @@
     "rootDir": "./",
     "outDir": "../dist",
     "composite": true,
-    "tsBuildInfoFile": "../dist/.tsbuildinfo",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "tsBuildInfoFile": "../dist/.tsbuildinfo"
   },
   "include": ["."]
 }

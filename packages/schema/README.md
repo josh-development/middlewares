@@ -26,5 +26,17 @@ A schema validation middleware for Josh.
 You can use the following command to install this package, or replace `npm install` with your package manager of choice. This package uses [`@sapphire/shapeshift`](https://www.npmjs.com/package/@sapphire/shapeshift) for schema validation, so you'll want to reference their documentation for more information on how to use it.
 
 ```sh
-npm install @joshdb/schema @sapphire/shapeshift
+npm install @joshdb/schema@next @sapphire/shapeshift
+```
+
+## Middleware Context Data
+
+```typescript
+interface ContextData<StoredValue = unknown> {
+  /**
+   * The schema used to parse and validate data.
+   * @since 1.0.0
+   */
+  schema: BaseValidator<StoredValue>;
+}
 ```

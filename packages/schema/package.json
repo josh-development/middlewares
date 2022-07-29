@@ -16,6 +16,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest",
+    "docs": "typedoc-json-parser",
     "lint": "eslint src tests --ext ts --fix -c ../../.eslintrc",
     "build": "rollup -c rollup.config.ts",
     "prepack": "rollup-type-bundler",

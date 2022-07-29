@@ -26,7 +26,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Dec,
         context: { shapeshiftError: error }
@@ -49,7 +49,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Get,
         context: { shapeshiftError: error }
@@ -74,7 +74,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
           schema.parse(value);
         } catch (error) {
           payload.error = new JoshProviderError({
-            identifier: Identifiers.InvalidData,
+            identifier: SchemaMiddleware.Identifiers.InvalidData,
             message: 'Shapeshift failed to parse data',
             method: Method.GetMany,
             context: { shapeshiftError: error }
@@ -102,7 +102,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Inc,
         context: { shapeshiftError: error }
@@ -128,7 +128,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Push,
         context: { shapeshiftError: error }
@@ -154,7 +154,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Math,
         context: { shapeshiftError: error }
@@ -183,7 +183,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Remove,
         context: { shapeshiftError: error }
@@ -209,7 +209,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Set,
         context: { shapeshiftError: error }
@@ -237,7 +237,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
         schema.parse(data);
       } catch (error) {
         payload.error = new JoshProviderError({
-          identifier: Identifiers.InvalidData,
+          identifier: SchemaMiddleware.Identifiers.InvalidData,
           message: 'Shapeshift failed to parse data',
           method: Method.SetMany,
           context: { shapeshiftError: error }
@@ -250,7 +250,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
         schema.parse(value);
       } catch (error) {
         payload.error = new JoshProviderError({
-          identifier: Identifiers.InvalidData,
+          identifier: SchemaMiddleware.Identifiers.InvalidData,
           message: 'Shapeshift failed to parse value',
           method: Method.SetMany,
           context: { shapeshiftError: error }
@@ -277,7 +277,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       schema.parse(data);
     } catch (error) {
       payload.error = new JoshProviderError({
-        identifier: Identifiers.InvalidData,
+        identifier: SchemaMiddleware.Identifiers.InvalidData,
         message: 'Shapeshift failed to parse data',
         method: Method.Update,
         context: { shapeshiftError: error }
@@ -292,13 +292,16 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
 
 export namespace SchemaMiddleware {
   export interface ContextData<StoredValue = unknown> {
+    /**
+     * The schema used to parse and validate data.
+     * @since 1.0.0
+     */
     schema: BaseValidator<StoredValue>;
   }
-}
 
-// TODO: move this to the `SchemaMiddleware` namespace after https://github.com/josh-development/utilities/pull/59 is merged
-export enum Identifiers {
-  InvalidData = 'invalidData',
+  export enum Identifiers {
+    InvalidData = 'invalidData',
 
-  InvalidValue = 'invalidValue'
+    InvalidValue = 'invalidValue'
+  }
 }

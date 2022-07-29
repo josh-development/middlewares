@@ -44,6 +44,7 @@ export const jobs = [
                 sideEffects: false,
                 scripts: {
                   test: 'jest',
+                  docs: 'typedoc-json-parser',
                   lint: 'eslint src tests --ext ts --fix -c ../../.eslintrc',
                   build: 'rollup -c rollup.config.ts',
                   prepack: 'rollup-type-bundler',
@@ -54,7 +55,10 @@ export const jobs = [
                   '@joshdb/middleware': 'next'
                 },
                 devDependencies: {
-                  '@favware/rollup-type-bundler': '^1.0.7'
+                  '@favware/cliff-jumper': '^1.8.5',
+                  '@favware/rollup-type-bundler': '^1.0.9',
+                  typedoc: '^0.23.9',
+                  'typedoc-json-parser': '^2.0.1'
                 },
                 repository: {
                   type: 'git',
@@ -90,6 +94,7 @@ export const jobs = [
                 sideEffects: false,
                 scripts: {
                   test: 'jest',
+                  docs: 'typedoc-json-parser',
                   lint: 'eslint src tests --ext ts --fix -c ../../.eslintrc',
                   build: 'rollup -c rollup.config.ts',
                   prepack: 'rollup-type-bundler',
@@ -100,7 +105,10 @@ export const jobs = [
                   '@joshdb/middleware': 'next'
                 },
                 devDependencies: {
-                  '@favware/rollup-type-bundler': '^1.0.7'
+                  '@favware/cliff-jumper': '^1.8.5',
+                  '@favware/rollup-type-bundler': '^1.0.9',
+                  typedoc: '^0.23.9',
+                  'typedoc-json-parser': '^2.0.1'
                 },
                 repository: {
                   type: 'git',
@@ -160,32 +168,32 @@ header = """
 All notable changes to this project will be documented in this file.\n
 """
 body = """
-{% if version %}\
-    # [{{ version | trim_start_matches(pat="v") }}]\
-    {% if previous %}\
-        {% if previous.version %}\
-            (https://github.com/josh-development/utilities/compare/{{ previous.version }}...{{ version }})\
-        {% else %}
-            (https://github.com/josh-development/utilities/tree/{{ version }})\
-        {% endif %}\
-    {% endif %} \
+{% if version %}\\
+    # [{{ version | trim_start_matches(pat="v") }}]\\
+    {% if previous %}\\
+        {% if previous.version %}\\
+            (https://github.com/josh-development/utilities/compare/{{ previous.version }}...{{ version }})\\
+        {% else %}\\
+            (https://github.com/josh-development/utilities/tree/{{ version }})\\
+        {% endif %}\\
+    {% endif %} \\
     - ({{ timestamp | date(format="%Y-%m-%d") }})
-{% else %}\
+{% else %}\\
     # [unreleased]
-{% endif %}\
+{% endif %}\\
 {% for group, commits in commits | group_by(attribute="group") %}
     ## {{ group | upper_first }}
     {% for commit in commits %}
-    - {% if commit.scope %}\
-      **{{commit.scope}}:** \
-      {% endif %}\
-            {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/josh-development/utilities/commit/{{ commit.id }}))\
-    {% if commit.breaking %}\
-      \n\n {% raw %}  {% endraw %} ### 💥 Breaking Changes:\n \
-      {% for breakingChange in commit.footers %}\
-        {% raw %}  {% endraw %} - {{ breakingChange }}\n\
-      {% endfor %}\
-    {% endif %}\
+    - {% if commit.scope %}\\
+      **{{commit.scope}}:** \\
+      {% endif %}\\
+            {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/josh-development/middlewares/commit/{{ commit.id }}))\\
+    {% if commit.breaking %}\\
+      \n\n {% raw %}  {% endraw %} ### 💥 Breaking Changes:\n \\
+      {% for breakingChange in commit.footers %}\\
+        {% raw %}  {% endraw %} - {{ breakingChange }}\n\\
+      {% endfor %}\\
+    {% endif %}\\
     {% endfor %}
 {% endfor %}\n
 """
@@ -196,18 +204,18 @@ footer = ""
 conventional_commits = true
 filter_unconventional = true
 commit_parsers = [
-    { message = "^feat", group = "🚀 Features"},
-    { message = "^fix", group = "🐛 Bug Fixes"},
-    { message = "^docs", group = "📝 Documentation"},
-    { message = "^perf", group = "🏃 Performance"},
-    { message = "^refactor", group = "🏠 Refactor"},
-    { message = ".*deprecated", body = ".*deprecated", group = "🚨 Deprecation"},
-    { message = "^revert", skip = true},
-    { message = "^style", group = "🪞 Styling"},
-    { message = "^test", group = "🧪 Testing"},
-    { message = "^chore", skip = true},
-    { message = "^ci", skip = true},
-    { body = ".*security", group = "🛡️ Security"},
+    { message = "^feat", group = "🚀 Features" },
+    { message = "^fix", group = "🐛 Bug Fixes" },
+    { message = "^docs", group = "📝 Documentation" },
+    { message = "^perf", group = "🏃 Performance" },
+    { message = "^refactor", group = "🏠 Refactor" },
+    { message = ".*deprecated", body = ".*deprecated", group = "🚨 Deprecation" },
+    { message = "^revert", skip = true },
+    { message = "^style", group = "🪞 Styling" },
+    { message = "^test", group = "🧪 Testing" },
+    { message = "^chore", skip = true },
+    { message = "^ci", skip = true },
+    { body = ".*security", group = "🛡️ Security" },
 ]
 filter_commits = true
 tag_pattern = "@joshdb/${name}@[0-9]*"

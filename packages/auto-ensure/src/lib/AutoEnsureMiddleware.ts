@@ -117,6 +117,16 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
 
 export namespace AutoEnsureMiddleware {
   export interface ContextData<StoredValue = unknown> {
+    /**
+     * The default value to set if the key does not exist.
+     * @since 1.0.0
+     */
     defaultValue: StoredValue;
+
+    /**
+     * Whether to merge the {@link ContextData.defaultValue} with existing values.
+     * @since 1.0.0
+     */
+    ensureProperties?: boolean;
   }
 }
