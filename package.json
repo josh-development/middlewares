@@ -23,7 +23,7 @@
     "@favware/cliff-jumper": "^1.8.6",
     "@favware/npm-deprecate": "^1.0.5",
     "@favware/rollup-type-bundler": "^1.0.10",
-    "@joshdb/map": "1.1.0-next.acd737c.0",
+    "@joshdb/map": "1.1.0-next.7e480e9.0",
     "@sapphire/eslint-config": "^4.3.7",
     "@sapphire/ts-config": "^3.3.4",
     "@types/jest": "^28.1.6",

@@ -951,32 +951,32 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.6
     "@favware/rollup-type-bundler": ^1.0.10
-    "@joshdb/middleware": 1.1.0-next.afc5762.0
+    "@joshdb/middleware": 1.1.0-next.98baf42.0
     "@sapphire/utilities": ^3.8.0
     typedoc: ^0.23.9
     typedoc-json-parser: ^2.2.1
   languageName: unknown
   linkType: soft
 
-"@joshdb/map@npm:1.1.0-next.acd737c.0":
-  version: 1.1.0-next.acd737c.0
-  resolution: "@joshdb/map@npm:1.1.0-next.acd737c.0"
+"@joshdb/map@npm:1.1.0-next.7e480e9.0":
+  version: 1.1.0-next.7e480e9.0
+  resolution: "@joshdb/map@npm:1.1.0-next.7e480e9.0"
   dependencies:
     "@joshdb/provider": 1.1.0-next.24ef775.0
-    "@sapphire/utilities": ^3.7.0
+    "@sapphire/utilities": ^3.8.0
     property-helpers: ^1.1.0
-  checksum: a86746fbcd50415d26cd35f1c7a0e91c323cd9b988ab190bd9e4e1bd84851ecc7bc8f6ed22174abff49cb3cf58474851b56bea7ded246ea69b06ca847bc44dbc
+  checksum: cc980dbf8bb514b8d8e276000a16b21e31b7995cbd5dfdba731658c360c80635d34b70084cd6498da06e09bf4f72133acc75576999ff2407701cf1b94fe92719
   languageName: node
   linkType: hard
 
-"@joshdb/middleware@npm:1.1.0-next.afc5762.0":
-  version: 1.1.0-next.afc5762.0
-  resolution: "@joshdb/middleware@npm:1.1.0-next.afc5762.0"
+"@joshdb/middleware@npm:1.1.0-next.98baf42.0":
+  version: 1.1.0-next.98baf42.0
+  resolution: "@joshdb/middleware@npm:1.1.0-next.98baf42.0"
   dependencies:
     "@joshdb/provider": 1.1.0-next.28cedac.0
-    "@sapphire/utilities": ^3.7.0
+    "@sapphire/utilities": ^3.8.0
     reflect-metadata: ^0.1.13
-  checksum: 6d1a342c26851d2f80016197fc3a2a67773cd0a78a9699592df5dbf7c21407d7cee21a8504a9babfc08d7b699bb28151703502381a080e7bd930d45086b9fec3
+  checksum: f57d036dc4a22f8354024084b14375da75fda4ac191f524c532af56212ecbc2d93b247411f1499b0cf9db12d748476c6d16344b8409290337d71e892ad49dc75
   languageName: node
   linkType: hard
 
@@ -1004,7 +1004,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.6
     "@favware/rollup-type-bundler": ^1.0.10
-    "@joshdb/middleware": 1.1.0-next.afc5762.0
+    "@joshdb/middleware": 1.1.0-next.98baf42.0
     "@sapphire/shapeshift": ^3.5.1
     typedoc: ^0.23.9
     typedoc-json-parser: ^2.2.1
@@ -5419,7 +5419,7 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.6
     "@favware/npm-deprecate": ^1.0.5
     "@favware/rollup-type-bundler": ^1.0.10
-    "@joshdb/map": 1.1.0-next.acd737c.0
+    "@joshdb/map": 1.1.0-next.7e480e9.0
     "@sapphire/eslint-config": ^4.3.7
     "@sapphire/ts-config": ^3.3.4
     "@types/jest": ^28.1.6
