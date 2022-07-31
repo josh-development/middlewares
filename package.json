@@ -18,8 +18,8 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.3.0",
-    "@commitlint/config-conventional": "^16.2.4",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@favware/cliff-jumper": "^1.8.6",
     "@favware/colorette-spinner": "^1.0.0",
     "@favware/npm-deprecate": "^1.0.5",
