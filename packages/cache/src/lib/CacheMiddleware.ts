@@ -1,23 +1,14 @@
-import { ApplyMiddlewareOptions, JoshProvider, Method, Middleware, Payloads, PreProvider } from '@joshdb/middleware';
+import { ApplyMiddlewareOptions, JoshProvider, Method, Middleware, MiddlewareStore, Payloads, PreProvider } from '@joshdb/middleware';
 import { addExitCallback } from 'catch-exit';
 
 @ApplyMiddlewareOptions({ name: 'cache' })
 export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMiddleware.ContextData, StoredValue> {
   public pollingInterval: NodeJS.Timer | undefined;
 
-  public async fetchCache() {
-    await this.populateCache();
-
-    if (this.context.polling && this.context.polling.enabled) {
-      this.startPolling();
-    }
-  }
-
-  public startPolling() {
-    this.pollingInterval = setInterval(() => this.populateCache(), this.context.polling?.interval || 10000);
-    addExitCallback(() => {
-      clearInterval(this.pollingInterval);
-    });
+  public async init(store: MiddlewareStore<StoredValue>) {
+    await super.init(store);
+    await this.fetchCache();
+    return this;
   }
 
   public async populateCache() {
@@ -31,6 +22,12 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
     for (const [key, value] of Object.entries(all.data)) {
       await cache.set({ method: Method.Set, key, value, path: [] });
     }
+  }
+
+  @PreProvider()
+  public async [Method.Clear](payload: Payloads.Clear): Promise<Payloads.Clear> {
+    await this.context.provider[Method.Clear]({ method: Method.Clear });
+    return payload;
   }
 
   @PreProvider()
@@ -56,6 +53,21 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
     await cache[Method.Set]<Value>({ method: Method.Set, key, path, value });
 
     return payload;
+  }
+
+  private async fetchCache() {
+    await this.populateCache();
+
+    if (this.context.polling && this.context.polling.enabled) {
+      this.startPolling();
+    }
+  }
+
+  private startPolling() {
+    this.pollingInterval = setInterval(() => this.populateCache(), this.context.polling?.interval || 10000);
+    addExitCallback(() => {
+      clearInterval(this.pollingInterval);
+    });
   }
 }
 

@@ -27,7 +27,6 @@ describe('CacheMiddleware', () => {
     beforeAll(async () => {
       // @ts-expect-error 2345
       await cache.init(store);
-      await cache.fetchCache();
     });
 
     test('GIVEN polling enabled THEN starts polling', () => {
@@ -48,12 +47,11 @@ describe('CacheMiddleware', () => {
     beforeAll(async () => {
       // @ts-expect-error 2345
       await cache.init(store);
-      await cache.fetchCache();
     });
 
     beforeEach(async () => {
       await store.provider[Method.Clear]({ method: Method.Clear });
-      await cache.fetchCache();
+      await cache[Method.Clear]({ method: Method.Clear });
     });
 
     test('GIVEN cache has data THEN it is cached', async () => {
