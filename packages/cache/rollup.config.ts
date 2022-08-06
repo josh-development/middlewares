@@ -23,10 +23,11 @@ export default {
       name: 'JoshCache',
       sourcemap: true,
       globals: {
-        '@joshdb/middleware': 'JoshMiddleware'
+        '@joshdb/middleware': 'JoshMiddleware',
+        'catch-exit': 'CatchExit'
       }
     }
   ],
-  external: ['@joshdb/middleware'],
+  external: ['@joshdb/middleware', 'catch-exit'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
