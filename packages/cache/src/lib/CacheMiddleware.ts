@@ -479,17 +479,22 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
     return payload;
   }
 
-  private async checkNotExpired(data: CacheMiddleware.Document<unknown>, key?: string, update = false) {
+  private async checkNotExpired(data: CacheMiddleware.Document<unknown>, key: string) {
     if (!this.context.ttl || !this.context.ttl.enabled) return true;
-    if (new Date().getTime() - new Date(data.created).getTime() >= (this.context.ttl.timeout || 5000)) return true;
-    if (key) {
-      if (update) {
-        const real = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
-        await this[Method.Set]({ method: Method.Set, key, path: [], value: real.data });
-      } else {
-        await this[Method.Delete]({ method: Method.Delete, key, path: [] });
-      }
-    }
+    if (new Date().getTime() - new Date(data.created).getTime() <= (this.context.ttl.timeout || 5000)) return true;
+
+    const { provider: cache } = this.context;
+
+    // if (key) {
+    //   if (update) {
+    //     const real = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    //     await this[Method.Set]({ method: Method.Set, key, path: [], value: real.data });
+    //   } else {
+    //     await this[Method.Delete]({ method: Method.Delete, key, path: [] });
+    //   }
+    // }
+
+    await cache[Method.Delete]({ method: Method.Delete, key, path: [] });
 
     return false;
   }

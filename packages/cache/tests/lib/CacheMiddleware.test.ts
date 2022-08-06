@@ -38,6 +38,30 @@ describe('CacheMiddleware', () => {
     });
   });
 
+  describe('can ttl', () => {
+    const provider = new MapProvider();
+    // @ts-expect-error 2322
+    const store = new MiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({
+      // @ts-expect-error 2322
+      provider,
+      ttl: {
+        enabled: true
+      }
+    });
+
+    beforeAll(async () => {
+      // @ts-expect-error 2345
+      await cache.init(store);
+    });
+
+    test('GIVEN ttl enabled w/data THEN returns data', async () => {
+      await cache[Method.Set]({ key: 'test:ttl', value: 123, method: Method.Set, path: [] });
+      const { data } = await cache[Method.Get]({ key: 'test:ttl', method: Method.Get, path: [] });
+      expect(data).toBe(123);
+    });
+  });
+
   describe('can manipulate provider data', () => {
     // @ts-expect-error 2322
     const store = new MiddlewareStore({ provider: new MapProvider() });
