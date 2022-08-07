@@ -131,7 +131,7 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
         const { data: bypassCacheData } = await this.provider[Method.Get]<StoredValue>({ method: Method.Get, key: value.key, path: [] });
         if (bypassCacheData) return hook(bypassCacheData);
 
-        return false;
+        return true;
       };
 
       const { data, error } = await cache[Method.Every]({ method: Method.Every, type, data: true, hook: cacheHook, path });
