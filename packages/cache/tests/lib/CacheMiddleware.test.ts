@@ -269,14 +269,14 @@ describe('CacheMiddleware', () => {
           expect(data).toBe(true);
         });
 
-        // test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
-        //   await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
-        //   await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [] });
-        //   await delay(600);
-        //   const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [] });
+          await delay(600);
+          const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
 
-        //   expect(data).toBe(false);
-        // }); Value doesn't check ttl
+          expect(data).toBe(false);
+        });
       });
     });
   });

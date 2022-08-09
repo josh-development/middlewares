@@ -15,6 +15,7 @@ import {
   PreProvider
 } from '@joshdb/middleware';
 import { addExitCallback } from 'catch-exit';
+import { getProperty } from 'property-helpers';
 
 /* 
 [-] - Payload.AutoKey
@@ -121,9 +122,8 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
   public async [Method.Every](payload: Payloads.Every<StoredValue>): Promise<Payloads.Every<StoredValue>> {
     const { provider: cache } = this.context;
     const { type, hook, path, value } = payload;
-
-    if (isEveryByHookPayload(payload) && hook) {
-      const cacheHook = async (value: CacheMiddleware.Document<StoredValue>) => {
+    const cacheHook = (hook: Payload.Hook<StoredValue, boolean>) => {
+      return async (value: CacheMiddleware.Document<StoredValue>) => {
         if (await this.checkNotExpired(value, value.key)) {
           return hook(value.value);
         }
@@ -133,12 +133,26 @@ export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMidd
 
         return true;
       };
+    };
 
-      const { data, error } = await cache[Method.Every]({ method: Method.Every, type, data: true, hook: cacheHook, path });
+    if (isEveryByHookPayload(payload) && hook) {
+      const { data, error } = await cache[Method.Every]({ method: Method.Every, type, data: true, hook: cacheHook(hook), path });
       payload.data = data;
       payload.error = error;
     } else {
-      const { data, error } = await cache[Method.Every]({ method: Method.Every, type, data: true, value, path: ['value', ...(path ?? [])] });
+      const valueHook = (storedValue: StoredValue) => {
+        const data = getProperty(storedValue, path || []);
+        return data === value;
+      };
+
+      const { data, error } = await cache[Method.Every]({
+        method: Method.Every,
+        type: Payload.Type.Hook,
+        data: true,
+        hook: cacheHook(valueHook),
+        path
+      });
+
       payload.data = data;
       payload.error = error;
     }
