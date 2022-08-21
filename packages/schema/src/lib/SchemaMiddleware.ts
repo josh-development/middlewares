@@ -1,22 +1,13 @@
-import {
-  ApplyMiddlewareOptions,
-  isPayloadWithData,
-  JoshProviderError,
-  Method,
-  Middleware,
-  Payloads,
-  PostProvider,
-  PreProvider
-} from '@joshdb/middleware';
+import { ApplyMiddlewareOptions, isPayloadWithData, JoshMiddleware, Method, Payloads, PostProvider, PreProvider } from '@joshdb/provider';
 import type { BaseValidator } from '@sapphire/shapeshift';
 
 @ApplyMiddlewareOptions({ name: 'schema' })
-export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMiddleware.ContextData<StoredValue>, StoredValue> {
+export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<SchemaMiddleware.ContextData<StoredValue>, StoredValue> {
   @PreProvider()
   public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -25,12 +16,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Dec,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Dec, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -48,12 +36,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Get,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Get, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -73,12 +58,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
         try {
           schema.parse(value);
         } catch (error) {
-          payload.error = new JoshProviderError({
-            identifier: SchemaMiddleware.Identifiers.InvalidData,
-            message: 'Shapeshift failed to parse data',
-            method: Method.GetMany,
-            context: { shapeshiftError: error }
-          });
+          payload.errors.push(
+            this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.GetMany, context: { shapeshiftError: error } })
+          );
 
           return payload;
         }
@@ -92,7 +74,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Inc](payload: Payloads.Inc): Promise<Payloads.Inc> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -101,12 +83,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Inc,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Inc, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -118,7 +97,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Push]<Value>(payload: Payloads.Push<Value>): Promise<Payloads.Push<Value>> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -127,12 +106,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Push,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Push, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -144,7 +120,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Math](payload: Payloads.Math): Promise<Payloads.Math> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -153,12 +129,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Math,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Math, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -173,7 +146,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Remove]<Value = StoredValue>(payload: Payloads.Remove<Value>): Promise<Payloads.Remove<Value>> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -182,12 +155,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Remove,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Remove, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -199,7 +169,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Set]<Value = StoredValue>(payload: Payloads.Set<Value>): Promise<Payloads.Set<Value>> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -208,12 +178,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Set,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Set, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }
@@ -226,8 +193,8 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     const { entries } = payload;
     const { schema } = this.context;
 
-    for (const [{ key }, value] of entries) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    for (const { key, value } of entries) {
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) continue;
 
@@ -236,12 +203,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       try {
         schema.parse(data);
       } catch (error) {
-        payload.error = new JoshProviderError({
-          identifier: SchemaMiddleware.Identifiers.InvalidData,
-          message: 'Shapeshift failed to parse data',
-          method: Method.SetMany,
-          context: { shapeshiftError: error }
-        });
+        payload.errors.push(
+          this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.SetMany, context: { shapeshiftError: error } })
+        );
 
         return payload;
       }
@@ -249,12 +213,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
       try {
         schema.parse(value);
       } catch (error) {
-        payload.error = new JoshProviderError({
-          identifier: SchemaMiddleware.Identifiers.InvalidData,
-          message: 'Shapeshift failed to parse value',
-          method: Method.SetMany,
-          context: { shapeshiftError: error }
-        });
+        payload.errors.push(
+          this.error({ identifier: SchemaMiddleware.Identifiers.InvalidValue, method: Method.SetMany, context: { shapeshiftError: error } })
+        );
 
         return payload;
       }
@@ -267,7 +228,7 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
   public async [Method.Update]<Value = StoredValue>(payload: Payloads.Update<StoredValue, Value>): Promise<Payloads.Update<StoredValue, Value>> {
     const { key } = payload;
     const { schema } = this.context;
-    const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+    const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
@@ -276,12 +237,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends Middleware<SchemaMi
     try {
       schema.parse(data);
     } catch (error) {
-      payload.error = new JoshProviderError({
-        identifier: SchemaMiddleware.Identifiers.InvalidData,
-        message: 'Shapeshift failed to parse data',
-        method: Method.Update,
-        context: { shapeshiftError: error }
-      });
+      payload.errors.push(
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Update, context: { shapeshiftError: error } })
+      );
 
       return payload;
     }

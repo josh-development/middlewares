@@ -23,10 +23,10 @@ export default {
       name: 'JoshSchema',
       sourcemap: true,
       globals: {
-        '@joshdb/middleware': 'JoshMiddleware'
+        '@joshdb/provider': 'JoshProvider'
       }
     }
   ],
-  external: ['@joshdb/middleware'],
+  external: ['@joshdb/provider'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };
