@@ -968,7 +968,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/middleware": 1.1.0-next.4394a71.0
+    "@joshdb/provider": 2.0.0-next.119b020.0
     "@sapphire/utilities": ^3.9.2
     typedoc: ^0.23.10
     typedoc-json-parser: ^2.3.2
@@ -986,26 +986,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/middleware@npm:1.1.0-next.4394a71.0":
-  version: 1.1.0-next.4394a71.0
-  resolution: "@joshdb/middleware@npm:1.1.0-next.4394a71.0"
-  dependencies:
-    "@joshdb/provider": 1.1.0-next.28cedac.0
-    "@sapphire/utilities": ^3.9.0
-    reflect-metadata: ^0.1.13
-  checksum: 21072015a0961f28a9c5a5e1bc13119adbb8313219bc161293318174fdc9eb32d26d647992e1be359fa896cf2253b7ca6bbdb965442da26c45f0f06f5262ea57
-  languageName: node
-  linkType: hard
-
-"@joshdb/provider@npm:1.1.0-next.28cedac.0":
-  version: 1.1.0-next.28cedac.0
-  resolution: "@joshdb/provider@npm:1.1.0-next.28cedac.0"
-  dependencies:
-    "@sapphire/utilities": ^3.7.0
-  checksum: 4f0cd5cbdb977fc021d1161f0c7aaf58e0abda414b0b06592d0b32cae7d3fb793f6eba0282565a42926d8baecf59b1badfdf4862681ccf64c2f699e325108f9a
-  languageName: node
-  linkType: hard
-
 "@joshdb/provider@npm:1.1.0-next.98baf42.0":
   version: 1.1.0-next.98baf42.0
   resolution: "@joshdb/provider@npm:1.1.0-next.98baf42.0"
@@ -1015,13 +995,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:2.0.0-next.119b020.0":
+  version: 2.0.0-next.119b020.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.119b020.0"
+  dependencies:
+    "@sapphire/utilities": ^3.9.0
+    reflect-metadata: ^0.1.13
+  checksum: 552674c84fd6b393139424960f71231397fbc97aece3d38d222e28fec40369ec2b862a76d98034350fe075a971551c89c5de811d1a103a30acdab7bf1ce91d57
+  languageName: node
+  linkType: hard
+
 "@joshdb/schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/middleware": 1.1.0-next.4394a71.0
+    "@joshdb/provider": 2.0.0-next.119b020.0
     "@sapphire/shapeshift": ^3.5.1
     typedoc: ^0.23.10
     typedoc-json-parser: ^2.3.2
@@ -1195,13 +1185,6 @@ __metadata:
     tslib: ^2.3.1
     typescript: ^4.6.3
   checksum: c26dee331e17dd1762caa499ca6f1d1ee22fe781a5486575ead625c399678fbf3b33cf963a4f48aad04df5d515a4b3d2f80a03272d2413894d96f799d5f5ca87
-  languageName: node
-  linkType: hard
-
-"@sapphire/utilities@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "@sapphire/utilities@npm:3.7.0"
-  checksum: 3b574586242f015859e913123a5311774ad2d6cb79241c2a3d447a585282bdb04cddcd8e086f757a8ae5d2c49f4a25b4f848d63cebe605c7641364b51c3cfa11
   languageName: node
   linkType: hard
 
