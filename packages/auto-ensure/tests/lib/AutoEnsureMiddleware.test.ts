@@ -19,6 +19,7 @@ describe('AutoEnsureMiddleware', () => {
     const autoEnsure = new AutoEnsureMiddleware<unknown>({ defaultValue: { a: 'b', c: 'd' } });
 
     beforeAll(async () => {
+      // @ts-expect-error 2345
       await autoEnsure.init(store);
     });
 
