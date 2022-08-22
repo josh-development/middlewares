@@ -1,26 +1,26 @@
-import { ApplyMiddlewareOptions, isPayloadWithData, Method, Middleware, Payloads, PostProvider, PreProvider } from '@joshdb/middleware';
+import { ApplyMiddlewareOptions, isPayloadWithData, JoshMiddleware, Method, Payloads, PostProvider, PreProvider } from '@joshdb/provider';
 import { mergeDefault } from '@sapphire/utilities';
 
 @ApplyMiddlewareOptions({ name: 'autoEnsure' })
-export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<AutoEnsureMiddleware.ContextData<StoredValue>, StoredValue> {
+export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<AutoEnsureMiddleware.ContextData<StoredValue>, StoredValue> {
   @PreProvider()
   public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
     const { key } = payload;
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -32,7 +32,7 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { key } = payload;
     const { defaultValue } = this.context;
 
-    await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+    await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     payload.data = defaultValue as unknown as Value;
 
@@ -48,7 +48,7 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     for (const key of payload.keys) {
       if (key in payload.data && payload.data[key] !== null) continue;
 
-      await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
       payload.data[key] = defaultValue;
     }
@@ -62,18 +62,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -84,18 +84,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -106,18 +106,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -131,18 +131,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -153,18 +153,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
@@ -174,20 +174,20 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { entries } = payload;
     const { defaultValue, ensureProperties } = this.context;
 
-    for (const [{ key }] of entries) {
+    for (const { key } of entries) {
       if (ensureProperties) {
-        const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+        const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
         if (!isPayloadWithData(getPayload)) {
-          await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+          await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
           continue;
         }
 
         const { data } = getPayload;
 
-        await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-      } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+      } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
     }
 
     return payload;
@@ -199,18 +199,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends Middleware<Auto
     const { defaultValue, ensureProperties } = this.context;
 
     if (ensureProperties) {
-      const getPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [] });
+      const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) {
-        await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
         return payload;
       }
 
       const { data } = getPayload;
 
-      await this.provider[Method.Set]({ method: Method.Set, key, path: [], value: mergeDefault(defaultValue, data) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, key, defaultValue });
+      await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue, data) });
+    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
     return payload;
   }
