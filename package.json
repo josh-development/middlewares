@@ -24,7 +24,7 @@
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.5",
     "@favware/rollup-type-bundler": "^1.0.11",
-    "@joshdb/map": "1.1.0-next.d269c60.0",
+    "@joshdb/map": "1.1.0-next.976150f.0",
     "@sapphire/eslint-config": "^4.3.8",
     "@sapphire/ts-config": "^3.3.4",
     "@types/jest": "^28.1.7",

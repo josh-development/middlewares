@@ -975,23 +975,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/map@npm:1.1.0-next.d269c60.0":
-  version: 1.1.0-next.d269c60.0
-  resolution: "@joshdb/map@npm:1.1.0-next.d269c60.0"
+"@joshdb/map@npm:1.1.0-next.976150f.0":
+  version: 1.1.0-next.976150f.0
+  resolution: "@joshdb/map@npm:1.1.0-next.976150f.0"
   dependencies:
-    "@joshdb/provider": 1.1.0-next.98baf42.0
+    "@joshdb/provider": 2.0.0-next.6cc7d77.0
     "@sapphire/utilities": ^3.9.0
     property-helpers: ^1.1.0
-  checksum: 5e94ee1526a380ec69110288f9c1bb700e72505304facf5e0281eaa2ba4a4a3673a472c2ca4ab8a6a7ed739011a61d60ed4575c1d0690b6bd7121e8c3475d66d
-  languageName: node
-  linkType: hard
-
-"@joshdb/provider@npm:1.1.0-next.98baf42.0":
-  version: 1.1.0-next.98baf42.0
-  resolution: "@joshdb/provider@npm:1.1.0-next.98baf42.0"
-  dependencies:
-    "@sapphire/utilities": ^3.8.0
-  checksum: 3328afc7b362dfa1bf36e0d6aa22bf34464c236f5cc93606d7058f3dd786922e6ec8335a9bb9eeb27915d4af107eb5a6d174ab0d7bc4d27697677689af3dc62d
+  checksum: 72eaa035f7489a2897ce6414d2696ff3761d2c34ab135078d0e0083c530bc5648edaf701aee478f0e1c455fe091c6ba3a942f3d073ee2c6d56a56e5b9dba75f7
   languageName: node
   linkType: hard
 
@@ -1002,6 +993,16 @@ __metadata:
     "@sapphire/utilities": ^3.9.0
     reflect-metadata: ^0.1.13
   checksum: 552674c84fd6b393139424960f71231397fbc97aece3d38d222e28fec40369ec2b862a76d98034350fe075a971551c89c5de811d1a103a30acdab7bf1ce91d57
+  languageName: node
+  linkType: hard
+
+"@joshdb/provider@npm:2.0.0-next.6cc7d77.0":
+  version: 2.0.0-next.6cc7d77.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.6cc7d77.0"
+  dependencies:
+    "@sapphire/utilities": ^3.9.2
+    reflect-metadata: ^0.1.13
+  checksum: 1afdfd5a124b545f7945c316c078f2b6d985769d5f493cb287ccc50a49e31f1463b7ab9bee5e7de4349ddb8b2df4ce0bbe0d28844c8ed4daf6c9e5e650e8ba40
   languageName: node
   linkType: hard
 
@@ -5418,7 +5419,7 @@ __metadata:
     "@favware/colorette-spinner": ^1.0.1
     "@favware/npm-deprecate": ^1.0.5
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/map": 1.1.0-next.d269c60.0
+    "@joshdb/map": 1.1.0-next.976150f.0
     "@sapphire/eslint-config": ^4.3.8
     "@sapphire/ts-config": ^3.3.4
     "@types/jest": ^28.1.7
