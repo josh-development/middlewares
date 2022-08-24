@@ -968,7 +968,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/provider": 2.0.0-next.119b020.0
+    "@joshdb/provider": 2.0.0-next.865d0de.0
     "@sapphire/utilities": ^3.9.2
     typedoc: ^0.23.10
     typedoc-json-parser: ^2.3.2
@@ -986,16 +986,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.119b020.0":
-  version: 2.0.0-next.119b020.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.119b020.0"
-  dependencies:
-    "@sapphire/utilities": ^3.9.0
-    reflect-metadata: ^0.1.13
-  checksum: 552674c84fd6b393139424960f71231397fbc97aece3d38d222e28fec40369ec2b862a76d98034350fe075a971551c89c5de811d1a103a30acdab7bf1ce91d57
-  languageName: node
-  linkType: hard
-
 "@joshdb/provider@npm:2.0.0-next.6cc7d77.0":
   version: 2.0.0-next.6cc7d77.0
   resolution: "@joshdb/provider@npm:2.0.0-next.6cc7d77.0"
@@ -1006,13 +996,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:2.0.0-next.865d0de.0":
+  version: 2.0.0-next.865d0de.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.865d0de.0"
+  dependencies:
+    "@sapphire/utilities": ^3.9.2
+    reflect-metadata: ^0.1.13
+  checksum: 0ff1b777e0fa3a689f0d5bc38f6c5de1fe2bf8830cde2711122f17d4672614bbc06fab963820df288efb04482614691b9957ce1aed3016e2468a6eddab4b5eae
+  languageName: node
+  linkType: hard
+
 "@joshdb/schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/provider": 2.0.0-next.119b020.0
+    "@joshdb/provider": 2.0.0-next.865d0de.0
     "@sapphire/shapeshift": ^3.5.1
     typedoc: ^0.23.10
     typedoc-json-parser: ^2.3.2
