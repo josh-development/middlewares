@@ -38,6 +38,8 @@
   color: '24853c'
 - name: packages:auto-ensure
   color: 'fbca04'
+- name: packages:cache
+  color: 'fbca04'
 - name: packages:schema
   color: 'fbca04'
 - name: performance
