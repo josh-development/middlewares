@@ -27,7 +27,7 @@
     "@joshdb/map": "1.1.0-next.976150f.0",
     "@sapphire/eslint-config": "^4.3.8",
     "@sapphire/ts-config": "^3.3.4",
-    "@types/jest": "^28.1.7",
+    "@types/jest": "^29.0.0",
     "@types/node": "^17.0.31",
     "@types/prompts": "^2",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
