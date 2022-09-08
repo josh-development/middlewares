@@ -24,7 +24,7 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/middleware": "next",
+    "@joshdb/middleware": "1.1.0-next.c11c4d3.0",
     "catch-exit": "^1.2.2"
   },
   "devDependencies": {

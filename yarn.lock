@@ -998,7 +998,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.5
     "@favware/rollup-type-bundler": ^1.0.9
-    "@joshdb/middleware": next
+    "@joshdb/middleware": 1.1.0-next.c11c4d3.0
     catch-exit: ^1.2.2
     jest: ^28.1.3
     typedoc: ^0.23.9
@@ -1017,7 +1017,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/middleware@npm:next":
+"@joshdb/middleware@npm:1.1.0-next.c11c4d3.0":
   version: 1.1.0-next.c11c4d3.0
   resolution: "@joshdb/middleware@npm:1.1.0-next.c11c4d3.0"
   dependencies:
