@@ -365,7 +365,7 @@ describe('CacheMiddleware', () => {
           const { data } = await cache[Method.Filter]({ method: Method.Filter, hook: cb, type: Payload.Type.Hook, errors: [] });
 
           expect(values).toEqual(['stored']);
-          expect(data).toBe({ key: 'stored' });
+          expect(data).toEqual({ key: 'stored' });
         });
       });
 
