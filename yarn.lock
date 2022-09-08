@@ -1019,7 +1019,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/provider": 2.0.0-next.31cd4f0.0
+    "@joshdb/provider": 2.0.0-next.1a837f5.0
     "@sapphire/utilities": ^3.9.3
     typedoc: ^0.23.14
     typedoc-json-parser: ^3.1.0
@@ -1037,13 +1037,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.31cd4f0.0":
-  version: 2.0.0-next.31cd4f0.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.31cd4f0.0"
+"@joshdb/provider@npm:2.0.0-next.1a837f5.0":
+  version: 2.0.0-next.1a837f5.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.1a837f5.0"
   dependencies:
     "@sapphire/utilities": ^3.9.3
     reflect-metadata: ^0.1.13
-  checksum: ae64d1beb68b0621c42fd58335153b58cec4328e9a7eee3c77eac7032240138a9d94c8cc088727e2d61a4ac64246d60c5b7d66d3fd17c3fc1d26b7ac7033973b
+  checksum: b8289360849e31015664931c88d5dd56843872e2f2c052a5a0e247dd076aef0619981afbccd141b39f42bb7bcbfd723b4b177bad1ee84c00a51097580defbd85
   languageName: node
   linkType: hard
 
@@ -1063,7 +1063,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
-    "@joshdb/provider": 2.0.0-next.31cd4f0.0
+    "@joshdb/provider": 2.0.0-next.1a837f5.0
     "@sapphire/shapeshift": ^3.6.0
     typedoc: ^0.23.14
     typedoc-json-parser: ^3.1.0
