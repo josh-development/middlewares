@@ -51,7 +51,7 @@ describe('CacheMiddleware', () => {
       provider,
       ttl: {
         enabled: true,
-        timeout: 500
+        timeout: 100
       }
     });
 
@@ -71,7 +71,7 @@ describe('CacheMiddleware', () => {
     test('GIVEN ttl enabled w/ expired data THEN returns empty after timeout', async () => {
       await cache[Method.Set]({ key: 'test:ttl', value: 123, method: Method.Set, path: [], errors: [] });
 
-      await delay(600);
+      await delay(200);
 
       const { data } = await cache[Method.Get]({ key: 'test:ttl', method: Method.Get, path: [], errors: [] });
 
@@ -83,7 +83,7 @@ describe('CacheMiddleware', () => {
     // @ts-expect-error 2322
     const store = new MiddlewareStore({ provider: new MapProvider() });
     // @ts-expect-error 2322
-    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 500 } });
+    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });
 
     beforeAll(async () => {
       // @ts-expect-error 2345
@@ -136,7 +136,7 @@ describe('CacheMiddleware', () => {
 
       test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
         await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
-        await delay(600);
+        await delay(200);
 
         const values: unknown[] = [];
         const cb = jest.fn((value) => values.push(value));
@@ -150,7 +150,7 @@ describe('CacheMiddleware', () => {
       test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
         await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
         await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
-        await delay(600);
+        await delay(200);
 
         const values: unknown[] = [];
         const cb = jest.fn((value) => values.push(value));
@@ -159,6 +159,16 @@ describe('CacheMiddleware', () => {
         expect(cb).toBeCalledTimes(1);
 
         expect(values).toEqual(['stored']);
+      });
+    });
+
+    describe(Method.Has, () => {
+      test('GIVEN cache w/ data THEN returns true', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        const { data: hasValue } = await cache[Method.Has]({ method: Method.Has, key: 'key', path: [], errors: [] });
+
+        expect(hasValue).toBe(true);
       });
     });
 
@@ -179,7 +189,7 @@ describe('CacheMiddleware', () => {
 
       test('GIVEN cache w/ expired data AND provider w/o data THEN it returns empty object', async () => {
         await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
-        await delay(600);
+        await delay(200);
 
         const { data } = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
 
@@ -189,7 +199,7 @@ describe('CacheMiddleware', () => {
       test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
         await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
         await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
-        await delay(600);
+        await delay(200);
 
         const { data } = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
 
@@ -233,7 +243,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const values: unknown[] = [];
           const cb = jest.fn((value) => {
@@ -252,7 +262,7 @@ describe('CacheMiddleware', () => {
         test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
           await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const values: unknown[] = [];
           const cb = jest.fn((value) => {
@@ -286,7 +296,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
 
@@ -296,7 +306,7 @@ describe('CacheMiddleware', () => {
         test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
           await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
 
@@ -337,7 +347,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const values: unknown[] = [];
           const cb = jest.fn((value) => {
@@ -354,7 +364,7 @@ describe('CacheMiddleware', () => {
         test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
           await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
-          await delay(600);
+          await delay(200);
 
           const values: unknown[] = [];
           const cb = jest.fn((value) => {
@@ -369,38 +379,284 @@ describe('CacheMiddleware', () => {
         });
       });
 
-      // describe(Payload.Type.Value, () => {
-      //   test('GIVEN cache w/ data THEN it is iterated', async () => {
-      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+      describe(Payload.Type.Value, () => {
+        test('GIVEN cache w/ data THEN it is filtered', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
-      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
 
-      //     expect(data).toBe(true);
-      //   });
+          expect(data).toEqual({ key: 'value' });
+        });
 
-      //   test('GIVEN cache w/o data THEN it is not iterated', async () => {
-      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+        test('GIVEN cache w/ data w/ path THEN it is filtered', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: 'bar' }, path: [], errors: [] });
 
-      //     expect(data).toBe(true);
-      //   });
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, value: 'bar', path: ['foo'], type: Payload.Type.Value, errors: [] });
 
-      //   test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
-      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
-      //     await delay(600);
-      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+          expect(data).toEqual({ key: { foo: 'bar' } });
+        });
 
-      //     expect(data).toBe(true);
-      //   });
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
 
-      //   test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
-      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
-      //     await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [] });
-      //     await delay(600);
-      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+          expect(data).toEqual({});
+        });
 
-      //     expect(data).toBe(false);
-      //   });
-      // });
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toEqual({});
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toEqual({ key: 'stored' });
+        });
+      });
+    });
+
+    describe(Method.Find, () => {
+      describe(Payload.Type.Hook, () => {
+        test('GIVEN cache w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual(['value']);
+          expect(data).toEqual(['key', 'value']);
+        });
+
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return false;
+          });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual([]);
+          expect(data).toBe(undefined);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await delay(200);
+
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual([]);
+          expect(data).toBe(undefined);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+          await delay(200);
+
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual(['stored']);
+          expect(data).toEqual(['key', 'stored']);
+        });
+      });
+
+      describe(Payload.Type.Value, () => {
+        test('GIVEN cache w/ data THEN it is filtered', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toEqual(['key', 'value']);
+        });
+
+        test('GIVEN cache w/ data w/ path THEN it is filtered', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: 'bar' }, path: [], errors: [] });
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, value: 'bar', path: ['foo'], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toEqual(['key', { foo: 'bar' }]);
+        });
+
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const { data } = await cache[Method.Find]({ method: Method.Find, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toBe(undefined);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toBe(undefined);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Find]({ method: Method.Find, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          expect(data).toEqual(['key', 'stored']);
+        });
+      });
+    });
+
+    describe(Method.Keys, () => {
+      test('GIVEN cache w/o data THEN no keys are returned', async () => {
+        const { data } = await cache[Method.Keys]({ method: Method.Keys, errors: [] });
+
+        expect(data).toEqual([]);
+      });
+
+      test('GIVEN provider w/ data THEN keys are returned', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        const { data } = await cache[Method.Keys]({ method: Method.Keys, errors: [] });
+
+        expect(data).toEqual(['key']);
+      });
+    });
+
+    describe(Method.Values, () => {
+      test('GIVEN cache w/o data THEN no values are returned', async () => {
+        const { data } = await cache[Method.Values]({ method: Method.Values, errors: [] });
+
+        expect(data).toEqual([]);
+      });
+
+      test('GIVEN provider w/ data THEN values are returned', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        const { data } = await cache[Method.Values]({ method: Method.Values, errors: [] });
+
+        expect(data).toEqual(['value']);
+      });
+    });
+
+    describe(Method.Map, () => {
+      describe(Payload.Type.Hook, () => {
+        test('GIVEN cache w/ data THEN it is mapped', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+          const cb = jest.fn((value) => {
+            return value;
+          });
+
+          const { data: values } = await cache[Method.Map]({ method: Method.Map, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual(['value']);
+        });
+
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const cb = jest.fn((value) => {
+            return value;
+          });
+
+          const { data: values } = await cache[Method.Map]({ method: Method.Map, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual([]);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await delay(200);
+
+          const cb = jest.fn((value) => {
+            return value;
+          });
+
+          const { data: values } = await cache[Method.Map]({ method: Method.Map, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual([]);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+          await delay(200);
+
+          const cb = jest.fn((value) => {
+            return value;
+          });
+
+          const { data: values } = await cache[Method.Map]({ method: Method.Map, hook: cb, type: Payload.Type.Hook, errors: [] });
+
+          expect(values).toEqual(['stored']);
+        });
+      });
+
+      describe(Payload.Type.Value, () => {
+        test('GIVEN cache w/ data THEN it is mapped', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+          const { data } = await cache[Method.Map]({ method: Method.Map, path: [], type: Payload.Type.Path, errors: [] });
+
+          expect(data).toEqual(['value']);
+        });
+
+        test('GIVEN cache w/ data w/ path THEN it is filtered', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: 'bar' }, path: [], errors: [] });
+
+          const { data } = await cache[Method.Map]({ method: Method.Map, path: ['foo'], type: Payload.Type.Path, errors: [] });
+
+          expect(data).toEqual(['bar']);
+        });
+
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const { data } = await cache[Method.Map]({ method: Method.Map, path: [], type: Payload.Type.Path, errors: [] });
+
+          expect(data).toEqual([]);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Map]({ method: Method.Map, path: [], type: Payload.Type.Path, errors: [] });
+
+          expect(data).toEqual([]);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+          await delay(200);
+
+          const { data } = await cache[Method.Map]({ method: Method.Map, path: [], type: Payload.Type.Path, errors: [] });
+
+          expect(data).toEqual(['stored']);
+        });
+      });
     });
   });
 });

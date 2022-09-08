@@ -14,7 +14,6 @@ describe('AutoEnsureMiddleware', () => {
   });
 
   describe('can manipulate provider data', () => {
-    // @ts-expect-error 2322
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const autoEnsure = new AutoEnsureMiddleware<unknown>({ defaultValue: { a: 'b', c: 'd' } });
 
