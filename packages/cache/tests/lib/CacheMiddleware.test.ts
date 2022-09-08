@@ -279,5 +279,100 @@ describe('CacheMiddleware', () => {
         });
       });
     });
+
+    describe(Method.Filter, () => {
+      describe(Payload.Type.Hook, () => {
+        test('GIVEN cache w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, hook: cb, type: Payload.Type.Hook });
+
+          expect(values).toEqual(['value']);
+          expect(data).toEqual({ key: 'value' });
+        });
+
+        test('GIVEN cache w/o data THEN it is not iterated', async () => {
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return false;
+          });
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, hook: cb, type: Payload.Type.Hook });
+
+          expect(values).toEqual([]);
+          expect(data).toEqual({});
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+          await delay(600);
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, hook: cb, type: Payload.Type.Hook });
+
+          expect(values).toEqual([]);
+          expect(data).toEqual({});
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+          await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [] });
+          await delay(600);
+          const values: unknown[] = [];
+          const cb = jest.fn((value) => {
+            values.push(value);
+            return true;
+          });
+
+          const { data } = await cache[Method.Filter]({ method: Method.Filter, hook: cb, type: Payload.Type.Hook });
+
+          expect(values).toEqual(['stored']);
+          expect(data).toBe({ key: 'stored' });
+        });
+      });
+
+      // describe(Payload.Type.Value, () => {
+      //   test('GIVEN cache w/ data THEN it is iterated', async () => {
+      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+
+      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+
+      //     expect(data).toBe(true);
+      //   });
+
+      //   test('GIVEN cache w/o data THEN it is not iterated', async () => {
+      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+
+      //     expect(data).toBe(true);
+      //   });
+
+      //   test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+      //     await delay(600);
+      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+
+      //     expect(data).toBe(true);
+      //   });
+
+      //   test('GIVEN cache w/ expired data AND provider w/ data THEN it is iterated', async () => {
+      //     await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [] });
+      //     await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [] });
+      //     await delay(600);
+      //     const { data } = await cache[Method.Every]({ method: Method.Every, value: 'value', path: [], type: Payload.Type.Value });
+
+      //     expect(data).toBe(false);
+      //   });
+      // });
+    });
   });
 });
