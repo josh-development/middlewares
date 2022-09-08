@@ -1,5 +1,5 @@
 import { MapProvider } from '@joshdb/map';
-import { Method, MiddlewareStore, Payload } from '@joshdb/middleware';
+import { JoshMiddlewareStore, Method, Payload } from '@joshdb/provider';
 import { CacheMiddleware } from '../../src';
 
 const delay = async (t: number) => {
@@ -18,10 +18,8 @@ describe('CacheMiddleware', () => {
   });
 
   describe('can poll', () => {
-    // @ts-expect-error 2322
-    const store = new MiddlewareStore({ provider: new MapProvider() });
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const cache = new CacheMiddleware<unknown>({
-      // @ts-expect-error 2322
       provider: new MapProvider(),
       polling: {
         enabled: true
@@ -29,7 +27,6 @@ describe('CacheMiddleware', () => {
     });
 
     beforeAll(async () => {
-      // @ts-expect-error 2345
       await cache.init(store);
     });
 
@@ -43,20 +40,10 @@ describe('CacheMiddleware', () => {
   });
 
   describe('can ttl', () => {
-    const provider = new MapProvider();
-    // @ts-expect-error 2322
-    const store = new MiddlewareStore({ provider: new MapProvider() });
-    const cache = new CacheMiddleware<unknown>({
-      // @ts-expect-error 2322
-      provider,
-      ttl: {
-        enabled: true,
-        timeout: 100
-      }
-    });
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });
 
     beforeAll(async () => {
-      // @ts-expect-error 2345
       await cache.init(store);
     });
 
@@ -80,13 +67,10 @@ describe('CacheMiddleware', () => {
   });
 
   describe('can manipulate data', () => {
-    // @ts-expect-error 2322
-    const store = new MiddlewareStore({ provider: new MapProvider() });
-    // @ts-expect-error 2322
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });
 
     beforeAll(async () => {
-      // @ts-expect-error 2345
       await cache.init(store);
     });
 

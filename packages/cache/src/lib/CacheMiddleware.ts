@@ -5,15 +5,15 @@ import {
   isFindByHookPayload,
   isMapByHookPayload,
   isRemoveByHookPayload,
+  JoshMiddleware,
+  JoshMiddlewareStore,
   JoshProvider,
   Method,
-  Middleware,
-  MiddlewareStore,
   Payload,
   Payloads,
   PostProvider,
   PreProvider
-} from '@joshdb/middleware';
+} from '@joshdb/provider';
 import { addExitCallback } from 'catch-exit';
 import { getProperty } from 'property-helpers';
 
@@ -50,10 +50,10 @@ import { getProperty } from 'property-helpers';
 */
 
 @ApplyMiddlewareOptions({ name: 'cache' })
-export class CacheMiddleware<StoredValue = unknown> extends Middleware<CacheMiddleware.ContextData<StoredValue>, StoredValue> {
+export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<CacheMiddleware.ContextData<StoredValue>, StoredValue> {
   public pollingInterval: NodeJS.Timer | undefined;
 
-  public async init(store: MiddlewareStore<StoredValue>) {
+  public async init(store: JoshMiddlewareStore<StoredValue>) {
     await super.init(store);
     await this.fetchCache();
     return this;
@@ -629,7 +629,7 @@ export namespace CacheMiddleware {
   }
   export interface ContextData<StoredValue> {
     provider: JoshProvider<Document<StoredValue>>;
-    fetchAll: boolean;
+    fetchAll?: boolean;
     polling?: {
       enabled: boolean;
       interval?: number;
