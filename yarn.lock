@@ -1022,7 +1022,7 @@ __metadata:
     "@joshdb/provider": 2.0.0-next.1a837f5.0
     "@sapphire/utilities": ^3.9.3
     typedoc: ^0.23.14
-    typedoc-json-parser: ^3.1.0
+    typedoc-json-parser: ^3.2.0
   languageName: unknown
   linkType: soft
 
@@ -1066,7 +1066,7 @@ __metadata:
     "@joshdb/provider": 2.0.0-next.1a837f5.0
     "@sapphire/shapeshift": ^3.6.0
     typedoc: ^0.23.14
-    typedoc-json-parser: ^3.1.0
+    typedoc-json-parser: ^3.2.0
   languageName: unknown
   linkType: soft
 
@@ -6564,35 +6564,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-json-parser@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "typedoc-json-parser@npm:3.1.0"
+"typedoc-json-parser@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "typedoc-json-parser@npm:3.2.0"
   dependencies:
     "@favware/colorette-spinner": ^1.0.1
     colorette: ^2.0.19
     commander: ^9.4.0
     js-yaml: ^4.1.0
     tslib: ^2.4.0
-    typedoc: ^0.23.11
+    typedoc: ^0.23.14
   bin:
     typedoc-json-parser: ./dist/bin/index.js
-  checksum: 4259a95e60851ef4a14d94aa68b4fa611b1700f75f959417416231d33273333a6af9f833b9e2e9b90224e517de9e2bc96d7fb5d7e52ba64e1597c8684a2f2bca
-  languageName: node
-  linkType: hard
-
-"typedoc@npm:^0.23.11":
-  version: 0.23.13
-  resolution: "typedoc@npm:0.23.13"
-  dependencies:
-    lunr: ^2.3.9
-    marked: ^4.0.19
-    minimatch: ^5.1.0
-    shiki: ^0.11.1
-  peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x
-  bin:
-    typedoc: bin/typedoc
-  checksum: 720b5fa9846fcb2d0e3a763bc01b8f856d7e1c80ac50d2efd85dd850f61b98c4f52b7519a86ff2c59cebc7ab1e19e92cab31a25082d4574ab9a6f93e660e5369
+  checksum: dbcfc2def2eaf2b3595f7a91ea85b940925cbf75d07de4ff9a698612142803cd01f2fc811d9cbe2e0e3078d23ec57cd9ce2266a6d65c5b5548133b35a3895f4c
   languageName: node
   linkType: hard
 
