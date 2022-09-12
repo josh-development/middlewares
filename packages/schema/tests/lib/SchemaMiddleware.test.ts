@@ -26,7 +26,6 @@ describe('SchemaMiddleware', () => {
     });
 
     beforeAll(async () => {
-      // @ts-expect-error 2345
       await schema.init(store);
     });
 
