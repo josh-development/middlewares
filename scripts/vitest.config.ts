@@ -6,18 +6,15 @@ export const createVitestConfig = (options: UserConfig = {}) =>
     ...options,
     test: {
       ...options?.test,
+      deps: {
+        inline: true
+      },
       globals: true,
       coverage: {
         ...options.test?.coverage,
         enabled: true,
         reporter: ['text', 'lcov', 'clover'],
-        exclude: [
-          ...(options.test?.coverage?.exclude ?? []),
-          '**/node_modules/**',
-          '**/dist/**',
-          '**/tests/**',
-          'packages/utilities/src/lib/debounce/index.ts'
-        ]
+        exclude: [...(options.test?.coverage?.exclude ?? []), '**/node_modules/**', '**/dist/**', '**/tests/**']
       }
     },
     esbuild: {
