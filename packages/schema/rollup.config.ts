@@ -16,15 +16,6 @@ export default {
       format: 'es',
       exports: 'named',
       sourcemap: true
-    },
-    {
-      file: './dist/index.umd.js',
-      format: 'umd',
-      name: 'JoshSchema',
-      sourcemap: true,
-      globals: {
-        '@joshdb/provider': 'JoshProvider'
-      }
     }
   ],
   external: ['@joshdb/provider'],
