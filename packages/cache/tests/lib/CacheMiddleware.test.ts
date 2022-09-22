@@ -2,6 +2,8 @@ import { MapProvider } from '@joshdb/map';
 import { JoshMiddlewareStore, Method, Payload } from '@joshdb/provider';
 import { CacheMiddleware } from '../../src';
 
+import { afterAll, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
+
 const delay = async (t: number) => {
   await new Promise((r) => setTimeout(r, t));
 };
@@ -100,7 +102,7 @@ describe('CacheMiddleware', () => {
         await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
         const values: unknown[] = [];
-        const cb = jest.fn((value) => values.push(value));
+        const cb = vi.fn((value) => values.push(value));
 
         await cache[Method.Each]({ method: Method.Each, hook: cb, errors: [] });
         expect(cb).toBeCalledTimes(1);
@@ -110,7 +112,7 @@ describe('CacheMiddleware', () => {
 
       test('GIVEN cache w/o data THEN it is not iterated', async () => {
         const values: unknown[] = [];
-        const cb = jest.fn((value) => values.push(value));
+        const cb = vi.fn((value) => values.push(value));
 
         await cache[Method.Each]({ method: Method.Each, hook: cb, errors: [] });
         expect(cb).toBeCalledTimes(0);
@@ -123,7 +125,7 @@ describe('CacheMiddleware', () => {
         await delay(200);
 
         const values: unknown[] = [];
-        const cb = jest.fn((value) => values.push(value));
+        const cb = vi.fn((value) => values.push(value));
 
         await cache[Method.Each]({ method: Method.Each, hook: cb, errors: [] });
         expect(cb).toBeCalledTimes(0);
@@ -137,7 +139,7 @@ describe('CacheMiddleware', () => {
         await delay(200);
 
         const values: unknown[] = [];
-        const cb = jest.fn((value) => values.push(value));
+        const cb = vi.fn((value) => values.push(value));
 
         await cache[Method.Each]({ method: Method.Each, hook: cb, errors: [] });
         expect(cb).toBeCalledTimes(1);
@@ -192,12 +194,12 @@ describe('CacheMiddleware', () => {
     });
 
     describe(Method.Every, () => {
-      describe(Payload.Type.Hook, () => {
+      describe(Payload.Type.Hook.toString().toString(), () => {
         test('GIVEN cache w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -212,7 +214,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/o data THEN it is not iterated', async () => {
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return false;
           });
@@ -230,7 +232,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return false;
           });
@@ -249,7 +251,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return false;
           });
@@ -263,7 +265,7 @@ describe('CacheMiddleware', () => {
         });
       });
 
-      describe(Payload.Type.Value, () => {
+      describe(Payload.Type.Value.toString(), () => {
         test('GIVEN cache w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
@@ -300,12 +302,12 @@ describe('CacheMiddleware', () => {
     });
 
     describe(Method.Filter, () => {
-      describe(Payload.Type.Hook, () => {
+      describe(Payload.Type.Hook.toString(), () => {
         test('GIVEN cache w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -318,7 +320,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/o data THEN it is not iterated', async () => {
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return false;
           });
@@ -334,7 +336,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -351,7 +353,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -363,7 +365,7 @@ describe('CacheMiddleware', () => {
         });
       });
 
-      describe(Payload.Type.Value, () => {
+      describe(Payload.Type.Value.toString(), () => {
         test('GIVEN cache w/ data THEN it is filtered', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
@@ -408,12 +410,12 @@ describe('CacheMiddleware', () => {
     });
 
     describe(Method.Find, () => {
-      describe(Payload.Type.Hook, () => {
+      describe(Payload.Type.Hook.toString(), () => {
         test('GIVEN cache w/ data THEN it is iterated', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -426,7 +428,7 @@ describe('CacheMiddleware', () => {
 
         test('GIVEN cache w/o data THEN it is not iterated', async () => {
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return false;
           });
@@ -442,7 +444,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -459,7 +461,7 @@ describe('CacheMiddleware', () => {
           await delay(200);
 
           const values: unknown[] = [];
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             values.push(value);
             return true;
           });
@@ -471,7 +473,7 @@ describe('CacheMiddleware', () => {
         });
       });
 
-      describe(Payload.Type.Value, () => {
+      describe(Payload.Type.Value.toString(), () => {
         test('GIVEN cache w/ data THEN it is filtered', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
@@ -548,11 +550,11 @@ describe('CacheMiddleware', () => {
     });
 
     describe(Method.Map, () => {
-      describe(Payload.Type.Hook, () => {
+      describe(Payload.Type.Hook.toString(), () => {
         test('GIVEN cache w/ data THEN it is mapped', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             return value;
           });
 
@@ -562,7 +564,7 @@ describe('CacheMiddleware', () => {
         });
 
         test('GIVEN cache w/o data THEN it is not iterated', async () => {
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             return value;
           });
 
@@ -575,7 +577,7 @@ describe('CacheMiddleware', () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
           await delay(200);
 
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             return value;
           });
 
@@ -589,7 +591,7 @@ describe('CacheMiddleware', () => {
           await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
           await delay(200);
 
-          const cb = jest.fn((value) => {
+          const cb = vi.fn((value) => {
             return value;
           });
 
@@ -599,7 +601,7 @@ describe('CacheMiddleware', () => {
         });
       });
 
-      describe(Payload.Type.Value, () => {
+      describe(Payload.Type.Value.toString(), () => {
         test('GIVEN cache w/ data THEN it is mapped', async () => {
           await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
 
