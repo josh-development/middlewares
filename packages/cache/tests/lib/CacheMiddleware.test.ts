@@ -644,5 +644,143 @@ describe('CacheMiddleware', () => {
         });
       });
     });
+
+    describe(Method.GetMany, () => {
+      test('GIVEN cache w/o data THEN no values are returned', async () => {
+        const { data } = await cache[Method.GetMany]({ method: Method.GetMany, keys: ['key'], errors: [] });
+
+        expect(data).toEqual({});
+      });
+
+      test('GIVEN cache w/o data and provider w/ data THEN value returned', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        const { data } = await cache[Method.GetMany]({ method: Method.GetMany, keys: ['key'], errors: [] });
+
+        expect(data).toEqual({ key: 'value' });
+      });
+
+      test('GIVEN cache w/ data THEN values are returned', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        const { data } = await cache[Method.GetMany]({ method: Method.GetMany, keys: ['key'], errors: [] });
+
+        expect(data).toEqual({ key: 'value' });
+      });
+
+      test('GIVEN cache w/ expired data AND provider w/o data THEN no values are returned', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+        await delay(200);
+
+        const { data } = await cache[Method.GetMany]({ method: Method.GetMany, keys: ['key'], errors: [] });
+
+        expect(data).toEqual({});
+      });
+
+      test('GIVEN cache w/ expired data AND provider w/ data THEN values are returned', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+        await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'stored', path: [], errors: [] });
+        await delay(200);
+
+        const { data } = await cache[Method.GetMany]({ method: Method.GetMany, keys: ['key'], errors: [] });
+
+        expect(data).toEqual({ key: 'stored' });
+      });
+    });
+
+    describe(Method.SetMany, () => {
+      test('GIVEN cache w/o data THEN data is set', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key2', value: {}, path: [], errors: [] }); // https://github.com/josh-development/providers/issues/154
+        await cache[Method.SetMany]({
+          method: Method.SetMany,
+          entries: [
+            { key: 'key', value: 'value', path: [] },
+            { key: 'key2', value: 'value', path: ['test'] }
+          ],
+          overwrite: true,
+          errors: []
+        });
+
+        const { data } = await cache[Method.Entries]({ method: Method.GetMany, errors: [] });
+
+        expect(data).toEqual({ key2: { test: 'value' }, key: 'value' });
+      });
+    });
+
+    describe(Method.Inc, () => {
+      test('GIVEN cache w/ data and provider w/o data THEN value is incremented', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 0, path: [], errors: [] });
+
+        await cache[Method.Inc]({ method: Method.Inc, key: 'key', errors: [], path: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(1);
+      });
+    });
+
+    describe(Method.Dec, () => {
+      test('GIVEN cache w/ data and provider w/o data THEN value is decremented', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 0, path: [], errors: [] });
+
+        await cache[Method.Dec]({ method: Method.Dec, key: 'key', errors: [], path: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(-1);
+      });
+    });
+
+    describe(Method.Delete, () => {
+      test('GIVEN cache w/o data and provider w/o data THEN nothing happens', async () => {
+        await cache[Method.Delete]({ method: Method.Delete, key: 'key', path: ['foo'], errors: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(undefined);
+      });
+
+      test('GIVEN cache w/ data and provider w/o data THEN value is removed at path', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: 'bar' }, path: [], errors: [] });
+
+        await cache[Method.Delete]({ method: Method.Delete, key: 'key', path: ['foo'], errors: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual({});
+      });
+
+      test('GIVEN cache w/ data and provider w/o data THEN document is removed', async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: 'bar' }, path: [], errors: [] });
+
+        await cache[Method.Delete]({ method: Method.Delete, key: 'key', path: [], errors: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(undefined);
+      });
+    });
+
+    describe(Method.DeleteMany, () => {
+      test('GIVEN cache w/ data and provider w/o data THEN keys are deleted', async () => {
+        await cache[Method.SetMany]({
+          method: Method.SetMany,
+          entries: [
+            { key: 'key', value: 'value', path: [] },
+            { key: 'key2', value: 'value', path: [] }
+          ],
+          overwrite: true,
+          errors: []
+        });
+
+        await cache[Method.DeleteMany]({ method: Method.DeleteMany, keys: ['key', 'key2'], errors: [] });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+        const { data: data2 } = await cache[Method.Get]({ method: Method.Get, key: 'key2', errors: [], path: [] });
+
+        expect(data).toEqual(undefined);
+        expect(data2).toEqual(undefined);
+      });
+    });
   });
 });

@@ -47,6 +47,7 @@ import { getProperty } from 'property-helpers';
 [ ] - Payload.Some
 [x] - Payload.Update
 [x] - Payload.Values - force fetches cache first
+[ ] - Add errors collection everywhere and check skipProvider
 */
 
 @ApplyMiddlewareOptions({ name: 'cache' })
@@ -410,14 +411,12 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         return payload;
       }
 
-      if (data) {
-        if (!(await this.checkNotExpired(data, key))) {
-          const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
-
-          if (bypassCacheData) data.value = bypassCacheData;
-        }
-
+      if (data && (await this.checkNotExpired(data, key))) {
         payload.data[key] = data.value;
+      } else {
+        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+
+        if (bypassCacheData) payload.data[key] = bypassCacheData;
       }
     }
 
@@ -474,8 +473,11 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Inc](payload: Payloads.Inc): Promise<Payloads.Inc> {
     const { key, path } = payload;
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.Inc]({ method: Method.Inc, key, path: ['value', ...path], errors: [] });
 
-    await cache[Method.Inc]({ method: Method.Inc, key, path, errors: [] });
+    if (errors && errors.length > 0) {
+      payload.errors.concat(...errors);
+    }
 
     return payload;
   }
@@ -484,8 +486,11 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
     const { key, path } = payload;
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.Dec]({ method: Method.Dec, key, path: ['value', ...path], errors: [] });
 
-    await cache[Method.Dec]({ method: Method.Dec, key, path, errors: [] });
+    if (errors && errors.length > 0) {
+      payload.errors.concat(...errors);
+    }
 
     return payload;
   }
@@ -494,8 +499,11 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Delete](payload: Payloads.Delete): Promise<Payloads.Delete> {
     const { key, path } = payload;
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.Delete]({ method: Method.Delete, key, path: path.length > 0 ? ['value', ...path] : [], errors: [] });
 
-    await cache[Method.Delete]({ method: Method.Delete, key, path, errors: [] });
+    if (errors && errors.length > 0) {
+      payload.errors.concat(...errors);
+    }
 
     return payload;
   }
@@ -504,8 +512,11 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.DeleteMany](payload: Payloads.DeleteMany): Promise<Payloads.DeleteMany> {
     const { keys } = payload;
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.DeleteMany]({ method: Method.DeleteMany, keys, errors: [] });
 
-    await cache[Method.DeleteMany]({ method: Method.DeleteMany, keys, errors: [] });
+    if (errors && errors.length > 0) {
+      payload.errors.concat(...errors);
+    }
 
     return payload;
   }
@@ -514,8 +525,17 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Push]<Value>(payload: Payloads.Push<Value>): Promise<Payloads.Push<Value>> {
     const { key, value, path } = payload;
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.Push]({
+      method: Method.Push,
+      key,
+      path: ['value', ...path],
+      value,
+      errors: []
+    });
 
-    await cache[Method.Push]({ method: Method.Push, key, path: ['value', ...path], value: { created: new Date().toISOString(), value }, errors: [] });
+    if (errors && errors.length > 0) {
+      payload.errors.concat(...errors);
+    }
 
     return payload;
   }
