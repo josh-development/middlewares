@@ -1,5 +1,5 @@
 import { MapProvider } from '@joshdb/map';
-import { JoshMiddlewareStore, Method, Payload } from '@joshdb/provider';
+import { JoshMiddlewareStore, MathOperator, Method, Payload } from '@joshdb/provider';
 import { CacheMiddleware } from '../../src';
 
 import { afterAll, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
@@ -780,6 +780,203 @@ describe('CacheMiddleware', () => {
 
         expect(data).toEqual(undefined);
         expect(data2).toEqual(undefined);
+      });
+    });
+
+    describe(Method.Push, () => {
+      test('GIVEN cache w/o data and provider w/o data THEN returns undefined with errors', async () => {
+        const { errors } = await cache[Method.Push]({
+          method: Method.Push,
+          key: 'key',
+          value: 'value',
+          path: [],
+          errors: []
+        });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(errors.length).toBe(1);
+        expect(data).toEqual(undefined);
+      });
+
+      test('GIVEN cache w/ data and provider w/o data THEN array is set and pushed', async () => {
+        await cache[Method.Set]({
+          method: Method.Set,
+          key: 'key',
+          value: [],
+          path: [],
+          errors: []
+        });
+
+        await cache[Method.Push]({
+          method: Method.Push,
+          key: 'key',
+          value: 'value',
+          path: [],
+          errors: []
+        });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(['value']);
+      });
+    });
+
+    describe(Method.Math, () => {
+      test('GIVEN cache w/o data and provider w/o data THEN array is set and pushed', async () => {
+        const { errors } = await cache[Method.Math]({
+          method: Method.Math,
+          key: 'key',
+          operand: 1,
+          operator: MathOperator.Addition,
+          path: [],
+          errors: []
+        });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(errors.length).toBe(1);
+        expect(data).toEqual(undefined);
+      });
+
+      test('GIVEN cache w/ data and provider w/o data THEN math succeeds', async () => {
+        await cache[Method.Set]({
+          method: Method.Set,
+          key: 'key',
+          value: 1,
+          path: [],
+          errors: []
+        });
+
+        await cache[Method.Math]({
+          method: Method.Math,
+          key: 'key',
+          operand: 1,
+          operator: MathOperator.Addition,
+          path: [],
+          errors: []
+        });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual(2);
+      });
+    });
+
+    describe(Method.Remove, () => {
+      describe(Payload.Type.Hook.toString(), () => {
+        test('GIVEN cache w/ data THEN it is removed', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: ['value'], path: [], errors: [] });
+
+          const cb = vi.fn((value) => {
+            return value === 'value';
+          });
+
+          await cache[Method.Remove]({
+            key: 'key',
+            path: [],
+            method: Method.Remove,
+            hook: cb,
+            type: Payload.Type.Hook,
+            errors: []
+          });
+
+          const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+          expect(data).toEqual([]);
+        });
+
+        test('GIVEN cache w/o data THEN it ignores', async () => {
+          const cb = vi.fn(() => {
+            return true;
+          });
+
+          await cache[Method.Remove]({
+            key: 'key',
+            method: Method.Remove,
+            hook: cb,
+            type: Payload.Type.Hook,
+            path: [],
+            errors: []
+          });
+
+          expect(cb).toBeCalledTimes(0);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: ['value'], path: [], errors: [] });
+          await delay(200);
+
+          const cb = vi.fn(() => {
+            return true;
+          });
+
+          await cache[Method.Remove]({
+            key: 'key',
+            method: Method.Remove,
+            hook: cb,
+            type: Payload.Type.Hook,
+            path: [],
+            errors: []
+          });
+
+          expect(cb).toBeCalledTimes(0);
+        });
+      });
+
+      describe(Payload.Type.Value.toString(), () => {
+        test('GIVEN cache w/ data THEN it is removed', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: ['value'], path: [], errors: [] });
+
+          await cache[Method.Remove]({ key: 'key', method: Method.Remove, value: 'value', path: [], type: Payload.Type.Value, errors: [] });
+
+          const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+          expect(data).toEqual([]);
+        });
+
+        test('GIVEN cache w/ data w/ path THEN it is removed', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: { foo: ['bar'] }, path: [], errors: [] });
+
+          await cache[Method.Remove]({ key: 'key', method: Method.Remove, value: 'bar', path: ['foo'], type: Payload.Type.Value, errors: [] });
+
+          const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+          expect((data as { foo: string[] }).foo).toEqual([]);
+        });
+
+        test('GIVEN cache w/ expired data AND provider w/o data THEN it is not iterated', async () => {
+          await cache[Method.Set]({ method: Method.Set, key: 'key', value: ['value'], path: [], errors: [] });
+          await delay(200);
+
+          const { errors } = await cache[Method.Remove]({
+            key: 'key',
+            method: Method.Remove,
+            value: 'value',
+            path: [],
+            type: Payload.Type.Value,
+            errors: []
+          });
+
+          expect(errors.length).toBe(0);
+        });
+      });
+    });
+
+    describe(Method.Update, () => {
+      test("GIVEN cache w/ data THEN it's updated", async () => {
+        await cache[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+
+        await cache[Method.Update]<string>({
+          method: Method.Update,
+          key: 'key',
+          hook: (value) => (value as string).toUpperCase(),
+          errors: []
+        });
+
+        const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', errors: [], path: [] });
+
+        expect(data).toEqual('VALUE');
       });
     });
   });
