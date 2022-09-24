@@ -41,6 +41,66 @@ describe('CacheMiddleware', () => {
     });
   });
 
+  describe('GIVEN polling THEN can catch exit', () => {
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({
+      provider: new MapProvider(),
+      polling: {
+        enabled: true
+      }
+    });
+
+    beforeAll(async () => {
+      await cache.init(store);
+    });
+
+    test('GIVEN polling enabled THEN starts polling', () => {
+      expect(cache.pollingInterval).toBeDefined();
+
+      //  @ts-expect-error 2345
+      const exitFn = vi.spyOn(process, 'exit').mockImplementationOnce(() => true);
+
+      process.emit('SIGINT');
+      expect(cache.pollingInterval).toBeUndefined();
+      expect(exitFn).toBeCalledTimes(1);
+    });
+
+    afterAll(() => {
+      clearInterval(cache.pollingInterval);
+    });
+  });
+
+  describe('can fetchAll', () => {
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({
+      provider: new MapProvider()
+    });
+
+    test('GIVEN fetchAll enabled THEN cache is populated', async () => {
+      await store.provider[Method.Set]({ method: Method.Set, key: 'key', value: 'value', path: [], errors: [] });
+      await cache.init(store);
+
+      const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', path: [], errors: [] });
+
+      expect(data).toEqual('value');
+    });
+  });
+
+  describe('can fetchAll nothing', () => {
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({
+      provider: new MapProvider()
+    });
+
+    test('GIVEN fetchAll enabled THEN cache is populated', async () => {
+      await cache.init(store);
+
+      const { data } = await cache[Method.Get]({ method: Method.Get, key: 'key', path: [], errors: [] });
+
+      expect(data).toEqual(undefined);
+    });
+  });
+
   describe('can ttl', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });

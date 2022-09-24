@@ -17,39 +17,6 @@ import {
 import { addExitCallback } from 'catch-exit';
 import { getProperty } from 'property-helpers';
 
-/* 
-[-] - Payload.AutoKey
-[x] - Payload.Clear
-[x] - Payload.Dec
-[x] - Payload.Delete
-[x] - Payload.DeleteMany
-[x] - Payload.Each
-[-] - Payload.Ensure
-[x] - Payload.Entries
-[x] - Payload.Every
-[x] - Payload.Filter
-[x] - Payload.Find
-[x] - Payload.Get
-[x] - Payload.GetMany
-[-] - Payload.Has
-[x] - Payload.Inc
-[x] - Payload.Keys - force fetches cache first
-[x] - Payload.Map
-[x] - Payload.Math
-[ ] - Payload.Partition
-[x] - Payload.Push
-[-] - Payload.Random
-[-] - Payload.RandomKey
-[?] - Payload.Remove
-[x] - Payload.Set
-[x] - Payload.SetMany
-[-] - Payload.Size
-[ ] - Payload.Some
-[x] - Payload.Update
-[x] - Payload.Values - force fetches cache first
-[ ] - Add errors collection everywhere and check skipProvider
-*/
-
 @ApplyMiddlewareOptions({ name: 'cache' })
 export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<CacheMiddleware.ContextData<StoredValue>, StoredValue> {
   public pollingInterval: NodeJS.Timer | undefined;
@@ -89,10 +56,11 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
       if (bypassCacheData) return hook(bypassCacheData, key);
     };
 
-    await cache[Method.Each]({ method: Method.Each, hook: cacheHook, errors: [] });
+    const { errors } = await cache[Method.Each]({ method: Method.Each, hook: cacheHook, errors: [] });
 
     payload.metadata ??= {};
     payload.metadata.skipProvider = true;
+    payload.errors = [...payload.errors, ...errors];
 
     return payload;
   }
@@ -104,9 +72,10 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
     const { data } = await cache[Method.Get]({ method: Method.Get, key, path, errors: [] });
 
     if (data && (await this.checkNotExpired(data, key))) {
-      const { data: hasData } = await cache[Method.Has]({ method: Method.Has, key, path: ['value', ...path], errors: [] });
+      const { data: hasData, errors } = await cache[Method.Has]({ method: Method.Has, key, path: ['value', ...path], errors: [] });
 
       payload.data = hasData;
+      payload.errors = [...payload.errors, ...errors];
     }
 
     return payload;
@@ -115,7 +84,9 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   @PreProvider()
   public async [Method.Entries](payload: Payloads.Entries<StoredValue>): Promise<Payloads.Entries<StoredValue>> {
     const { provider: cache } = this.context;
-    const { data: entries } = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
+    const { data: entries, errors } = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
+
+    payload.errors = [...payload.errors, ...errors];
 
     if (entries) {
       payload.data ??= {};
@@ -317,6 +288,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
     payload.data = data;
     payload.errors = [...payload.errors, ...errors];
+
     return payload;
   }
 
@@ -330,6 +302,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
     payload.data = data?.map(({ value }) => value);
     payload.errors = [...payload.errors, ...errors];
+
     return payload;
   }
 
@@ -420,8 +393,9 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   @PostProvider()
   public async [Method.Clear](payload: Payloads.Clear): Promise<Payloads.Clear> {
     const { provider: cache } = this.context;
+    const { errors } = await cache[Method.Clear]({ method: Method.Clear, errors: [] });
 
-    await cache[Method.Clear]({ method: Method.Clear, errors: [] });
+    payload.errors = [...payload.errors, ...errors];
 
     return payload;
   }
@@ -430,14 +404,15 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Set]<Value = StoredValue>(payload: Payloads.Set<Value>): Promise<Payloads.Set<Value>> {
     const { key, value, path } = payload;
     const { provider: cache } = this.context;
-
-    await cache[Method.Set]<CacheMiddleware.Document<Value>>({
+    const { errors } = await cache[Method.Set]<CacheMiddleware.Document<Value>>({
       method: Method.Set,
       key,
       path,
       value: { created: new Date().toISOString(), value },
       errors: []
     });
+
+    payload.errors = [...payload.errors, ...errors];
 
     return payload;
   }
@@ -458,7 +433,9 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
       }
     }
 
-    await cache[Method.SetMany]({ method: Method.SetMany, entries: data, overwrite, errors: [] });
+    const { errors } = await cache[Method.SetMany]({ method: Method.SetMany, entries: data, overwrite, errors: [] });
+
+    payload.errors = [...payload.errors, ...errors];
 
     return payload;
   }
@@ -591,20 +568,20 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
     await cache[Method.Clear]({ method: Method.Clear, errors: [] });
 
-    const all = await this.provider[Method.Entries]({ method: Method.Entries, data: {}, errors: [] });
+    const { data } = await this.provider[Method.Entries]({ method: Method.Entries, data: {}, errors: [] });
 
-    if (!all.data) return;
-
-    await this[Method.SetMany]({
-      method: Method.SetMany,
-      entries: Object.entries(all.data).map(([key, value]) => ({ key, value, path: [] })),
-      overwrite: true,
-      errors: []
-    });
+    if (data) {
+      await this[Method.SetMany]({
+        method: Method.SetMany,
+        entries: Object.entries(data).map(([key, value]) => ({ key, value, path: [] })),
+        overwrite: true,
+        errors: []
+      });
+    }
   }
 
   private async fetchCache() {
-    if (this.context.fetchAll) {
+    if (this.context.fetchAll || this.context.fetchAll === undefined) {
       await this.populateCache();
     }
 
@@ -617,6 +594,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
     this.pollingInterval = setInterval(() => this.populateCache(), this.context.polling?.interval || 10000);
     addExitCallback(() => {
       clearInterval(this.pollingInterval);
+      this.pollingInterval = undefined;
     });
   }
 }
