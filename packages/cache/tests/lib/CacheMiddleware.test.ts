@@ -57,8 +57,7 @@ describe('CacheMiddleware', () => {
     test('GIVEN polling enabled THEN starts polling', () => {
       expect(cache.pollingInterval).toBeDefined();
 
-      //  @ts-expect-error 2345
-      const exitFn = vi.spyOn(process, 'exit').mockImplementationOnce(() => true);
+      const exitFn = vi.spyOn(process, 'exit').mockImplementationOnce(() => true as never);
 
       process.emit('SIGINT');
       expect(cache.pollingInterval).toBeUndefined();
