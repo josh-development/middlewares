@@ -4,6 +4,7 @@ import {
   isFilterByHookPayload,
   isFindByHookPayload,
   isMapByHookPayload,
+  isPayloadWithData,
   isRemoveByHookPayload,
   JoshMiddleware,
   JoshMiddlewareStore,
@@ -31,12 +32,14 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Get]<Value = StoredValue>(payload: Payloads.Get<Value>): Promise<Payloads.Get<Value>> {
     const { key, path } = payload;
     const { provider: cache } = this.context;
-    const { data, errors } = await cache[Method.Get]<CacheMiddleware.Document<Value>>({ method: Method.Get, key, path, errors: [] });
+    const getPayload = await cache[Method.Get]<CacheMiddleware.Document<Value>>({ method: Method.Get, key, path, errors: [] });
 
-    payload.errors = [...payload.errors, ...errors];
+    payload.errors = [...payload.errors, ...getPayload.errors];
 
-    if (data && (await this.checkNotExpired(data, key))) {
-      payload.data = data.value;
+    if (isPayloadWithData<CacheMiddleware.Document<Value>>(getPayload)) {
+      const { data } = getPayload;
+
+      if (await this.checkNotExpired(data, key)) payload.data = data.value;
     }
 
     return payload;
@@ -51,9 +54,13 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         return hook(value.value, key);
       }
 
-      const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+      const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-      if (bypassCacheData) return hook(bypassCacheData, key);
+      if (isPayloadWithData<StoredValue>(bypassPayload)) {
+        const { data } = bypassPayload;
+
+        return hook(data, key);
+      }
     };
 
     const { errors } = await cache[Method.Each]({ method: Method.Each, hook: cacheHook, errors: [] });
@@ -69,9 +76,9 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Has](payload: Payloads.Has): Promise<Payloads.Has> {
     const { key, path } = payload;
     const { provider: cache } = this.context;
-    const { data } = await cache[Method.Get]({ method: Method.Get, key, path, errors: [] });
+    const getPayload = await cache[Method.Get]({ method: Method.Get, key, path, errors: [] });
 
-    if (data && (await this.checkNotExpired(data, key))) {
+    if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(getPayload) && (await this.checkNotExpired(getPayload.data, key))) {
       const { data: hasData, errors } = await cache[Method.Has]({ method: Method.Has, key, path: ['value', ...path], errors: [] });
 
       payload.data = hasData;
@@ -95,9 +102,13 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         if (await this.checkNotExpired(val, key)) {
           payload.data[key] = val.value;
         } else {
-          const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+          const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-          if (bypassCacheData) payload.data[key] = bypassCacheData;
+          if (isPayloadWithData<StoredValue>(bypassPayload)) {
+            const { data } = bypassPayload;
+
+            payload.data[key] = data;
+          }
         }
       }
     }
@@ -118,11 +129,15 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
           return hook(value.value, key);
         }
 
-        const { data: bypassCacheData } = await this.provider[Method.Get]<StoredValue>({ method: Method.Get, key, path: [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-        if (bypassCacheData) return hook(bypassCacheData, key);
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data } = bypassPayload;
 
-        return true;
+          return hook(data, key);
+        }
+
+        return true; // I think(?) this is ok
       };
     };
 
@@ -173,12 +188,14 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
           }
         }
 
-        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: path ?? [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-        if (bypassCacheData) {
-          if (await hook(bypassCacheData, key)) {
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data } = bypassPayload;
+
+          if (await hook(data, key)) {
             payload.data ??= {};
-            payload.data[key] = bypassCacheData;
+            payload.data[key] = data;
           }
         }
 
@@ -189,7 +206,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
       payload.errors = [...payload.errors, ...errors];
     } else {
-      const { data, errors } = await cache[Method.Filter]({
+      const filterPayload = await cache[Method.Filter]({
         method: Method.Filter,
         type,
         data: {},
@@ -198,23 +215,28 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         errors: []
       });
 
-      if (data) {
+      if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(filterPayload)) {
+        const { data } = filterPayload;
         const final: { [key: string]: StoredValue } = {};
 
         for (const [key, val] of Object.entries(data)) {
           if (await this.checkNotExpired(val, key)) {
             final[key] = val.value;
           } else {
-            const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+            const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: path ?? [], errors: [] });
 
-            if (bypassCacheData) final[key] = bypassCacheData;
+            if (isPayloadWithData<StoredValue>(bypassPayload)) {
+              const { data } = bypassPayload;
+
+              final[key] = data;
+            }
           }
         }
 
         payload.data = final;
       }
 
-      payload.errors = [...payload.errors, ...errors];
+      payload.errors = [...payload.errors, ...filterPayload.errors];
     }
 
     return payload;
@@ -236,11 +258,13 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
           }
         }
 
-        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: path ?? [], errors: [] });
 
-        if (bypassCacheData) {
-          if (await hook(bypassCacheData, key)) {
-            payload.data = [key, bypassCacheData];
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data } = bypassPayload;
+
+          if (await hook(data, key)) {
+            payload.data = [key, data];
             return true;
           }
         }
@@ -252,7 +276,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
       payload.errors = [...payload.errors, ...errors];
     } else {
-      const { data, errors } = await cache[Method.Find]({
+      const findPayload = await cache[Method.Find]({
         method: Method.Find,
         type,
         value,
@@ -260,19 +284,24 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         errors: []
       });
 
-      if (data && data[0]) {
+      // the second check is if the key isn't null, which would mean it wasn't found
+      if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(findPayload) && findPayload.data[0] !== null) {
+        const { data } = findPayload;
+
         if (await this.checkNotExpired(data[1], data[0])) {
           payload.data = [data[0], data[1].value];
         } else {
-          const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key: data[0], path: path ?? [], errors: [] });
+          const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key: data[0], path: path ?? [], errors: [] });
 
-          if (bypassCacheData) {
-            payload.data = [data[0], bypassCacheData];
+          if (isPayloadWithData<StoredValue>(bypassPayload)) {
+            const { data: bypassData } = bypassPayload;
+
+            payload.data = [data[0], bypassData];
           }
         }
       }
 
-      payload.errors = [...payload.errors, ...errors];
+      payload.errors = [...payload.errors, ...findPayload.errors];
     }
 
     return payload;
@@ -284,9 +313,16 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
     await this.populateCache();
 
-    const { data, errors } = await cache[Method.Keys]({ method: Method.Keys, errors: [] });
+    const keysPayload = await cache[Method.Keys]({ method: Method.Keys, errors: [] });
 
-    payload.data = data;
+    if (isPayloadWithData(keysPayload)) {
+      const { data } = keysPayload;
+
+      payload.data = data;
+    }
+
+    const { errors } = keysPayload;
+
     payload.errors = [...payload.errors, ...errors];
 
     return payload;
@@ -298,9 +334,16 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
     await this.populateCache();
 
-    const { data, errors } = await cache[Method.Values]({ method: Method.Values, errors: [] });
+    const valuesPayload = await cache[Method.Values]({ method: Method.Values, errors: [] });
 
-    payload.data = data?.map(({ value }) => value);
+    if (isPayloadWithData<CacheMiddleware.Document<StoredValue>[]>(valuesPayload)) {
+      const { data } = valuesPayload;
+
+      payload.data = data.map(({ value }) => value);
+    }
+
+    const { errors } = valuesPayload;
+
     payload.errors = [...payload.errors, ...errors];
 
     return payload;
@@ -322,10 +365,12 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
           return mapped.push(await hook(value.value, key));
         }
 
-        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-        if (bypassCacheData) {
-          mapped.push(await hook(bypassCacheData, key));
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data: bypassData } = bypassPayload;
+
+          mapped.push(await hook(bypassData, key));
         }
 
         return null;
@@ -343,10 +388,12 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
           return mapped.push(getProperty(value.value, path ?? []) as ReturnValue);
         }
 
-        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-        if (bypassCacheData) {
-          mapped.push(getProperty(bypassCacheData, path ?? []) as ReturnValue);
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data: bypassData } = bypassPayload;
+
+          mapped.push(getProperty(bypassData, path ?? []) as ReturnValue);
         }
 
         return null;
@@ -374,16 +421,20 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
     const { keys } = payload;
 
     for (const key of keys) {
-      const { data, errors } = await cache[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+      const getPayload = await cache[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-      payload.errors = [...payload.errors, ...errors];
+      payload.errors = [...payload.errors, ...getPayload.errors];
 
-      if (data && (await this.checkNotExpired(data, key))) {
-        payload.data[key] = data.value;
+      if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(getPayload) && (await this.checkNotExpired(getPayload.data, key))) {
+        payload.data[key] = getPayload.data.value;
       } else {
-        const { data: bypassCacheData } = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+        const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-        if (bypassCacheData) payload.data[key] = bypassCacheData;
+        if (isPayloadWithData<StoredValue>(bypassPayload)) {
+          const { data: bypassData } = bypassPayload;
+
+          payload.data[key] = bypassData;
+        }
       }
     }
 
@@ -540,10 +591,12 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async [Method.Update]<Value = StoredValue>(payload: Payloads.Update<StoredValue, Value>): Promise<Payloads.Update<StoredValue, Value>> {
     const { key, hook } = payload;
     const { provider: cache } = this.context;
-    const { data } = await cache[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
+    const getPayload = await cache[Method.Get]({ method: Method.Get, key, path: [], errors: [] });
 
-    if (data && (await this.checkNotExpired(data, key))) {
-      const newValue = hook(data.value, key);
+    payload.errors = [...payload.errors, ...getPayload.errors];
+
+    if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(getPayload) && (await this.checkNotExpired(getPayload.data, key))) {
+      const newValue = await hook(getPayload.data.value, key);
       const { errors } = await this[Method.Set]({ method: Method.Set, key, value: newValue, path: [], errors: [] });
 
       payload.errors = [...payload.errors, ...errors];
