@@ -16,16 +16,6 @@ export default {
       format: 'es',
       exports: 'named',
       sourcemap: true
-    },
-    {
-      file: './dist/index.umd.js',
-      format: 'umd',
-      name: 'JoshCache',
-      sourcemap: true,
-      globals: {
-        '@joshdb/middleware': 'JoshMiddleware',
-        'catch-exit': 'CatchExit'
-      }
     }
   ],
   external: ['@joshdb/middleware', 'catch-exit'],
