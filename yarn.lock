@@ -456,6 +456,7 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.7
     "@favware/rollup-type-bundler": ^1.0.11
     "@joshdb/provider": 2.0.0-next.d32662f.0
+    "@sapphire/result": ^2.4.1
     "@sapphire/shapeshift": ^3.6.0
     "@vitest/coverage-c8": ^0.23.4
     typedoc: ^0.23.15
@@ -583,6 +584,13 @@ __metadata:
   version: 2.4.0
   resolution: "@sapphire/result@npm:2.4.0"
   checksum: ac4fb15e1375b7d39a60f10acc8afdb710831b8677ec2fed8bb9dc625d8716fbda607ea63c678a4f3b1c7c3c47db25655903401cb5073c3037ebbae56ca9cabc
+  languageName: node
+  linkType: hard
+
+"@sapphire/result@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@sapphire/result@npm:2.4.1"
+  checksum: 622e96f5907d861d4ecdbb8276e3a7a53160e65349601db00974298825b9ed0021bd1472431b833dd4f251e6532e045036364a7fddeec9eac8a267fa7492b62c
   languageName: node
   linkType: hard
 

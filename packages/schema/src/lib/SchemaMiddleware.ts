@@ -1,4 +1,5 @@
 import { ApplyMiddlewareOptions, isPayloadWithData, JoshMiddleware, Method, Payloads, PostProvider, PreProvider } from '@joshdb/provider';
+import { Result } from '@sapphire/result';
 import type { BaseValidator } from '@sapphire/shapeshift';
 
 @ApplyMiddlewareOptions({ name: 'schema' })
@@ -12,15 +13,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Dec, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Dec, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -32,15 +30,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
 
     const { schema } = this.context;
     const { data } = payload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Get, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Get, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -53,16 +48,18 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const { data } = payload;
 
-    for (const value of Object.values(data!)) {
+    for (const value of Object.values(data ?? {})) {
       if (value !== null) {
-        try {
-          schema.parse(value);
-        } catch (error) {
-          payload.errors.push(
-            this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.GetMany, context: { shapeshiftError: error } })
-          );
+        const result = Result.from(() => schema.parse(value));
 
-          return payload;
+        if (result.isErr()) {
+          payload.errors.push(
+            this.error({
+              identifier: SchemaMiddleware.Identifiers.InvalidData,
+              method: Method.GetMany,
+              context: { shapeshiftError: result.unwrapErr() }
+            })
+          );
         }
       }
     }
@@ -79,15 +76,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Inc, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Inc, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -102,15 +96,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Push, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Push, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -125,15 +116,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Math, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Math, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -151,15 +139,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Remove, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Remove, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
@@ -167,22 +152,29 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
 
   @PreProvider()
   public async [Method.Set]<Value = StoredValue>(payload: Payloads.Set<Value>): Promise<Payloads.Set<Value>> {
-    const { key } = payload;
+    const { key, path, value } = payload;
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Set, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Set, context: { shapeshiftError: result.unwrapErr() } })
       );
+    }
 
-      return payload;
+    if (!path.length) {
+      const result = Result.from(() => schema.parse(value));
+
+      if (result.isErr()) {
+        payload.errors.push(
+          this.error({ identifier: SchemaMiddleware.Identifiers.InvalidValue, method: Method.Set, context: { shapeshiftError: result.unwrapErr() } })
+        );
+      }
     }
 
     return payload;
@@ -194,30 +186,33 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
 
     for (const { key, value } of entries) {
+      const valueResult = Result.from(() => schema.parse(value));
+
+      if (valueResult.isErr()) {
+        payload.errors.push(
+          this.error({
+            identifier: SchemaMiddleware.Identifiers.InvalidValue,
+            method: Method.SetMany,
+            context: { shapeshiftError: valueResult.unwrapErr() }
+          })
+        );
+      }
+
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
       if (!isPayloadWithData(getPayload)) continue;
 
       const { data } = getPayload;
+      const dataResult = Result.from(() => schema.parse(data));
 
-      try {
-        schema.parse(data);
-      } catch (error) {
+      if (dataResult.isErr()) {
         payload.errors.push(
-          this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.SetMany, context: { shapeshiftError: error } })
+          this.error({
+            identifier: SchemaMiddleware.Identifiers.InvalidData,
+            method: Method.SetMany,
+            context: { shapeshiftError: dataResult.unwrapErr() }
+          })
         );
-
-        return payload;
-      }
-
-      try {
-        schema.parse(value);
-      } catch (error) {
-        payload.errors.push(
-          this.error({ identifier: SchemaMiddleware.Identifiers.InvalidValue, method: Method.SetMany, context: { shapeshiftError: error } })
-        );
-
-        return payload;
       }
     }
 
@@ -233,15 +228,12 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     if (!isPayloadWithData(getPayload)) return payload;
 
     const { data } = getPayload;
+    const result = Result.from(() => schema.parse(data));
 
-    try {
-      schema.parse(data);
-    } catch (error) {
+    if (result.isErr()) {
       payload.errors.push(
-        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Update, context: { shapeshiftError: error } })
+        this.error({ identifier: SchemaMiddleware.Identifiers.InvalidData, method: Method.Update, context: { shapeshiftError: result.unwrapErr() } })
       );
-
-      return payload;
     }
 
     return payload;
