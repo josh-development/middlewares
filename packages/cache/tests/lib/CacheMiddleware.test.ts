@@ -116,6 +116,19 @@ describe('CacheMiddleware', () => {
       expect(data).toBe(123);
     });
 
+    test('GIVEN ttl enabled w/o ttl timeout THEN returns data', async () => {
+      const noTimeoutCache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true } });
+
+      await noTimeoutCache.init(store);
+      await noTimeoutCache[Method.Set]({ key: 'test:ttl', value: 123, method: Method.Set, path: [], errors: [] });
+
+      await delay(1100);
+
+      const { data } = await noTimeoutCache[Method.Get]({ key: 'test:ttl', method: Method.Get, path: [], errors: [] });
+
+      expect(data).toBe(undefined);
+    });
+
     test('GIVEN ttl enabled w/ expired data THEN returns empty after timeout', async () => {
       await cache[Method.Set]({ key: 'test:ttl', value: 123, method: Method.Set, path: [], errors: [] });
 
