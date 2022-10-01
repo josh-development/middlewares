@@ -25,6 +25,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   public async init(store: JoshMiddlewareStore<StoredValue>) {
     await super.init(store);
     await this.fetchCache();
+
     return this;
   }
 
@@ -91,14 +92,16 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   @PreProvider()
   public async [Method.Entries](payload: Payloads.Entries<StoredValue>): Promise<Payloads.Entries<StoredValue>> {
     const { provider: cache } = this.context;
-    const { data: entries, errors } = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
+    const entries = await cache[Method.Entries]({ method: Method.Entries, errors: [] });
 
-    payload.errors = [...payload.errors, ...errors];
+    payload.errors = [...payload.errors, ...entries.errors];
 
-    if (entries) {
+    if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(entries)) {
+      const { data } = entries;
+
       payload.data ??= {};
 
-      for (const [key, val] of Object.entries(entries)) {
+      for (const [key, val] of Object.entries(data)) {
         if (await this.checkNotExpired(val, key)) {
           payload.data[key] = val.value;
         } else {
@@ -148,7 +151,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
       payload.errors = [...payload.errors, ...errors];
     } else {
       const valueHook = (storedValue: StoredValue) => {
-        const data = getProperty(storedValue, path || []);
+        const data = getProperty(storedValue, path ?? []);
 
         return data === value;
       };
@@ -175,11 +178,12 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   @PreProvider()
   public async [Method.Filter](payload: Payloads.Filter<StoredValue>): Promise<Payloads.Filter<StoredValue>> {
     const { provider: cache } = this.context;
-    const { hook, path, type, value } = payload;
+    const { path, type, value } = payload;
 
     payload.data = {};
 
-    if (hook && isFilterByHookPayload(payload)) {
+    if (isFilterByHookPayload(payload)) {
+      const { hook } = payload;
       const cacheHook = async (value: CacheMiddleware.Document<StoredValue>, key: string) => {
         if (await this.checkNotExpired(value, key)) {
           if (await hook(value.value, key)) {
@@ -217,23 +221,23 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
       if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(filterPayload)) {
         const { data } = filterPayload;
-        const final: { [key: string]: StoredValue } = {};
+        const result: { [key: string]: StoredValue } = {};
 
         for (const [key, val] of Object.entries(data)) {
           if (await this.checkNotExpired(val, key)) {
-            final[key] = val.value;
+            result[key] = val.value;
           } else {
             const bypassPayload = await this.provider[Method.Get]({ method: Method.Get, key, path: path ?? [], errors: [] });
 
             if (isPayloadWithData<StoredValue>(bypassPayload)) {
               const { data } = bypassPayload;
 
-              final[key] = data;
+              result[key] = data;
             }
           }
         }
 
-        payload.data = final;
+        payload.data = result;
       }
 
       payload.errors = [...payload.errors, ...filterPayload.errors];
@@ -247,9 +251,10 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   @PreProvider()
   public async [Method.Find](payload: Payloads.Find<StoredValue>): Promise<Payloads.Find<StoredValue>> {
     const { provider: cache } = this.context;
-    const { hook, path, type, value } = payload;
+    const { path, type, value } = payload;
 
-    if (hook && isFindByHookPayload(payload)) {
+    if (isFindByHookPayload(payload)) {
+      const { hook } = payload;
       const cacheHook = async (value: CacheMiddleware.Document<StoredValue>, key: string) => {
         if (await this.checkNotExpired(value, key)) {
           if (await hook(value.value, key)) {
@@ -356,9 +361,10 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
     payload: Payloads.Map<StoredValue, ReturnValue>
   ): Promise<Payloads.Map<StoredValue, ReturnValue>> {
     const { provider: cache } = this.context;
-    const { hook, path, type } = payload;
+    const { path, type } = payload;
 
-    if (hook && isMapByHookPayload(payload)) {
+    if (isMapByHookPayload(payload)) {
+      const { hook } = payload;
       const mapped: ReturnValue[] = [];
       const cacheHook = async (value: CacheMiddleware.Document<StoredValue>, key: string) => {
         if (await this.checkNotExpired(value, key)) {
@@ -607,7 +613,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
   private async checkNotExpired(data: CacheMiddleware.Document<unknown>, key: string) {
     if (!this.context.ttl || !this.context.ttl.enabled) return true;
-    if (new Date().getTime() - new Date(data.created).getTime() <= (this.context.ttl.timeout || 5000)) return true;
+    if (new Date().getTime() - new Date(data.created).getTime() <= (this.context.ttl.timeout ?? 5000)) return true;
 
     const { provider: cache } = this.context;
 
@@ -644,7 +650,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   }
 
   private startPolling() {
-    this.pollingInterval = setInterval(() => this.populateCache(), this.context.polling?.interval || 10000);
+    this.pollingInterval = setInterval(() => this.populateCache(), this.context.polling?.interval ?? 10000);
     addExitCallback(() => {
       clearInterval(this.pollingInterval);
       this.pollingInterval = undefined;
@@ -654,16 +660,44 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
 export namespace CacheMiddleware {
   export interface Document<StoredValue> {
+    /**
+     * The type of value stored in the cache
+     * @since 1.0.0
+     */
     value: StoredValue;
+
+    /**
+     * The serialized time the document was stored in cache
+     * @since 1.0.0
+     */
     created: string;
   }
   export interface ContextData<StoredValue> {
+    /**
+     * The JoshProvider to use for cache
+     * @since 1.0.0
+     */
     provider: JoshProvider<Document<StoredValue>>;
+
+    /**
+     * When true, fetches all entries from the provider on startup
+     * @since 1.0.0
+     */
     fetchAll?: boolean;
+
+    /**
+     * When enabled fetches from the cache provider on a set interval
+     * @since 1.0.0
+     */
     polling?: {
       enabled: boolean;
       interval?: number;
     };
+
+    /**
+     * When enabled invalidates entries from the cache provider when they expire
+     * @since 1.0.0
+     */
     ttl?: {
       enabled: boolean;
       timeout?: number;
