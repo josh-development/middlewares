@@ -23,9 +23,7 @@ describe('CacheMiddleware', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const cache = new CacheMiddleware<unknown>({
       provider: new MapProvider(),
-      polling: {
-        enabled: true
-      }
+      polling: {}
     });
 
     beforeAll(async () => {
@@ -45,9 +43,7 @@ describe('CacheMiddleware', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const cache = new CacheMiddleware<unknown>({
       provider: new MapProvider(),
-      polling: {
-        enabled: true
-      }
+      polling: {}
     });
 
     beforeAll(async () => {
@@ -102,7 +98,7 @@ describe('CacheMiddleware', () => {
 
   describe('can ttl', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
-    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });
+    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { timeout: 100 } });
 
     beforeAll(async () => {
       await cache.init(store);
@@ -117,7 +113,7 @@ describe('CacheMiddleware', () => {
     });
 
     test('GIVEN ttl enabled w/o ttl timeout THEN returns data', async () => {
-      const noTimeoutCache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true } });
+      const noTimeoutCache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: {} });
 
       await noTimeoutCache.init(store);
       await noTimeoutCache[Method.Set]({ key: 'test:ttl', value: 123, method: Method.Set, path: [], errors: [] });
@@ -142,7 +138,7 @@ describe('CacheMiddleware', () => {
 
   describe('can manipulate data', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
-    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { enabled: true, timeout: 100 } });
+    const cache = new CacheMiddleware<unknown>({ provider: new MapProvider(), ttl: { timeout: 100 } });
 
     beforeAll(async () => {
       await cache.init(store);
