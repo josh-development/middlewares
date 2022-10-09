@@ -237,6 +237,39 @@ describe('TransformMiddleware', () => {
       });
     });
 
+    describe(Method.Each, () => {
+      test('GIVEN provider w/ data THEN middleware can iterate over each value', async () => {
+        await store.provider[Method.SetMany]({
+          method: Method.SetMany,
+          errors: [],
+          entries: [
+            { key: 'key', path: [], value: '1' },
+            { key: 'anotherKey', path: [], value: '2' }
+          ],
+          overwrite: false
+        });
+
+        const getManyBefore = await store.provider[Method.GetMany]({ method: Method.GetMany, errors: [], keys: ['key', 'anotherKey'] });
+
+        expect(Object.entries(getManyBefore.data!)).toContainEqual(['key', '1']);
+        expect(Object.entries(getManyBefore.data!)).toContainEqual(['anotherKey', '2']);
+
+        const v: any = {};
+        const payload = await transform[Method.Each]({
+          method: Method.Each,
+          errors: [],
+          hook: (value, key) => (v[key] = value)
+        });
+
+        const { method, trigger, errors } = payload;
+
+        expect(method).toBe(Method.Each);
+        expect(trigger).toBeUndefined();
+        expect(errors).toStrictEqual([]);
+        expect(v).toStrictEqual({ key: 1, anotherKey: 2 });
+      });
+    });
+
     describe(Method.Ensure, () => {
       test('GIVEN provider w/ data THEN middleware cannot ensure data', async () => {
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: 1 });
