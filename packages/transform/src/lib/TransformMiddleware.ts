@@ -173,81 +173,56 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
     return payload;
   }
-  // POST PROVIDER
 
+  // ... @PostProvider(), this gets called after the provider is called (we will use the after hook)
   @PostProvider()
-  public async [Method.Entries]<Value = StoredValue>(payload: Payloads.Entries<Value>): Promise<Payloads.Entries<Value>> {
-    payload.data ??= {};
+  public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
+    const { key, path } = payload;
 
-    const { data } = await this.provider[Method.Entries]({ method: Method.Entries, errors: [] });
-    const { after } = this.context;
+    await this.setBefore(key, path);
 
-    for (const [key, value] of Object.entries(data!)) {
-      payload.data[key] = (await after(value as StoredValue, key, null)) as Value;
-    }
+    await this.provider[Method.Dec](payload);
+
+    await this.setAfter(key, path);
 
     return payload;
   }
 
-  public async [Method.Every](payload: Payloads.Every.ByHook<StoredValue>): Promise<Payloads.Every.ByHook<StoredValue>>;
+  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payloads.Every.ByHook<ReturnValue>): Promise<Payloads.Every.ByHook<ReturnValue>>;
   public async [Method.Every](payload: Payloads.Every.ByValue): Promise<Payloads.Every.ByValue>;
   @PostProvider()
-  public async [Method.Every](payload: Payloads.Every<StoredValue>): Promise<Payloads.Every<StoredValue>> {
-    const { type, hook, path, value } = payload;
-    const { data } = await this.provider[Method.Every]({ method: Method.Every, errors: [], type, hook, path, value });
+  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payloads.Every<ReturnValue>): Promise<Payloads.Every<ReturnValue>> {
+    const { before, after } = this.context;
 
-    payload.data = data;
-    return payload;
-  }
+    if (isEveryByHookPayload(payload)) {
+      const hook = async (value: AfterValue, key: string) => {
+        return payload.hook!((await after(value, key, null)) as ReturnValue, key);
+      };
 
-  public async [Method.Filter](payload: Payloads.Filter.ByHook<StoredValue>): Promise<Payloads.Filter.ByHook<StoredValue>>;
-  public async [Method.Filter](payload: Payloads.Filter.ByValue<StoredValue>): Promise<Payloads.Filter.ByValue<StoredValue>>;
-  @PostProvider()
-  public async [Method.Filter](payload: Payloads.Filter<StoredValue>): Promise<Payloads.Filter<StoredValue>> {
-    payload.data ??= {};
+      const { data } = await this.provider[Method.Entries]({ method: Method.Entries, errors: [] });
 
-    const { type, hook, path, value } = payload;
-    const { after, before } = this.context;
-    const { data } = await this.provider[Method.Filter]({
-      method: Method.Filter,
-      errors: [],
-      type,
-      hook,
-      path,
-      value: (await before(value as any, null, path ?? null)) as Primitive
-    });
+      for (const [key, value] of Object.entries(data!)) {
+        if (!(await hook(value as unknown as AfterValue, key))) {
+          payload.data = false;
+          break;
+        }
 
-    for (const [key, value] of Object.entries(data!)) {
-      payload.data[key] = await after(value, key, path ?? null);
-    }
-
-    return payload;
-  }
-
-  public async [Method.Find](payload: Payloads.Find.ByHook<StoredValue>): Promise<Payloads.Find.ByHook<StoredValue>>;
-  public async [Method.Find](payload: Payloads.Find.ByValue<StoredValue>): Promise<Payloads.Find.ByValue<StoredValue>>;
-  @PostProvider()
-  public async [Method.Find](payload: Payloads.Find<StoredValue>): Promise<Payloads.Find<StoredValue>> {
-    // payload.data ??= [] as unknown as [null, null] | [string, StoredValue] | undefined;
-
-    const { type, hook, path, value } = payload;
-    const { after, before } = this.context;
-    const { data } = await this.provider[Method.Find]({
-      method: Method.Find,
-      errors: [],
-      type,
-      hook,
-      path,
-      value: ((await before(value as StoredValue, null, path ?? null)) as Primitive) ?? null
-    });
-
-    for (const [key, value] of Object.entries(data!)) {
-      if (!value) {
-        payload.data = [null, null];
-        continue;
+        payload.data = true;
       }
+    } else if (isEveryByValuePayload(payload)) {
+      const { path } = payload;
+      const { data } = await this.provider[Method.Entries]({ method: Method.Entries, errors: [] });
 
-      payload.data = [key, await after(value as StoredValue, key, path ?? null)];
+      for (const [key, value] of Object.entries(data!)) {
+        const v = await after(value, key, path ?? null);
+
+        if (!(v === payload.value && before(v, key, null) === value)) {
+          payload.data = false;
+          break;
+        }
+
+        payload.data = true;
+      }
     }
 
     return payload;
