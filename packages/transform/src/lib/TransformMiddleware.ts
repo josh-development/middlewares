@@ -559,6 +559,25 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
     return this.provider.setMetadata(key, paths);
   }
+
+  /**
+   * Checks the data inside the database, if the data has not been transformed yet, it will be transformed if `autoTransform` is true.
+   */
+  private async check(key: string, path: string[] = []): Promise<void> {
+    const { autoTransform, before } = this.context;
+    const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path });
+
+    if ((await before(data as BeforeValue, null, null)) !== data) {
+      if (autoTransform) await this.setBefore(key, path);
+      else {
+        process.emitWarning(
+          `The data at "${key}"${
+            path.length ? `.${path.join('.')}` : ''
+          } has not been transformed yet, please enable "autoTransform" to transform the data automatically or set() the data at the key to transform it.`
+        );
+      }
+    }
+  }
 }
 
 export namespace TransformMiddleware {
