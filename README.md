@@ -13,5 +13,6 @@
 
 [![npm](https://img.shields.io/npm/v/@joshdb/auto-ensure?color=crimson&logo=npm&style=flat-square&label=@joshdb/auto-ensure)](https://www.npmjs.com/package/@joshdb/auto-ensure)
 [![npm](https://img.shields.io/npm/v/@joshdb/schema?color=crimson&logo=npm&style=flat-square&label=@joshdb/schema)](https://www.npmjs.com/package/@joshdb/schema)
+[![npm](https://img.shields.io/npm/v/@joshdb/cache?color=crimson&logo=npm&style=flat-square&label=@joshdb/cache)](https://www.npmjs.com/package/@joshdb/cache)
 
 </div>
