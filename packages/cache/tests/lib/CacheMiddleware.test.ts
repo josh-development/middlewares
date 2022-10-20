@@ -30,6 +30,27 @@ describe('CacheMiddleware', () => {
       await cache.init(store);
     });
 
+    test('GIVEN cache w/o data THEN fetches version', async () => {
+      expect(await cache.fetchVersion()).toBeTypeOf('object');
+    });
+
+    test('GIVEN cache w/ data THEN fetches version', async () => {
+      await cache[Method.Set]({ method: Method.Set, key: 'test', value: 'test', path: [], errors: [] });
+      expect(await cache.fetchVersion()).toBeTypeOf('object');
+    });
+  });
+
+  describe('can poll', () => {
+    const store = new JoshMiddlewareStore({ provider: new MapProvider() });
+    const cache = new CacheMiddleware<unknown>({
+      provider: new MapProvider(),
+      polling: {}
+    });
+
+    beforeAll(async () => {
+      await cache.init(store);
+    });
+
     test('GIVEN polling enabled THEN starts polling', () => {
       expect(cache.pollingInterval).toBeDefined();
     });
