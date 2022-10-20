@@ -300,7 +300,6 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
         errors: []
       });
 
-      // the second check is if the key isn't null, which would mean it wasn't found
       if (isPayloadWithData<CacheMiddleware.Document<StoredValue>>(findPayload) && findPayload.data[0] !== null) {
         const [key, value] = findPayload.data;
 
@@ -686,6 +685,7 @@ export namespace CacheMiddleware {
      */
     interval?: number;
   }
+
   export interface TTLOptions {
     /**
      * At what time interval to fetch all data from the provider
@@ -694,6 +694,7 @@ export namespace CacheMiddleware {
      */
     timeout?: number;
   }
+
   export interface Document<StoredValue> {
     /**
      * The type of value stored in the cache
@@ -707,6 +708,7 @@ export namespace CacheMiddleware {
      */
     created: string;
   }
+
   export interface ContextData<StoredValue> {
     /**
      * The JoshProvider to use for cache
