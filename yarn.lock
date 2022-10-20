@@ -400,7 +400,7 @@ __metadata:
     "@vitest/coverage-c8": ^0.24.3
     catch-exit: ^1.2.2
     typedoc: ^0.23.16
-    typedoc-json-parser: ^6.0.0
+    typedoc-json-parser: ^6.0.1
     vitest: ^0.24.3
   languageName: unknown
   linkType: soft
@@ -4888,7 +4888,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-json-parser@npm:^6.0.0":
+"typedoc-json-parser@npm:^6.0.0, typedoc-json-parser@npm:^6.0.1":
   version: 6.0.1
   resolution: "typedoc-json-parser@npm:6.0.1"
   dependencies:
