@@ -1,0 +1,56 @@
+{
+  "name": "@joshdb/cache",
+  "version": "1.0.0",
+  "description": "A cache middleware for Josh",
+  "author": "@joshdb",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "test": "vitest run",
+    "docs": "typedoc-json-parser",
+    "lint": "eslint src tests --ext ts --fix -c ../../.eslintrc",
+    "build": "rollup -c rollup.config.ts",
+    "prepack": "rollup-type-bundler",
+    "bump": "cliff-jumper",
+    "check-update": "cliff-jumper --dry-run"
+  },
+  "dependencies": {
+    "@joshdb/provider": "2.0.0-next.aff5bcd.0",
+    "catch-exit": "^1.2.2"
+  },
+  "devDependencies": {
+    "@favware/cliff-jumper": "^1.8.8",
+    "@favware/rollup-type-bundler": "^1.0.11",
+    "@vitest/coverage-c8": "^0.24.3",
+    "typedoc": "^0.23.16",
+    "typedoc-json-parser": "^6.0.1",
+    "vitest": "^0.24.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josh-development/middlewares.git"
+  },
+  "files": [
+    "dist",
+    "!dist/*.tsbuildinfo"
+  ],
+  "engines": {
+    "node": ">=16.6.0",
+    "npm": ">=7"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/josh-development/middlewares/issues"
+  },
+  "homepage": "https://josh.evie.dev",
+  "publishConfig": {
+    "access": "public"
+  }
+}
