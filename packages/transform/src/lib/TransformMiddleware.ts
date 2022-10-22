@@ -174,7 +174,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     return payload;
   }
 
-  // ... @PostProvider(), this gets called after the provider is called (we will use the after hook)
   @PostProvider()
   public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
     const { key, path } = payload;
@@ -560,9 +559,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     return this.provider.setMetadata(key, paths);
   }
 
-  /**
-   * Checks the data inside the database, if the data has not been transformed yet, it will be transformed if `autoTransform` is true.
-   */
   private async check(key: string, path: string[] = []): Promise<void> {
     const { autoTransform, before } = this.context;
     const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path });
