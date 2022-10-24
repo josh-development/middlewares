@@ -29,8 +29,8 @@
     "@favware/cliff-jumper": "^1.8.8",
     "@favware/rollup-type-bundler": "^2.0.0",
     "@vitest/coverage-c8": "^0.24.3",
-    "typedoc": "^0.23.16",
-    "typedoc-json-parser": "^6.0.1",
+    "typedoc": "^0.23.18",
+    "typedoc-json-parser": "^6.0.2",
     "vitest": "^0.24.3"
   },
   "repository": {
