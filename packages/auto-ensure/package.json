@@ -32,7 +32,7 @@
     "@favware/rollup-type-bundler": "^2.0.0",
     "@vitest/coverage-c8": "^0.24.3",
     "typedoc": "^0.23.19",
-    "typedoc-json-parser": "^6.0.2",
+    "typedoc-json-parser": "^7.0.1",
     "vitest": "^0.24.3"
   },
   "repository": {
