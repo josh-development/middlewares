@@ -22,7 +22,7 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/provider": "2.0.0-next.aff5bcd.0",
+    "@joshdb/provider": "2.0.0-next.f40a41e.0",
     "catch-exit": "^1.2.2"
   },
   "devDependencies": {
