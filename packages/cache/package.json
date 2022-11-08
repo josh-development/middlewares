@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A cache middleware for Josh",
   "author": "@joshdb",
+  "contributors": [
+    "DanCodes <dan@dancodes.online> (https://dancodes.online/)"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
