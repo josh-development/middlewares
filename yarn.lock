@@ -394,10 +394,10 @@ __metadata:
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/provider": 2.0.0-next.d32662f.0
     "@sapphire/utilities": ^3.11.0
-    "@vitest/coverage-c8": ^0.25.0
+    "@vitest/coverage-c8": ^0.25.1
     typedoc: ^0.23.20
     typedoc-json-parser: ^7.0.1
-    vitest: ^0.25.0
+    vitest: ^0.25.1
   languageName: unknown
   linkType: soft
 
@@ -408,11 +408,11 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.8
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/provider": 2.0.0-next.aff5bcd.0
-    "@vitest/coverage-c8": ^0.25.0
+    "@vitest/coverage-c8": ^0.25.1
     catch-exit: ^1.2.2
     typedoc: ^0.23.20
     typedoc-json-parser: ^7.0.1
-    vitest: ^0.25.0
+    vitest: ^0.25.1
   languageName: unknown
   linkType: soft
 
@@ -456,10 +456,10 @@ __metadata:
     "@joshdb/provider": 2.0.0-next.d32662f.0
     "@sapphire/result": ^2.6.0
     "@sapphire/shapeshift": ^3.7.0
-    "@vitest/coverage-c8": ^0.25.0
+    "@vitest/coverage-c8": ^0.25.1
     typedoc: ^0.23.20
     typedoc-json-parser: ^7.0.1
-    vitest: ^0.25.0
+    vitest: ^0.25.1
   languageName: unknown
   linkType: soft
 
@@ -988,13 +988,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-c8@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "@vitest/coverage-c8@npm:0.25.0"
+"@vitest/coverage-c8@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "@vitest/coverage-c8@npm:0.25.1"
   dependencies:
     c8: ^7.12.0
-    vitest: 0.25.0
-  checksum: 6885225f899964a8523feb0a1f163760f277d5811ccfe0d7165d2a2d15876a566b255ce6f19b81a7e67e64e0a3793134bfeb4f48c31e1620cde0d44988d3d27e
+    vitest: 0.25.1
+  checksum: 9da45632c010b566028ba23e514e8f27570798aa81fbee2524edf400d27d9cc083e21aa13adffd015f7c3d1c1b1f357c7db6da15f45e27fbf7e0aa8a17eb8453
   languageName: node
   linkType: hard
 
@@ -4411,7 +4411,7 @@ __metadata:
     "@types/prompts": ^2
     "@typescript-eslint/eslint-plugin": ^5.42.1
     "@typescript-eslint/parser": ^5.42.1
-    "@vitest/coverage-c8": ^0.25.0
+    "@vitest/coverage-c8": ^0.25.1
     colorette: ^2.0.19
     eslint: ^8.27.0
     eslint-config-prettier: ^8.5.0
@@ -4428,7 +4428,7 @@ __metadata:
     tslib: ^2.4.1
     turbo: ^1.6.3
     typescript: ^4.8.4
-    vitest: ^0.25.0
+    vitest: ^0.25.1
   languageName: unknown
   linkType: soft
 
@@ -5289,9 +5289,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:0.25.0, vitest@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "vitest@npm:0.25.0"
+"vitest@npm:0.25.1, vitest@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "vitest@npm:0.25.1"
   dependencies:
     "@types/chai": ^4.3.3
     "@types/chai-subset": ^1.3.3
@@ -5326,7 +5326,7 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: cecca44eda6021be1da8510c4f4d72dc165bd9c1e4cb688b0ab62929edcbd73a7429329b2af5a2242c1c08bc2fe015a51e9859c92334a7ab3a326faf5cdc5d41
+  checksum: 9f0bfc8a55fe71722a63c4c85d6d41a1ac08b2d5fb6bfeafbed4af1364e53e7a94d6768aa49c4c5940d863726a6a06f11ff9da05de40ef8a1bc2236e209246a9
   languageName: node
   linkType: hard
 
