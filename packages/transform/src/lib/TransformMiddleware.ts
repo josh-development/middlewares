@@ -19,6 +19,7 @@ import { Awaitable, objectToTuples } from '@sapphire/utilities';
 
 @ApplyMiddlewareOptions({ name: 'transform' })
 export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> extends JoshMiddleware<
+  // @ts-expect-error 2322 - 'ContextData<BeforeValue, AfterValue>' has properties in common with type 'Context', ts thinks they are incompatible
   TransformMiddleware.ContextData<BeforeValue, AfterValue>,
   AfterValue
 > {
@@ -175,22 +176,31 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   }
 
   @PostProvider()
-  public async [Method.Dec](payload: Payloads.Dec): Promise<Payloads.Dec> {
-    const { key, path } = payload;
+  public async [Method.Dec](payload: Payload.Dec): Promise<Payload.Dec> {
+    const { after, before } = this.context;
+    const { key } = payload;
+    const getBefore = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
+    const beforeValue = after(getBefore.data!, key, null);
 
-    await this.setBefore(key, path);
-
+    await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: beforeValue });
     await this.provider[Method.Dec](payload);
 
-    await this.setAfter(key, path);
+    const getAfter = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
+    const afterValue = before(getAfter.data as BeforeValue, key, null);
+
+    await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: afterValue });
+
+    if (this.getChangedKeys(getBefore.data, getAfter.data).length) {
+      await this.updateMetadataPath(key, this.getChangedKeys(getBefore.data, getAfter.data));
+    }
 
     return payload;
   }
 
-  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payloads.Every.ByHook<ReturnValue>): Promise<Payloads.Every.ByHook<ReturnValue>>;
-  public async [Method.Every](payload: Payloads.Every.ByValue): Promise<Payloads.Every.ByValue>;
+  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every.ByHook<ReturnValue>): Promise<Payload.Every.ByHook<ReturnValue>>;
+  public async [Method.Every](payload: Payload.Every.ByValue): Promise<Payload.Every.ByValue>;
   @PostProvider()
-  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payloads.Every<ReturnValue>): Promise<Payloads.Every<ReturnValue>> {
+  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every<ReturnValue>): Promise<Payload.Every<ReturnValue>> {
     const { before, after } = this.context;
 
     if (isEveryByHookPayload(payload)) {
@@ -559,20 +569,57 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     return this.provider.setMetadata(key, paths);
   }
 
-  private async check(key: string, path: string[] = []): Promise<void> {
-    const { autoTransform, before } = this.context;
-    const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path });
+  private getChangedKeys(before: unknown, after: unknown): (string | string[])[] {
+    const beforeKeys = this.objectPathKeys(before);
+    const afterKeys = this.objectPathKeys(after);
+    const keys = [...beforeKeys, ...afterKeys].filter((k) => !beforeKeys.includes(k) || !afterKeys.includes(k));
 
-    if ((await before(data as BeforeValue, null, null)) !== data) {
-      if (autoTransform) await this.setBefore(key, path);
-      else {
-        process.emitWarning(
-          `The data at "${key}"${
-            path.length ? `.${path.join('.')}` : ''
-          } has not been transformed yet, please enable "autoTransform" to transform the data automatically or set() the data at the key to transform it.`
-        );
-      }
+    return keys;
+  }
+
+  private async isTransformed(key: string, path?: string[]) {
+    const metadata = this.provider.getMetadata(key) as (string | string[])[];
+
+    if (!Array.isArray(metadata)) return false;
+    if (!path) {
+      const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
+
+      return this.objectPathKeys(data!).every((k) => {
+        if (Array.isArray(k)) {
+          return metadata.some((m) => {
+            if (Array.isArray(m)) return m.every((v, i) => v === k[i]);
+            return m === k[0];
+          });
+        }
+
+        return metadata.some((m) => m[0] === k);
+      });
     }
+
+    return metadata.some((m) => {
+      if (Array.isArray(m)) return arrayStrictEquals(m, path);
+      return m === path[0];
+    });
+  }
+
+  private async updateMetadataPath(key: string, path: (string | string[])[]) {
+    const metadata = this.provider.getMetadata(key) as (string | string[])[];
+
+    if (!Array.isArray(metadata)) return;
+
+    const newMetadata = metadata.filter((m) => {
+      if (Array.isArray(m)) {
+        return !path.some((p) => {
+          if (Array.isArray(p)) return arrayStrictEquals(m, p);
+          return m[0] === p;
+        });
+      }
+
+      return !path.some((p) => m === p[0]);
+    });
+
+    if (newMetadata.length === 0) await this.provider.deleteMetadata(key);
+    else await this.provider.setMetadata(key, newMetadata);
   }
 }
 

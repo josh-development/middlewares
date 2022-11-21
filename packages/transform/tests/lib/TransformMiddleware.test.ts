@@ -181,6 +181,17 @@ describe('TransformMiddleware', () => {
       await store.provider[Method.Clear]({ method: Method.Clear, errors: [] });
     });
 
+    afterEach(async () => {
+      const keys = (await store.provider[Method.Keys]({ method: Method.Keys, errors: [] })).data;
+
+      for (const key of keys!) {
+        const value = (await store.provider.getMetadata(key)) as (string | string[])[];
+        const { data } = await store.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
+
+        if (value === data) return console.log(`value === data for "${key}", please fix`);
+      }
+    });
+
     describe(Method.Dec, () => {
       test('GIVEN provider w/ data THEN middleware can decrease by 1', async () => {
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: '2' });
