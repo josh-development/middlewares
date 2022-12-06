@@ -357,7 +357,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
           } has not been transformed yet, please enable "autoTransform" to transform the data automatically or set() the data at the key to transform it.`
         );
       }
-    }
 
     return payload as unknown as Payload.Get<ReturnValue>;
   }
@@ -578,48 +577,49 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   }
 
   private async isTransformed(key: string, path?: string[]) {
-    const metadata = this.provider.getMetadata(key) as (string | string[])[];
+    let metadata = this.provider.getMetadata(key) as (string | string[])[];
 
     if (!Array.isArray(metadata)) return false;
+    metadata = metadata.map((k) => (Array.isArray(k) ? k.join('.') : k));
     if (!path) {
       const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
+      const dataKeys = this.objectPathKeys(data!).map((k) => (Array.isArray(k) ? k.join('.') : k));
 
-      return this.objectPathKeys(data!).every((k) => {
-        if (Array.isArray(k)) {
-          return metadata.some((m) => {
-            if (Array.isArray(m)) return m.every((v, i) => v === k[i]);
-            return m === k[0];
-          });
-        }
-
-        return metadata.some((m) => m[0] === k);
-      });
+      return dataKeys.every((k) => metadata.includes(k));
     }
 
-    return metadata.some((m) => {
-      if (Array.isArray(m)) return arrayStrictEquals(m, path);
-      return m === path[0];
+    return metadata.some((m) => m === path[0]);
+  }
+
+  private mergeMetadataPaths(a: (string | string[])[], b: (string | string[])[]) {
+    a = a.map((k) => (Array.isArray(k) ? k.join('.') : k));
+    b = b.map((k) => (Array.isArray(k) ? k.join('.') : k));
+
+    const paths = [...a, ...b];
+
+    return paths.filter((m, i) => {
+      if (m === '0') return false;
+
+      return !paths.some((p, j) => {
+        if (Array.isArray(p)) return m === p[0] && i !== j;
+        return m === p && i !== j && !(p === '0');
+      });
     });
   }
 
-  private async updateMetadataPath(key: string, path: (string | string[])[]) {
+  private async updateMetadataPath(key: string, newPath: (string | string[])[]) {
     const metadata = this.provider.getMetadata(key) as (string | string[])[];
 
-    if (!Array.isArray(metadata)) return;
+    if (newPath.length === 0) newPath = ['0'];
+    if (metadata === undefined || newPath[0] === '0') return this.provider.setMetadata(key, newPath);
 
-    const newMetadata = metadata.filter((m) => {
-      if (Array.isArray(m)) {
-        return !path.some((p) => {
-          if (Array.isArray(p)) return arrayStrictEquals(m, p);
-          return m[0] === p;
-        });
-      }
+    const diff = newPath.filter((x) => x !== '0' && !metadata.includes(x));
 
-      return !path.some((p) => m === p[0]);
-    });
+    if (diff.length === 0) return;
 
-    if (newMetadata.length === 0) await this.provider.deleteMetadata(key);
-    else await this.provider.setMetadata(key, newMetadata);
+    const paths = this.mergeMetadataPaths(metadata, diff);
+
+    return this.provider.setMetadata(key, paths);
   }
 }
 
