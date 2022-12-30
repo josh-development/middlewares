@@ -527,7 +527,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.8
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.f40a41e.0
+    "@joshdb/provider": 2.0.0-next.1a10c01.0
     "@sapphire/utilities": ^3.11.0
     "@vitest/coverage-c8": ^0.25.1
     typedoc: ^0.23.20
@@ -542,7 +542,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^1.8.8
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.f40a41e.0
+    "@joshdb/provider": 2.0.0-next.1a10c01.0
     "@vitest/coverage-c8": ^0.25.1
     catch-exit: ^1.2.2
     typedoc: ^0.23.20
@@ -562,6 +562,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:2.0.0-next.1a10c01.0":
+  version: 2.0.0-next.1a10c01.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.1a10c01.0"
+  dependencies:
+    "@sapphire/utilities": ^3.11.0
+    reflect-metadata: ^0.1.13
+  checksum: 807d8013b765a12e3272051dec9fc4fdf311f84a55f1d247dd97d7fb1d452c1b33f1729f4fb516c1f0f7d0e6a26532134fb192425067f45e714ea9ae46b2b7db
+  languageName: node
+  linkType: hard
+
 "@joshdb/provider@npm:2.0.0-next.d32662f.0":
   version: 2.0.0-next.d32662f.0
   resolution: "@joshdb/provider@npm:2.0.0-next.d32662f.0"
@@ -572,23 +582,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.f40a41e.0":
-  version: 2.0.0-next.f40a41e.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.f40a41e.0"
-  dependencies:
-    "@sapphire/utilities": ^3.11.0
-    reflect-metadata: ^0.1.13
-  checksum: 33297b6e89deb769f7f626f1427bbee3a71943595a6dcd07c8eaa49817b2fd271cb097a7f75dfbbe2f7fb0c36007de4a460fa73aedbdde69ceaafb480a1c6ae8
-  languageName: node
-  linkType: hard
-
 "@joshdb/schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": ^1.8.8
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.f40a41e.0
+    "@joshdb/provider": 2.0.0-next.1a10c01.0
     "@sapphire/result": ^2.6.0
     "@sapphire/shapeshift": ^3.8.1
     "@vitest/coverage-c8": ^0.25.1
