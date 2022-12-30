@@ -567,14 +567,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/map@npm:1.1.0-next.a5e5fa5.0":
-  version: 1.1.0-next.a5e5fa5.0
-  resolution: "@joshdb/map@npm:1.1.0-next.a5e5fa5.0"
+"@joshdb/map@npm:1.1.0-next.98f68cf.0":
+  version: 1.1.0-next.98f68cf.0
+  resolution: "@joshdb/map@npm:1.1.0-next.98f68cf.0"
   dependencies:
-    "@joshdb/provider": 2.0.0-next.d32662f.0
-    "@sapphire/utilities": ^3.9.3
-    property-helpers: ^1.1.0
-  checksum: d5137b3f3818ffd2e8613a9308a8802df2f8c406067ba33d217010974e341f768a7d023f114612b57ca0a30abd409ed19381e5b77841f33c65ec0e0866f86203
+    "@joshdb/provider": 2.0.0-next.24b745c.0
+    "@joshdb/serialize": 1.1.0-next.24b745c.0
+    "@sapphire/utilities": ^3.11.0
+    property-helpers: ^2.0.0
+  checksum: 9f19463289768d076dc6eb4f3a631c4eb6857194be0e871cccaf95c63fe0d08c6f5022a628f51f5b4d402396809bcb37fac481558380a9e2e83ec555dc797626
   languageName: node
   linkType: hard
 
@@ -588,13 +589,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.d32662f.0":
-  version: 2.0.0-next.d32662f.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.d32662f.0"
+"@joshdb/provider@npm:2.0.0-next.24b745c.0":
+  version: 2.0.0-next.24b745c.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.24b745c.0"
   dependencies:
-    "@sapphire/utilities": ^3.9.3
+    "@sapphire/utilities": ^3.11.0
     reflect-metadata: ^0.1.13
-  checksum: 2e1b84266f8b50ae2ee68af14d91df6a427ae42ff8058671ec4e20e16040b5cae05369996d20a77e93b722dd2315c1743e0360e1896b6b76381e124b71699a38
+  checksum: ccc33f7f4d0b4c42a67553198fb42ae48753fcf96b45cac4adadd0e0b0ac3471d0448c2c410733dd7684f51036e59263046e31b9f80c7f65d7fdc65cdc42f099
   languageName: node
   linkType: hard
 
@@ -613,6 +614,13 @@ __metadata:
     vitest: ^0.25.1
   languageName: unknown
   linkType: soft
+
+"@joshdb/serialize@npm:1.1.0-next.24b745c.0":
+  version: 1.1.0-next.24b745c.0
+  resolution: "@joshdb/serialize@npm:1.1.0-next.24b745c.0"
+  checksum: ed8ecbb8af1782e4ec514fb27adb7b0d62615ae36dd1037be5ee569c28cd462955baff26bf8c7fa43672f804434c6b2a732904da8709917634373709dd49a073
+  languageName: node
+  linkType: hard
 
 "@jridgewell/resolve-uri@npm:3.1.0, @jridgewell/resolve-uri@npm:^3.0.3":
   version: 3.1.0
@@ -772,7 +780,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:3.11.0, @sapphire/utilities@npm:^3.11.0, @sapphire/utilities@npm:^3.9.3":
+"@sapphire/utilities@npm:3.11.0, @sapphire/utilities@npm:^3.11.0":
   version: 3.11.0
   resolution: "@sapphire/utilities@npm:3.11.0"
   checksum: 3c8521038b8879524e8114f39eefc8b3b06cf825995f709684238b5cb14bd7df06d232a26a88f79160df290a66f9aa3133f5ce4ff8e2398033db9f301ad31e0d
@@ -4071,10 +4079,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"property-helpers@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "property-helpers@npm:1.1.0"
-  checksum: c49de69e85a6611fed22cf5368c649e73c33bc00564be1ccdff500b366f239eab081b3a1afd08e47642dd97d64fbb172fe9fcf6aa01022aeb902f8164d7d295b
+"property-helpers@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "property-helpers@npm:2.0.0"
+  checksum: add616b9c4c555315089dcf7259f16614939b94bec37cc3ce4dae135180936dbaa984ada88b769670329b1f06abfbf36a4cdde8e5cf15b3553cbc81664cf11a6
   languageName: node
   linkType: hard
 
@@ -4372,7 +4380,7 @@ __metadata:
     "@favware/npm-deprecate": ^1.0.5
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/eslint-config": 1.1.0-next.7b50e88.0
-    "@joshdb/map": 1.1.0-next.a5e5fa5.0
+    "@joshdb/map": 1.1.0-next.98f68cf.0
     "@sapphire/ts-config": ^3.3.4
     "@types/node": ^18.11.9
     "@types/prompts": ^2
