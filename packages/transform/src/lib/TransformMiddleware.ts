@@ -181,92 +181,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   ): Promise<Payload.Update<StoredValue, ReturnValue>> {
     const { key, hook } = payload;
     const { before } = this.context;
-    const getBefore = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
-
-    payload.hook = (value: StoredValue) => before(hook!(value, key) as BeforeValue, key, null) as Awaitable<ReturnValue>;
-
-    await this.provider[Method.Update](payload as unknown as Payload.Update<AfterValue, ReturnValue>);
-
-    const getAfter = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
-
-    if (this.getChangedKeys(getBefore.data, getAfter.data).length! > 0) {
-      await this.updateMetadataPath(key, this.getChangedKeys(getBefore.data, getAfter.data));
-    }
-
-    return payload;
-  }
-
-  @PostProvider()
-  public override async [Method.Dec](payload: Payload.Dec): Promise<Payload.Dec> {
-    const { after, before } = this.context;
-    const { key } = payload;
-    const getBefore = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
-    const beforeValue = after(getBefore.data!, key, null);
-
-    await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: beforeValue });
-    await this.provider[Method.Dec](payload);
-
-    const getAfter = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
-    const afterValue = before(getAfter.data as BeforeValue, key, null);
-
-    await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: afterValue });
-
-    if (this.getChangedKeys(getBefore.data, getAfter.data).length) {
-      await this.updateMetadataPath(key, this.getChangedKeys(getBefore.data, getAfter.data));
-    }
-
-    return payload;
-  }
-
-  public override async [Method.Every]<ReturnValue = BeforeValue>(
-    payload: Payload.Every.ByHook<ReturnValue>
-  ): Promise<Payload.Every.ByHook<ReturnValue>>;
-
-  public override async [Method.Every](payload: Payload.Every.ByValue): Promise<Payload.Every.ByValue>;
-  @PostProvider()
-  public override async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every<ReturnValue>): Promise<Payload.Every<ReturnValue>> {
-    const { before, after } = this.context;
-
-    if (isEveryByHookPayload(payload)) {
-      const hook = async (value: AfterValue, key: string) => {
-        return payload.hook!((await after(value, key, null)) as ReturnValue, key);
-      };
-
-      const { data } = await this.provider[Method.Entries]({ method: Method.Entries, errors: [] });
-
-      for (const [key, value] of Object.entries(data!)) {
-        if (!(await hook(value as unknown as AfterValue, key))) {
-          payload.data = false;
-          break;
-        }
-
-        payload.data = true;
-      }
-    } else if (isEveryByValuePayload(payload)) {
-      const { path } = payload;
-      const { data } = await this.provider[Method.Entries]({ method: Method.Entries, errors: [] });
-
-      for (const [key, value] of Object.entries(data!)) {
-        const v = await after(value, key, path ?? null);
-
-        if (!(v === payload.value && before(v, key, null) === value)) {
-          payload.data = false;
-          break;
-        }
-
-        payload.data = true;
-      }
-    }
-
-    return payload;
-  }
-
-  @PreProvider()
-  public async [Method.Update]<StoredValue = AfterValue, ReturnValue = BeforeValue>(
-    payload: Payload.Update<StoredValue, ReturnValue>
-  ): Promise<Payload.Update<StoredValue, ReturnValue>> {
-    const { key, hook } = payload;
-    const { before } = this.context;
     const { data: oldData, errors: oldErrors } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
     payload.hook = (value: StoredValue) => before(hook!(value, key) as BeforeValue, key, null) as Awaitable<ReturnValue>;
@@ -286,7 +200,7 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   }
 
   @PostProvider()
-  public async [Method.Dec](payload: Payload.Dec): Promise<Payload.Dec> {
+  public override async [Method.Dec](payload: Payload.Dec): Promise<Payload.Dec> {
     const { key } = payload;
     const oldDataPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
@@ -311,10 +225,13 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     return payload;
   }
 
-  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every.ByHook<ReturnValue>): Promise<Payload.Every.ByHook<ReturnValue>>;
-  public async [Method.Every](payload: Payload.Every.ByValue): Promise<Payload.Every.ByValue>;
+  public override async [Method.Every]<ReturnValue = BeforeValue>(
+    payload: Payload.Every.ByHook<ReturnValue>
+  ): Promise<Payload.Every.ByHook<ReturnValue>>;
+
+  public override async [Method.Every](payload: Payload.Every.ByValue): Promise<Payload.Every.ByValue>;
   @PreProvider()
-  public async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every<ReturnValue>): Promise<Payload.Every<ReturnValue>> {
+  public override async [Method.Every]<ReturnValue = BeforeValue>(payload: Payload.Every<ReturnValue>): Promise<Payload.Every<ReturnValue>> {
     const { before, after } = this.context;
 
     if (isEveryByHookPayload(payload)) {
@@ -405,7 +322,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
   @PostProvider()
   public override async [Method.Inc](payload: Payload.Inc): Promise<Payload.Inc> {
-    const { after, before } = this.context;
     const { key } = payload;
     const oldDataPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
@@ -430,8 +346,8 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     return payload;
   }
 
+  @PostProvider()
   public override async [Method.Math](payload: Payload.Math): Promise<Payload.Math> {
-    const { after, before } = this.context;
     const { key, path } = payload;
     const oldDataPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
