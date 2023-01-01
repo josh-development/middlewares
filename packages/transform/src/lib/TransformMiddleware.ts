@@ -71,8 +71,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
         if (isPayloadWithData<AfterValue>(bypassPayload)) {
           const { data } = bypassPayload;
 
-          await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: data });
           await this.updateMetadataPath(key, this.objectPathKeys(data));
+          payload.metadata ??= {};
+          payload.metadata.skipProvider = true;
         }
       } else {
         process.emitWarning(
@@ -121,6 +122,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
     payload.data?.map(async (v) => (await after(v as unknown as AfterValue, null, null)) as ReturnValue);
 
+    payload.metadata ??= {};
+    payload.metadata.skipProvider = true;
+
     return payload;
   }
 
@@ -132,6 +136,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     payload.value = (await before(value as unknown as BeforeValue, key, path)) as ReturnValue;
     await this.provider[Method.Push](payload);
     await this.updateMetadataPath(key, path);
+
+    payload.metadata ??= {};
+    payload.metadata.skipProvider = true;
 
     return payload;
   }
@@ -171,6 +178,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
       await this.updateMetadataPath(key, this.objectPathKeys(data));
     });
+
+    payload.metadata ??= {};
+    payload.metadata.skipProvider = true;
 
     return payload;
   }
@@ -220,6 +230,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
       const paths = this.getChangedKeys(oldDataPayload.data, newData);
 
       if (paths.length > 0) await this.updateMetadataPath(key, paths);
+
+      payload.metadata ??= {};
+      payload.metadata.skipProvider = true;
     }
 
     return payload;
@@ -311,10 +324,14 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
     payload.data = {};
 
-    const { data } = await this.provider[Method.GetMany]({ method: Method.GetMany, errors: [], keys });
+    const bypassPayload = await this.provider[Method.GetMany]({ method: Method.GetMany, errors: [], keys });
 
-    for (const [key, value] of Object.entries(data!)) {
-      payload.data[key] = (await after(value!, key, null)) as StoredValue;
+    if (isPayloadWithData<AfterValue>(bypassPayload)) {
+      const { data } = bypassPayload;
+
+      for (const [key, value] of Object.entries(data!)) {
+        payload.data[key] = (await after(value!, key, null)) as StoredValue;
+      }
     }
 
     return payload as unknown as Payload.GetMany<ReturnValue>;
@@ -341,6 +358,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
       const paths = this.getChangedKeys(oldDataPayload.data, newData);
 
       if (paths.length > 0) await this.updateMetadataPath(key, paths);
+
+      payload.metadata ??= {};
+      payload.metadata.skipProvider = true;
     }
 
     return payload;
