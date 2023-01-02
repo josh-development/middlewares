@@ -197,7 +197,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('1');
         expect(metadata).toStrictEqual(['0']);
@@ -321,7 +321,7 @@ describe('TransformMiddleware', () => {
         expect(trigger).toBeUndefined();
         expect(errors).toStrictEqual([]);
 
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(metadata).toStrictEqual(['0']);
       });
@@ -533,7 +533,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
         expect(payload.data).toBe(1);
 
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(metadata).toStrictEqual(['0']);
       });
@@ -591,7 +591,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('2');
         expect(metadata).toStrictEqual(['0']);
@@ -711,7 +711,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('4');
         expect(metadata).toStrictEqual(['0']);
@@ -740,7 +740,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('1');
         expect(metadata).toStrictEqual(['0']);
@@ -769,7 +769,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('3');
         expect(metadata).toStrictEqual(['0']);
@@ -798,7 +798,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toBe('1');
         expect(metadata).toStrictEqual(['0']);
@@ -821,7 +821,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: [] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toStrictEqual(['1', '2', '3', '4']);
         expect(metadata).toStrictEqual(['0']);
@@ -842,7 +842,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
 
         const getAfter = await store.provider[Method.Get]({ method: Method.Get, errors: [], key: 'key', path: ['c'] });
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         expect(getAfter.data).toStrictEqual(['3', '4']);
         expect(metadata).toStrictEqual(['c']);
@@ -910,7 +910,7 @@ describe('TransformMiddleware', () => {
         expect(errors).toStrictEqual([]);
         expect(value).toBe('1');
 
-        const metadata = store.provider.getMetadata('key');
+        const metadata = store.provider.getMetadata('transform_key');
 
         console.log(metadata);
 
@@ -958,8 +958,8 @@ describe('TransformMiddleware', () => {
         expect(entries).toContainEqual({ key: 'key', path: [], value: '1' });
         expect(entries).toContainEqual({ key: 'anotherKey', path: [], value: { a: '1', b: '2', c: ['1'] } });
 
-        const metadata1 = store.provider.getMetadata('key');
-        const metadata2 = store.provider.getMetadata('anotherKey');
+        const metadata1 = store.provider.getMetadata('transform_key');
+        const metadata2 = store.provider.getMetadata('transform_anotherKey');
 
         expect(metadata1).toStrictEqual(['0']);
         expect(metadata2).toStrictEqual(['a', 'b', 'c']);
