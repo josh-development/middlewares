@@ -23,7 +23,7 @@
     "@favware/npm-deprecate": "^1.0.7",
     "@favware/rollup-type-bundler": "^2.0.0",
     "@joshdb/eslint-config": "1.1.0-next.7b50e88.0",
-    "@joshdb/map": "1.1.0-next.98f68cf.0",
+    "@joshdb/map": "1.1.0-next.334cccf.0",
     "@joshdb/ts-config": "^1.1.0-next.7fbd1fd.0",
     "@types/node": "^18.11.9",
     "@types/prompts": "^2",

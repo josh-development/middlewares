@@ -19,7 +19,6 @@ import { Awaitable, objectToTuples } from '@sapphire/utilities';
 
 @ApplyMiddlewareOptions({ name: 'transform' })
 export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> extends JoshMiddleware<
-  // @ts-expect-error 2322 - 'ContextData<BeforeValue, AfterValue>' has properties in common with type 'Context', ts thinks they are incompatible
   TransformMiddleware.ContextData<BeforeValue, AfterValue>,
   AfterValue
 > {
@@ -311,6 +310,7 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
           } has not been transformed yet, please enable "autoTransform" to transform the data automatically or set() the data at the key to transform it.`
         );
       }
+    }
 
     return payload as unknown as Payload.Get<ReturnValue>;
   }
@@ -529,60 +529,6 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const paths = this.mergeMetadataPaths(metadata, diff);
 
     return this.provider.setMetadata(`transform_${key}`, paths);
-  }
-
-  private getChangedKeys(before: unknown, after: unknown): (string | string[])[] {
-    const beforeKeys = this.objectPathKeys(before);
-    const afterKeys = this.objectPathKeys(after);
-    const keys = [...beforeKeys, ...afterKeys].filter((k) => !beforeKeys.includes(k) || !afterKeys.includes(k));
-
-    return keys;
-  }
-
-  private async isTransformed(key: string, path?: string[]) {
-    let metadata = this.provider.getMetadata(key) as (string | string[])[];
-
-    if (!Array.isArray(metadata)) return false;
-    metadata = metadata.map((k) => (Array.isArray(k) ? k.join('.') : k));
-    if (!path) {
-      const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
-      const dataKeys = this.objectPathKeys(data!).map((k) => (Array.isArray(k) ? k.join('.') : k));
-
-      return dataKeys.every((k) => metadata.includes(k));
-    }
-
-    return metadata.some((m) => m === path[0]);
-  }
-
-  private mergeMetadataPaths(a: (string | string[])[], b: (string | string[])[]) {
-    a = a.map((k) => (Array.isArray(k) ? k.join('.') : k));
-    b = b.map((k) => (Array.isArray(k) ? k.join('.') : k));
-
-    const paths = [...a, ...b];
-
-    return paths.filter((m, i) => {
-      if (m === '0') return false;
-
-      return !paths.some((p, j) => {
-        if (Array.isArray(p)) return m === p[0] && i !== j;
-        return m === p && i !== j && !(p === '0');
-      });
-    });
-  }
-
-  private async updateMetadataPath(key: string, newPath: (string | string[])[]) {
-    const metadata = this.provider.getMetadata(key) as (string | string[])[];
-
-    if (newPath.length === 0) newPath = ['0'];
-    if (metadata === undefined || newPath[0] === '0') return this.provider.setMetadata(key, newPath);
-
-    const diff = newPath.filter((x) => x !== '0' && !metadata.includes(x));
-
-    if (diff.length === 0) return;
-
-    const paths = this.mergeMetadataPaths(metadata, diff);
-
-    return this.provider.setMetadata(key, paths);
   }
 }
 
