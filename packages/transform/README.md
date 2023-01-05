@@ -35,22 +35,23 @@ npm install @joshdb/transform
 ## Middleware Context Data
 
 ```typescript
-interface ContextData<StoredValue = unknown> {
+interface ContextData<BeforeValue = unknown, AfterValue = unknown> extends JoshMiddleware.Context {
   /**
    * Manipulates the data before it is stored by the provider.
    * @since 1.0.0
    */
-  before: (data: BeforeValue, key: string | string[] | null, path: string[] | null): AfterValue;
+  before: (data: BeforeValue, key: string | string[] | null, path: string[] | null) => AfterValue;
 
   /**
-   * Normalises the data after it is retrieved from the provider.
+   * Normalizes the data after it is retrieved from the provider.
    * @since 1.0.0
    */
-  after: (data: AfterValue, key: string | string[] | null, path: string[] | null): BeforeValue;
+  after: (data: AfterValue, key: string | string[] | null, path: string[] | null) => BeforeValue;
 
   /**
    * Manipulates any existing data to the appropriate format.
    * @since 1.0.0
+   * @default false
    */
   autoTransform?: boolean;
 }
