@@ -1,7 +1,7 @@
 {
-  "name": "@joshdb/schema",
+  "name": "@joshdb/transform",
   "version": "1.0.0",
-  "description": "A Josh middleware which adds a schema validation layer",
+  "description": "A Josh middleware which transforms data before and after the provider",
   "author": "@joshdb",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -25,16 +25,15 @@
   },
   "dependencies": {
     "@joshdb/provider": "2.0.0-next.6db7b48.0",
-    "@sapphire/result": "^2.6.0",
-    "@sapphire/shapeshift": "^3.8.1"
+    "@sapphire/utilities": "^3.11.0"
   },
   "devDependencies": {
-    "@favware/cliff-jumper": "^1.9.0",
+    "@favware/cliff-jumper": "^1.8.8",
     "@favware/rollup-type-bundler": "^2.0.0",
-    "@vitest/coverage-c8": "^0.26.3",
-    "typedoc": "^0.23.23",
-    "typedoc-json-parser": "^7.0.2",
-    "vitest": "^0.26.3"
+    "@vitest/coverage-c8": "^0.25.0",
+    "typedoc": "^0.23.20",
+    "typedoc-json-parser": "^7.0.1",
+    "vitest": "^0.25.0"
   },
   "repository": {
     "type": "git",
