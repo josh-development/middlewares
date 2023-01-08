@@ -39,7 +39,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^17.3.0":
+"@commitlint/cli@npm:^17.4.0":
   version: 17.4.0
   resolution: "@commitlint/cli@npm:17.4.0"
   dependencies:
@@ -59,7 +59,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^17.3.0":
+"@commitlint/config-conventional@npm:^17.4.0":
   version: 17.4.0
   resolution: "@commitlint/config-conventional@npm:17.4.0"
   dependencies:
@@ -415,7 +415,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@favware/cliff-jumper@npm:^1.8.8, @favware/cliff-jumper@npm:^1.9.0":
+"@favware/cliff-jumper@npm:^1.9.0":
   version: 1.9.0
   resolution: "@favware/cliff-jumper@npm:1.9.0"
   dependencies:
@@ -529,8 +529,8 @@ __metadata:
     "@joshdb/provider": 2.0.0-next.6db7b48.0
     "@sapphire/utilities": ^3.11.0
     "@vitest/coverage-c8": ^0.26.3
-    typedoc: ^0.23.23
-    typedoc-json-parser: ^7.0.2
+    typedoc: ^0.23.24
+    typedoc-json-parser: ^7.1.0
     vitest: ^0.26.3
   languageName: unknown
   linkType: soft
@@ -544,8 +544,8 @@ __metadata:
     "@joshdb/provider": 2.0.0-next.6db7b48.0
     "@vitest/coverage-c8": ^0.26.3
     catch-exit: ^1.2.2
-    typedoc: ^0.23.23
-    typedoc-json-parser: ^7.0.2
+    typedoc: ^0.23.24
+    typedoc-json-parser: ^7.1.0
     vitest: ^0.26.3
   languageName: unknown
   linkType: soft
@@ -598,8 +598,8 @@ __metadata:
     "@sapphire/result": ^2.6.0
     "@sapphire/shapeshift": ^3.8.1
     "@vitest/coverage-c8": ^0.26.3
-    typedoc: ^0.23.23
-    typedoc-json-parser: ^7.0.2
+    typedoc: ^0.23.24
+    typedoc-json-parser: ^7.1.0
     vitest: ^0.26.3
   languageName: unknown
   linkType: soft
@@ -615,14 +615,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@joshdb/transform@workspace:packages/transform"
   dependencies:
-    "@favware/cliff-jumper": ^1.8.8
+    "@favware/cliff-jumper": ^1.9.0
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/provider": 2.0.0-next.6db7b48.0
     "@sapphire/utilities": ^3.11.0
-    "@vitest/coverage-c8": ^0.25.0
-    typedoc: ^0.23.20
-    typedoc-json-parser: ^7.0.1
-    vitest: ^0.25.0
+    "@vitest/coverage-c8": ^0.26.3
+    typedoc: ^0.23.24
+    typedoc-json-parser: ^7.1.0
+    vitest: ^0.26.3
   languageName: unknown
   linkType: soft
 
@@ -879,7 +879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.9":
+"@types/node@npm:*, @types/node@npm:^18.11.18":
   version: 18.11.18
   resolution: "@types/node@npm:18.11.18"
   checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
@@ -910,7 +910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.33.1, @typescript-eslint/eslint-plugin@npm:^5.47.1":
+"@typescript-eslint/eslint-plugin@npm:^5.33.1, @typescript-eslint/eslint-plugin@npm:^5.47.1, @typescript-eslint/eslint-plugin@npm:^5.48.0":
   version: 5.48.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.48.0"
   dependencies:
@@ -933,7 +933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.33.1, @typescript-eslint/parser@npm:^5.47.1":
+"@typescript-eslint/parser@npm:^5.33.1, @typescript-eslint/parser@npm:^5.47.1, @typescript-eslint/parser@npm:^5.48.0":
   version: 5.48.0
   resolution: "@typescript-eslint/parser@npm:5.48.0"
   dependencies:
@@ -1027,16 +1027,6 @@ __metadata:
     "@typescript-eslint/types": 5.48.0
     eslint-visitor-keys: ^3.3.0
   checksum: 8d41fb7c93b79df415b43c31da7c9007074d78ab6f16c2d318c23e7974b578ce510f466a9584bd67c526367666974091cb5cfbf6670d29e36fb4ab2e57137515
-  languageName: node
-  linkType: hard
-
-"@vitest/coverage-c8@npm:^0.25.0":
-  version: 0.25.8
-  resolution: "@vitest/coverage-c8@npm:0.25.8"
-  dependencies:
-    c8: ^7.12.0
-    vitest: 0.25.8
-  checksum: 189a7d8df0e4185d7f016184c70a65fc40bf661294de340b7c63991ffb494acf09769ce1bc4817d879f13b5b5e462ab4052ca35fa8315ca2723b69f9fce61a28
   languageName: node
   linkType: hard
 
@@ -2036,7 +2026,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.5.0":
+"eslint-config-prettier@npm:^8.5.0, eslint-config-prettier@npm:^8.6.0":
   version: 8.6.0
   resolution: "eslint-config-prettier@npm:8.6.0"
   peerDependencies:
@@ -2754,7 +2744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.2":
+"husky@npm:^8.0.3":
   version: 8.0.3
   resolution: "husky@npm:8.0.3"
   bin:
@@ -3382,7 +3372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^4.2.4":
+"marked@npm:^4.2.4, marked@npm:^4.2.5":
   version: 4.2.5
   resolution: "marked@npm:4.2.5"
   bin:
@@ -3464,7 +3454,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^5.0.1, minimatch@npm:^5.1.1":
+"minimatch@npm:^5.0.1, minimatch@npm:^5.1.1, minimatch@npm:^5.1.2":
   version: 5.1.2
   resolution: "minimatch@npm:5.1.2"
   dependencies:
@@ -4083,6 +4073,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.8.2":
+  version: 2.8.2
+  resolution: "prettier@npm:2.8.2"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 740c56c2128d587d656ea1dde9bc9c3503dfc94db4f3ac387259215eeb2e216680bdad9d18a0c9feecc6b42cfa188d6fa777df4c36c1d00cedd4199074fbfbd2
+  languageName: node
+  linkType: hard
+
 "pretty-quick@npm:^3.1.3":
   version: 3.1.3
   resolution: "pretty-quick@npm:3.1.3"
@@ -4429,8 +4428,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@commitlint/cli": ^17.3.0
-    "@commitlint/config-conventional": ^17.3.0
+    "@commitlint/cli": ^17.4.0
+    "@commitlint/config-conventional": ^17.4.0
     "@favware/cliff-jumper": ^1.9.0
     "@favware/colorette-spinner": ^1.0.1
     "@favware/npm-deprecate": ^1.0.7
@@ -4438,18 +4437,18 @@ __metadata:
     "@joshdb/eslint-config": 1.1.0-next.89c3b7b.0
     "@joshdb/map": 1.1.0-next.334cccf.0
     "@joshdb/ts-config": ^1.1.0-next.7fbd1fd.0
-    "@types/node": ^18.11.9
+    "@types/node": ^18.11.18
     "@types/prompts": ^2
-    "@typescript-eslint/eslint-plugin": ^5.47.1
-    "@typescript-eslint/parser": ^5.47.1
+    "@typescript-eslint/eslint-plugin": ^5.48.0
+    "@typescript-eslint/parser": ^5.48.0
     "@vitest/coverage-c8": ^0.26.3
     colorette: ^2.0.19
     eslint: ^8.31.0
-    eslint-config-prettier: ^8.5.0
+    eslint-config-prettier: ^8.6.0
     eslint-plugin-prettier: ^4.2.1
-    husky: ^8.0.2
+    husky: ^8.0.3
     lint-staged: ^13.1.0
-    prettier: ^2.8.1
+    prettier: ^2.8.2
     pretty-quick: ^3.1.3
     prompts: ^2.4.2
     rimraf: ^3.0.2
@@ -4555,6 +4554,17 @@ __metadata:
     vscode-oniguruma: ^1.6.1
     vscode-textmate: ^6.0.0
   checksum: 2a4ebc3b466816263fc244ae4f67a4ff96aa74d863b9c5e7e4affc50f37fd6d1a781405de0dbf763b777bc33e49a0d441de7ff3fededb8b01e3b8dbb37e2927d
+  languageName: node
+  linkType: hard
+
+"shiki@npm:^0.12.1":
+  version: 0.12.1
+  resolution: "shiki@npm:0.12.1"
+  dependencies:
+    jsonc-parser: ^3.2.0
+    vscode-oniguruma: ^1.7.0
+    vscode-textmate: ^8.0.0
+  checksum: a5d78a79d282f5c5168786980c66e82f075e91fa015097456486624fc5775688d685ad9b1972b0617d7f1ef50927d21b61dca476247a6f6c6b7042046e89a979
   languageName: node
   linkType: hard
 
@@ -5142,9 +5152,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-json-parser@npm:^7.0.1, typedoc-json-parser@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "typedoc-json-parser@npm:7.0.2"
+"typedoc-json-parser@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "typedoc-json-parser@npm:7.1.0"
   dependencies:
     "@favware/colorette-spinner": ^1.0.1
     "@sapphire/node-utilities": ^1.0.0
@@ -5152,14 +5162,14 @@ __metadata:
     commander: ^9.4.1
     js-yaml: ^4.1.0
     tslib: ^2.4.1
-    typedoc: ^0.23.20
+    typedoc: ^0.23.23
   bin:
     typedoc-json-parser: ./dist/bin/index.js
-  checksum: 5b34af785d8bb5843859f0a11a8891b0083fe8b31b2a6105c22ec8ed4a0d5297d10b0c8440418f63dbe654a8e06e6d761960556ffa237d09944aa7a4f029001c
+  checksum: e1ba6c1d1be83c46e23a78e668c9447a68823e41d5c5719c0c3cdaaf5ff3cbc2452b255aebd22d2b275cc17c30aec8296b9d6d304ac83e1f859026b5610cb37f
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.23.20, typedoc@npm:^0.23.23":
+"typedoc@npm:^0.23.23":
   version: 0.23.23
   resolution: "typedoc@npm:0.23.23"
   dependencies:
@@ -5172,6 +5182,22 @@ __metadata:
   bin:
     typedoc: bin/typedoc
   checksum: 2b64f9c9dc1992ec1bbcc688f6cfc8161481872c485ba9226d1797f572469d02f7798ebe96e3626587a6952af685fa1f4aaa0d9a6137fe9fb3d37f677cb41161
+  languageName: node
+  linkType: hard
+
+"typedoc@npm:^0.23.24":
+  version: 0.23.24
+  resolution: "typedoc@npm:0.23.24"
+  dependencies:
+    lunr: ^2.3.9
+    marked: ^4.2.5
+    minimatch: ^5.1.2
+    shiki: ^0.12.1
+  peerDependencies:
+    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x
+  bin:
+    typedoc: bin/typedoc
+  checksum: b04f9afcba9a38d35631b08ca345f52700f9138f59b9729d7bfecf127c2a75dd6a053594db68f3141e4d7e63b701ffa5421cbdeb95f86b254257e05e240f4da0
   languageName: node
   linkType: hard
 
@@ -5352,47 +5378,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:0.25.8, vitest@npm:^0.25.0":
-  version: 0.25.8
-  resolution: "vitest@npm:0.25.8"
-  dependencies:
-    "@types/chai": ^4.3.4
-    "@types/chai-subset": ^1.3.3
-    "@types/node": "*"
-    acorn: ^8.8.1
-    acorn-walk: ^8.2.0
-    chai: ^4.3.7
-    debug: ^4.3.4
-    local-pkg: ^0.4.2
-    source-map: ^0.6.1
-    strip-literal: ^1.0.0
-    tinybench: ^2.3.1
-    tinypool: ^0.3.0
-    tinyspy: ^1.0.2
-    vite: ^3.0.0 || ^4.0.0
-  peerDependencies:
-    "@edge-runtime/vm": "*"
-    "@vitest/browser": "*"
-    "@vitest/ui": "*"
-    happy-dom: "*"
-    jsdom: "*"
-  peerDependenciesMeta:
-    "@edge-runtime/vm":
-      optional: true
-    "@vitest/browser":
-      optional: true
-    "@vitest/ui":
-      optional: true
-    happy-dom:
-      optional: true
-    jsdom:
-      optional: true
-  bin:
-    vitest: vitest.mjs
-  checksum: 2444dc04c87c261fcd43e1e240e5c62d6e96d0b52c0142f30200fde1078e97afad7cc6dd3163aa520ef4b0584f02cecfcc676300cb839e4470751403f54d2623
-  languageName: node
-  linkType: hard
-
 "vitest@npm:0.26.3, vitest@npm:^0.26.3":
   version: 0.26.3
   resolution: "vitest@npm:0.26.3"
@@ -5435,7 +5420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-oniguruma@npm:^1.6.1":
+"vscode-oniguruma@npm:^1.6.1, vscode-oniguruma@npm:^1.7.0":
   version: 1.7.0
   resolution: "vscode-oniguruma@npm:1.7.0"
   checksum: 53519d91d90593e6fb080260892e87d447e9b200c4964d766772b5053f5699066539d92100f77f1302c91e8fc5d9c772fbe40fe4c90f3d411a96d5a9b1e63f42
@@ -5446,6 +5431,13 @@ __metadata:
   version: 6.0.0
   resolution: "vscode-textmate@npm:6.0.0"
   checksum: ff6f17a406c2906586afc14ef01cb122e33acd35312e815abb5c924347a777c6783ce3fe7db8b83f1760ebf843c669843b9390f905b69c433b3395af28e4b483
+  languageName: node
+  linkType: hard
+
+"vscode-textmate@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "vscode-textmate@npm:8.0.0"
+  checksum: 127780dfea89559d70b8326df6ec344cfd701312dd7f3f591a718693812b7852c30b6715e3cfc8b3200a4e2515b4c96f0843c0eacc0a3020969b5de262c2a4bb
   languageName: node
   linkType: hard
 
