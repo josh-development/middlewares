@@ -7,7 +7,7 @@ import {
   PostProvider,
   PreProvider,
   resolveVersion,
-  Semver
+  type Semver
 } from '@joshdb/provider';
 import { Result } from '@sapphire/result';
 import type { BaseValidator } from '@sapphire/shapeshift';

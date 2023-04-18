@@ -13,9 +13,9 @@ import {
   PostProvider,
   PreProvider,
   resolveVersion,
-  Semver
+  type Semver
 } from '@joshdb/provider';
-import { Awaitable, objectToTuples } from '@sapphire/utilities';
+import { objectToTuples, type Awaitable } from '@sapphire/utilities';
 
 @ApplyMiddlewareOptions({ name: 'transform' })
 export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> extends JoshMiddleware<

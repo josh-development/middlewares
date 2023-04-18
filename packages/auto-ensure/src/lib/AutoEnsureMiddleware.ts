@@ -7,7 +7,7 @@ import {
   PostProvider,
   PreProvider,
   resolveVersion,
-  Semver
+  type Semver
 } from '@joshdb/provider';
 import { mergeDefault } from '@sapphire/utilities';
 
