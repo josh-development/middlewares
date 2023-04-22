@@ -19,7 +19,7 @@ import {
   PostProvider,
   PreProvider,
   resolveVersion,
-  Semver
+  type Semver
 } from '@joshdb/provider';
 import { addExitCallback } from 'catch-exit';
 import { getProperty } from 'property-helpers';
