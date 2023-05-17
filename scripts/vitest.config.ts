@@ -7,7 +7,7 @@ export const createVitestConfig = (options: UserConfig = {}) =>
     test: {
       ...options?.test,
       deps: {
-        inline: true
+        inline: [/^(?!.*vitest).*$/]
       },
       globals: true,
       coverage: {
