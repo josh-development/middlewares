@@ -585,7 +585,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.89e2358.0
+    "@joshdb/provider": 2.0.0-next.6e795c7.0
     "@sapphire/utilities": ^3.11.2
     "@vitest/coverage-c8": ^0.31.1
     typedoc: ^0.24.7
@@ -600,7 +600,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.89e2358.0
+    "@joshdb/provider": 2.0.0-next.6e795c7.0
     "@vitest/coverage-c8": ^0.31.1
     catch-exit: ^1.2.2
     typedoc: ^0.24.7
@@ -647,13 +647,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.89e2358.0":
-  version: 2.0.0-next.89e2358.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.89e2358.0"
+"@joshdb/provider@npm:2.0.0-next.6e795c7.0":
+  version: 2.0.0-next.6e795c7.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.6e795c7.0"
   dependencies:
     "@sapphire/utilities": ^3.11.2
     reflect-metadata: ^0.1.13
-  checksum: 748b44f048fb85e8dc76de722d72cfe875cafaaae2c6433148ce418b4aa981ddbb2cbfc622b5c4f055e2b8103a75455a6d83450469f3055870253986db93d334
+  checksum: 7c38ac8c787985e74317d5de76c0d2b9cd13d52944a85a0827b09080c512df2c7c5db5d1045efbef56e97bd4cccc6543a97ab163c6d79b578cc65b49fb73328f
   languageName: node
   linkType: hard
 
@@ -663,7 +663,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.89e2358.0
+    "@joshdb/provider": 2.0.0-next.6e795c7.0
     "@sapphire/result": ^2.6.4
     "@sapphire/shapeshift": ^3.9.0
     "@vitest/coverage-c8": ^0.31.1
@@ -686,7 +686,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.89e2358.0
+    "@joshdb/provider": 2.0.0-next.6e795c7.0
     "@sapphire/utilities": ^3.11.2
     "@vitest/coverage-c8": ^0.31.1
     typedoc: ^0.24.7
