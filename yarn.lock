@@ -585,7 +585,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.2502089.0
+    "@joshdb/provider": 2.0.0-next.e70575b.0
     "@sapphire/utilities": ^3.11.2
     "@vitest/coverage-c8": ^0.31.1
     typedoc: ^0.24.7
@@ -600,7 +600,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.2502089.0
+    "@joshdb/provider": 2.0.0-next.e70575b.0
     "@vitest/coverage-c8": ^0.31.1
     catch-exit: ^1.2.2
     typedoc: ^0.24.7
@@ -637,16 +637,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.2502089.0":
-  version: 2.0.0-next.2502089.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.2502089.0"
-  dependencies:
-    "@sapphire/utilities": ^3.11.2
-    reflect-metadata: ^0.1.13
-  checksum: f66f70e02c892e1f48564eeba4ff37f6a16ebadd97a09daccbb1d37875f0a7dafbc72472a54275dc2a78ab83d5c73070c5b3f3856e2fa97de75a0ebb8d6c353b
-  languageName: node
-  linkType: hard
-
 "@joshdb/provider@npm:2.0.0-next.6db7b48.0":
   version: 2.0.0-next.6db7b48.0
   resolution: "@joshdb/provider@npm:2.0.0-next.6db7b48.0"
@@ -657,13 +647,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:2.0.0-next.e70575b.0":
+  version: 2.0.0-next.e70575b.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.e70575b.0"
+  dependencies:
+    "@sapphire/utilities": ^3.11.2
+    reflect-metadata: ^0.1.13
+  checksum: 8414b8997bc7e1cc5ccc329433201ef034775ebcc346ca1f2b271cf93b26470b100b8b51a8646a730d74f3c83c4d0f294fb8fa76d1c020e02dc69283ce161b26
+  languageName: node
+  linkType: hard
+
 "@joshdb/schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.2502089.0
+    "@joshdb/provider": 2.0.0-next.e70575b.0
     "@sapphire/result": ^2.6.4
     "@sapphire/shapeshift": ^3.9.0
     "@vitest/coverage-c8": ^0.31.1
@@ -686,7 +686,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": ^2.0.1
     "@favware/rollup-type-bundler": ^2.0.0
-    "@joshdb/provider": 2.0.0-next.2502089.0
+    "@joshdb/provider": 2.0.0-next.e70575b.0
     "@sapphire/utilities": ^3.11.2
     "@vitest/coverage-c8": ^0.31.1
     typedoc: ^0.24.7
