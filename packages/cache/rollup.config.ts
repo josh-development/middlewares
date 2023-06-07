@@ -18,6 +18,6 @@ export default {
       sourcemap: true
     }
   ],
-  external: ['@joshdb/middleware', 'catch-exit'],
+  external: ['@joshdb/provider', 'catch-exit', 'property-helpers'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };

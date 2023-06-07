@@ -1,12 +1,12 @@
 import {
   ApplyMiddlewareOptions,
-  isPayloadWithData,
   JoshMiddleware,
   Method,
-  Payload,
   PostProvider,
   PreProvider,
+  isPayloadWithData,
   resolveVersion,
+  type Payload,
   type Semver
 } from '@joshdb/provider';
 import { Result } from '@sapphire/result';

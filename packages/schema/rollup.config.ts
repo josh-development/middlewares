@@ -18,6 +18,6 @@ export default {
       sourcemap: true
     }
   ],
-  external: ['@joshdb/provider'],
+  external: ['@joshdb/provider', '@sapphire/result'],
   plugins: [cleaner({ targets: ['./dist'] }), typescript({ tsconfig: resolve(process.cwd(), 'src', 'tsconfig.json') })]
 };

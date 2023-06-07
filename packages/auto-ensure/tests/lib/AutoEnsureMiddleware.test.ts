@@ -24,7 +24,7 @@ describe('AutoEnsureMiddleware', () => {
     beforeEach(async () => {
       await store.provider[Method.Clear]({ method: Method.Clear, errors: [] });
 
-      Reflect.deleteProperty(autoEnsure['context'], 'ensureProperties');
+      Reflect.deleteProperty(autoEnsure.context, 'ensureProperties');
     });
 
     describe(Method.Dec, () => {
@@ -71,7 +71,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -95,7 +95,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Dec]({ method: Method.Dec, errors: [], key: 'key', path: [] });
 
@@ -271,7 +271,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -295,7 +295,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Inc]({ method: Method.Inc, errors: [], key: 'key', path: [] });
 
@@ -357,7 +357,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -381,7 +381,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Push]({ method: Method.Push, errors: [], key: 'key', path: [], value: { e: 'f', g: 'h' } });
 
@@ -457,7 +457,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -488,7 +488,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Math]({
           method: Method.Math,
@@ -571,7 +571,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -602,7 +602,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Remove]({
           method: Method.Remove,
@@ -671,7 +671,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -695,7 +695,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { e: 'f', g: 'h' } });
 
@@ -811,7 +811,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.SetMany]({
           method: Method.SetMany,
@@ -853,7 +853,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.SetMany]({
           method: Method.SetMany,
@@ -924,7 +924,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/ partial data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { a: 'b' } });
 
@@ -948,7 +948,7 @@ describe('AutoEnsureMiddleware', () => {
       });
 
       test('GIVEN provider w/o data THEN middleware ensures properties', async () => {
-        autoEnsure['context'].ensureProperties = true;
+        autoEnsure.context.ensureProperties = true;
 
         const payload = await autoEnsure[Method.Update]({ method: Method.Update, errors: [], key: 'key', hook: () => ({}) });
 

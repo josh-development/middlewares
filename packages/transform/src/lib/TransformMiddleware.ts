@@ -1,5 +1,9 @@
 import {
   ApplyMiddlewareOptions,
+  JoshMiddleware,
+  Method,
+  PostProvider,
+  PreProvider,
   isEveryByHookPayload,
   isEveryByValuePayload,
   isMapByHookPayload,
@@ -7,12 +11,8 @@ import {
   isPayloadWithData,
   isSomeByHookPayload,
   isSomeByValuePayload,
-  JoshMiddleware,
-  Method,
-  Payload,
-  PostProvider,
-  PreProvider,
   resolveVersion,
+  type Payload,
   type Semver
 } from '@joshdb/provider';
 import { objectToTuples, type Awaitable } from '@sapphire/utilities';
@@ -42,6 +42,8 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
         return hook((await after(data, key, null)) as ReturnValue, key);
       }
+
+      return null;
     };
 
     const { errors } = await this.provider[Method.Each]({ ...payload, hook: transformHook });
