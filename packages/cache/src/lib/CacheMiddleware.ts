@@ -1,5 +1,10 @@
 import {
   ApplyMiddlewareOptions,
+  JoshMiddleware,
+  Method,
+  Payload,
+  PostProvider,
+  PreProvider,
   isEveryByHookPayload,
   isEveryByValuePayload,
   isFilterByHookPayload,
@@ -11,14 +16,9 @@ import {
   isPayloadWithData,
   isRemoveByHookPayload,
   isRemoveByValuePayload,
-  JoshMiddleware,
-  JoshMiddlewareStore,
-  JoshProvider,
-  Method,
-  Payload,
-  PostProvider,
-  PreProvider,
   resolveVersion,
+  type JoshMiddlewareStore,
+  type JoshProvider,
   type Semver
 } from '@joshdb/provider';
 import { addExitCallback } from 'catch-exit';
@@ -87,6 +87,8 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
         return hook(data, key);
       }
+
+      return null;
     };
 
     const { errors } = await cache[Method.Each]({ method: Method.Each, hook: cacheHook, errors: [] });
