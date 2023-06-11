@@ -604,7 +604,7 @@ __metadata:
     "@favware/cliff-jumper": ^2.1.0
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/provider": 2.0.0-next.a699598.0
-    "@sapphire/utilities": ^3.11.2
+    "@sapphire/utilities": ^3.12.0
     "@vitest/coverage-c8": ^0.32.0
     typedoc: ^0.24.8
     typedoc-json-parser: ^8.1.2
@@ -688,7 +688,7 @@ __metadata:
     "@favware/cliff-jumper": ^2.1.0
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/provider": 2.0.0-next.a699598.0
-    "@sapphire/utilities": ^3.11.2
+    "@sapphire/utilities": ^3.12.0
     "@vitest/coverage-c8": ^0.32.0
     typedoc: ^0.24.8
     typedoc-json-parser: ^8.1.2
@@ -905,7 +905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:3.12.0":
+"@sapphire/utilities@npm:3.12.0, @sapphire/utilities@npm:^3.12.0":
   version: 3.12.0
   resolution: "@sapphire/utilities@npm:3.12.0"
   checksum: 002f15263f157fdbb0603c233a43a5660cd3b45a4f3fddaa9d7066d187eec23f473ee42c8d071b0e3dec4e22b08bed337fb7eb336a02b59743a78ebc8922004e
