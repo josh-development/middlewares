@@ -29,7 +29,7 @@
     "catch-exit": "^1.2.2"
   },
   "devDependencies": {
-    "@favware/cliff-jumper": "^2.0.1",
+    "@favware/cliff-jumper": "^2.1.0",
     "@favware/rollup-type-bundler": "^2.0.0",
     "@vitest/coverage-c8": "^0.32.0",
     "typedoc": "^0.24.8",
