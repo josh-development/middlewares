@@ -5183,7 +5183,7 @@ __metadata:
     rollup-plugin-typescript2: ^0.35.0
     tslib: ^2.6.0
     turbo: ^1.10.6
-    typescript: ~5.1.5
+    typescript: ^5.1.5
     vitest: ^0.32.2
   languageName: unknown
   linkType: soft
@@ -5989,7 +5989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.1.5":
+"typescript@npm:^5.1.5":
   version: 5.1.5
   resolution: "typescript@npm:5.1.5"
   bin:
@@ -6019,7 +6019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~5.1.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^5.1.5#~builtin<compat/typescript>":
   version: 5.1.5
   resolution: "typescript@patch:typescript@npm%3A5.1.5#~builtin<compat/typescript>::version=5.1.5&hash=5da071"
   bin:
