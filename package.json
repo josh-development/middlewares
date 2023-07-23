@@ -16,8 +16,8 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
     "@favware/cliff-jumper": "^2.1.1",
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.7",
@@ -25,7 +25,7 @@
     "@joshdb/eslint-config": "1.1.0-next.a699598.0",
     "@joshdb/map": "2.0.0-next.782d01a.0",
     "@joshdb/ts-config": "1.1.0-next.a699598.0",
-    "@types/node": "^18.16.19",
+    "@types/node": "^18.17.0",
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
@@ -44,7 +44,7 @@
     "rollup-plugin-cleaner": "^1.0.0",
     "rollup-plugin-typescript2": "^0.35.0",
     "tslib": "^2.6.0",
-    "turbo": "^1.10.7",
+    "turbo": "^1.10.9",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   },
