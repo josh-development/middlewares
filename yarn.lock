@@ -647,7 +647,7 @@ __metadata:
     "@sapphire/utilities": ^3.13.0
     "@vitest/coverage-c8": ^0.33.0
     typedoc: ^0.24.8
-    typedoc-json-parser: ^8.2.0
+    typedoc-json-parser: ^9.0.0
     vitest: ^0.34.2
   languageName: unknown
   linkType: soft
@@ -662,7 +662,7 @@ __metadata:
     "@vitest/coverage-c8": ^0.33.0
     catch-exit: ^1.2.2
     typedoc: ^0.24.8
-    typedoc-json-parser: ^8.2.0
+    typedoc-json-parser: ^9.0.0
     vitest: ^0.34.2
   languageName: unknown
   linkType: soft
@@ -716,7 +716,7 @@ __metadata:
     "@sapphire/shapeshift": ^3.9.2
     "@vitest/coverage-c8": ^0.33.0
     typedoc: ^0.24.8
-    typedoc-json-parser: ^8.2.0
+    typedoc-json-parser: ^9.0.0
     vitest: ^0.34.2
   languageName: unknown
   linkType: soft
@@ -731,7 +731,7 @@ __metadata:
     "@sapphire/utilities": ^3.13.0
     "@vitest/coverage-c8": ^0.33.0
     typedoc: ^0.24.8
-    typedoc-json-parser: ^8.2.0
+    typedoc-json-parser: ^9.0.0
     vitest: ^0.34.2
   languageName: unknown
   linkType: soft
@@ -4199,6 +4199,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^9.0.3":
+  version: 9.0.3
+  resolution: "minimatch@npm:9.0.3"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: 253487976bf485b612f16bf57463520a14f512662e592e95c571afdab1442a6a6864b6c88f248ce6fc4ff0b6de04ac7aa6c8bb51e868e99d1d65eb0658a708b5
+  languageName: node
+  linkType: hard
+
 "minimist-options@npm:4.1.0":
   version: 4.1.0
   resolution: "minimist-options@npm:4.1.0"
@@ -5805,13 +5814,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.5.3":
-  version: 2.5.3
-  resolution: "tslib@npm:2.5.3"
-  checksum: 88902b309afaf83259131c1e13da1dceb0ad1682a213143a1346a649143924d78cf3760c448b84d796938fd76127183894f8d85cbb3bf9c4fddbfcc140c0003c
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
@@ -5959,20 +5961,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-json-parser@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "typedoc-json-parser@npm:8.2.0"
+"typedoc-json-parser@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "typedoc-json-parser@npm:9.0.0"
   dependencies:
     "@favware/colorette-spinner": ^1.0.1
     "@sapphire/node-utilities": ^1.0.0
     colorette: ^2.0.20
     commander: ^11.0.0
     js-yaml: ^4.1.0
-    tslib: ^2.5.3
-    typedoc: ^0.24.8
+    tslib: ^2.6.2
+    typedoc: ^0.25.1
   bin:
     typedoc-json-parser: ./dist/bin/index.js
-  checksum: fb9b83f7b42d60382dd0d1494d9c4e95caa1a35d06456993b34833fcab79cff3298827ff030fe7cf0ee96d69dc302a649e1a290d1a86280cb3f92dbde17a7972
+  checksum: d8bb945062c43a8c455ec4805041695a0baedfebf1d55cd9a84f5ee00bbea705dc22faf1eeea80f1c91fbc56652cc87d54e9d5f45f4cc66e62c215f8194fba33
   languageName: node
   linkType: hard
 
@@ -5989,6 +5991,22 @@ __metadata:
   bin:
     typedoc: bin/typedoc
   checksum: a46a14497f789fb3594e6c3af2e45276934ac46df40b7ed15a504ee51dc7a8013a2ffb3a54fd73abca6a2b71f97d3ec9ad356fa9aa81d29743e4645a965a2ae0
+  languageName: node
+  linkType: hard
+
+"typedoc@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "typedoc@npm:0.25.1"
+  dependencies:
+    lunr: ^2.3.9
+    marked: ^4.3.0
+    minimatch: ^9.0.3
+    shiki: ^0.14.1
+  peerDependencies:
+    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
+  bin:
+    typedoc: bin/typedoc
+  checksum: 6c1c28cbf51b6ab1741429f58f540c5c12d6119ce30054866b879ef2a3a2120a6adbaf59919f7411d3bb51b9113fc926522c40934a3d8ef601785abdf0134eed
   languageName: node
   linkType: hard
 
