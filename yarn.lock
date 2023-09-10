@@ -683,15 +683,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/map@npm:2.0.0-next.8e3f34a.0":
-  version: 2.0.0-next.8e3f34a.0
-  resolution: "@joshdb/map@npm:2.0.0-next.8e3f34a.0"
+"@joshdb/map@npm:2.0.0-next.de5b093.0":
+  version: 2.0.0-next.de5b093.0
+  resolution: "@joshdb/map@npm:2.0.0-next.de5b093.0"
   dependencies:
     "@joshdb/provider": 2.0.0-next.a699598.0
     "@sapphire/utilities": ^3.13.0
     better-serialize: ^1.0.0
     property-helpers: ^2.0.0
-  checksum: 3c2e8a2d622afcdf8de26b6bd5066a96b47c881f7e1961517524566681de7d89b3d3032d9b530e66c38aec58cd541d8b75a9a28ff4b5af667d1d5437a691ecfa
+  checksum: 63dbbf88ce0d64fe1d22580c2764a14339c993b07ac850bda602442f77dd3cee004f5a6d700f236f0a506b0a11b95d0e60b35217ed4a4bd3fd0ce8e1260c1c26
   languageName: node
   linkType: hard
 
@@ -5222,7 +5222,7 @@ __metadata:
     "@favware/npm-deprecate": ^1.0.7
     "@favware/rollup-type-bundler": ^2.0.0
     "@joshdb/eslint-config": 1.1.0-next.a699598.0
-    "@joshdb/map": 2.0.0-next.8e3f34a.0
+    "@joshdb/map": 2.0.0-next.de5b093.0
     "@joshdb/ts-config": 1.1.0-next.a699598.0
     "@types/node": ^18.17.6
     "@types/prompts": ^2.4.4
