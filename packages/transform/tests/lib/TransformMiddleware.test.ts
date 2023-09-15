@@ -116,22 +116,37 @@ describe('TransformMiddleware', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const transform = new TransformMiddleware<BeforeValue, AfterValue>({
       before(data: any) {
-        if (!data) return data;
-        if (typeof data === 'number') return data.toString();
+        if (!data) {
+          return data;
+        }
+
+        if (typeof data === 'number') {
+          return data.toString();
+        }
+
         if (Array.isArray(data)) {
           return data.map((value) => {
-            if (typeof value === 'number') return value.toString();
+            if (typeof value === 'number') {
+              return value.toString();
+            }
+
             return value;
           });
         }
 
         if (typeof data === 'object') {
           for (const [key, value] of Object.entries(data)) {
-            if (typeof value === 'number') Object.assign(data, { [key]: value.toString() });
+            if (typeof value === 'number') {
+              Object.assign(data, { [key]: value.toString() });
+            }
+
             if (Array.isArray(value)) {
               Object.assign(data, {
                 [key]: value.map((v) => {
-                  if (typeof v === 'number') return v.toString();
+                  if (typeof v === 'number') {
+                    return v.toString();
+                  }
+
                   return v;
                 })
               });
@@ -142,22 +157,37 @@ describe('TransformMiddleware', () => {
         return data;
       },
       after(data: any) {
-        if (!data) return data;
-        if (typeof data === 'string') return Number(data);
+        if (!data) {
+          return data;
+        }
+
+        if (typeof data === 'string') {
+          return Number(data);
+        }
+
         if (Array.isArray(data)) {
           return data.map((value) => {
-            if (typeof value === 'string') return Number(value);
+            if (typeof value === 'string') {
+              return Number(value);
+            }
+
             return value;
           });
         }
 
         if (typeof data === 'object') {
           for (const [key, value] of Object.entries(data)) {
-            if (typeof value === 'string') Object.assign(data, { [key]: Number(value) });
+            if (typeof value === 'string') {
+              Object.assign(data, { [key]: Number(value) });
+            }
+
             if (Array.isArray(value)) {
               Object.assign(data, {
                 [key]: value.map((v) => {
-                  if (typeof v === 'string') return Number(v);
+                  if (typeof v === 'string') {
+                    return Number(v);
+                  }
+
                   return v;
                 })
               });
@@ -911,8 +941,6 @@ describe('TransformMiddleware', () => {
         expect(value).toBe('1');
 
         const metadata = store.provider.getMetadata('transform_key');
-
-        console.log(metadata);
 
         expect(metadata).toStrictEqual(['0']);
       });

@@ -23,7 +23,7 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   AfterValue
 > {
   public get version(): Semver {
-    return resolveVersion('[VI]{version}[/VI]');
+    return resolveVersion('[VI]{{inject}}[/VI]');
   }
 
   @PreProvider()
@@ -119,7 +119,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
       const transformHook = async (value: AfterValue, key: string) => hook((await after(value, key, null)) as StoredValue, key);
 
       payload = (await this.provider[Method.Map]({ ...payload, hook: transformHook })) as unknown as Payload.Map.ByHook<StoredValue, ReturnValue>;
-    } else if (isMapByPathPayload(payload)) payload = (await this.provider[Method.Map](payload)) as unknown as Payload.Map.ByPath<ReturnValue>;
+    } else if (isMapByPathPayload(payload)) {
+      payload = (await this.provider[Method.Map](payload)) as unknown as Payload.Map.ByPath<ReturnValue>;
+    }
 
     payload.data?.map(async (v) => (await after(v as unknown as AfterValue, null, null)) as ReturnValue);
 
@@ -201,7 +203,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const { data: newData, errors: newErrors } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
     const paths = this.getChangedKeys(oldData, newData);
 
-    if (paths.length > 0) await this.updateMetadataPath(key, paths);
+    if (paths.length > 0) {
+      await this.updateMetadataPath(key, paths);
+    }
 
     payload.metadata ??= {};
     payload.metadata.skipProvider = true;
@@ -230,7 +234,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
       const paths = this.getChangedKeys(oldDataPayload.data, newData);
 
-      if (paths.length > 0) await this.updateMetadataPath(key, paths);
+      if (paths.length > 0) {
+        await this.updateMetadataPath(key, paths);
+      }
 
       payload.metadata ??= {};
       payload.metadata.skipProvider = true;
@@ -292,7 +298,10 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const { key, path } = payload;
     const { after, autoTransform } = this.context;
 
-    if (!payload.data) payload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path });
+    if (!payload.data) {
+      payload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path });
+    }
+
     payload.data = (await after(payload.data! as AfterValue, key, path ?? null)) as StoredValue;
 
     if (!(await this.isTransformed(key))) {
@@ -359,7 +368,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
       const paths = this.getChangedKeys(oldDataPayload.data, newData);
 
-      if (paths.length > 0) await this.updateMetadataPath(key, paths);
+      if (paths.length > 0) {
+        await this.updateMetadataPath(key, paths);
+      }
 
       payload.metadata ??= {};
       payload.metadata.skipProvider = true;
@@ -388,7 +399,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
       const paths = this.getChangedKeys(oldDataPayload.data, newData);
 
-      if (paths.length > 0) await this.updateMetadataPath(key, paths);
+      if (paths.length > 0) {
+        await this.updateMetadataPath(key, paths);
+      }
     }
 
     return payload;
@@ -399,8 +412,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const { data, count, duplicates } = payload;
     const { after } = this.context;
 
-    if (data) payload.data = data.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
-    else {
+    if (data) {
+      payload.data = data.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
+    } else {
       const { data } = await this.provider[Method.Random]({ method: Method.Random, errors: [], count, duplicates });
 
       payload.data = data!.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
@@ -455,8 +469,9 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const { data } = payload;
     const { after } = this.context;
 
-    if (data) payload.data = data!.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
-    else {
+    if (data) {
+      payload.data = data!.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
+    } else {
       const { data } = await this.provider[Method.Values]({ method: Method.Values, errors: [] });
 
       payload.data = data!.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
@@ -472,7 +487,10 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   private objectPathKeys(obj: unknown): (string | string[])[] {
     const tuples = objectToTuples(obj as any);
     const keys = tuples.map(([k]) => {
-      if ((k as string).includes('.')) return (k as string).split('.');
+      if ((k as string).includes('.')) {
+        return (k as string).split('.');
+      }
+
       return k;
     });
 
@@ -490,7 +508,10 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   private async isTransformed(key: string, path?: string[]) {
     let metadata = this.provider.getMetadata(`transform_${key}`) as (string | string[])[];
 
-    if (!Array.isArray(metadata)) return false;
+    if (!Array.isArray(metadata)) {
+      return false;
+    }
+
     metadata = metadata.map((k) => (Array.isArray(k) ? k.join('.') : k));
     if (!path) {
       const { data } = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
@@ -509,10 +530,15 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
     const paths = [...a, ...b];
 
     return paths.filter((m, i) => {
-      if (m === '0') return false;
+      if (m === '0') {
+        return false;
+      }
 
       return !paths.some((p, j) => {
-        if (Array.isArray(p)) return m === p[0] && i !== j;
+        if (Array.isArray(p)) {
+          return m === p[0] && i !== j;
+        }
+
         return m === p && i !== j && !(p === '0');
       });
     });
@@ -521,12 +547,19 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
   private async updateMetadataPath(key: string, newPath: (string | string[])[]) {
     const metadata = this.provider.getMetadata(`transform_${key}`) as (string | string[])[];
 
-    if (newPath.length === 0) newPath = ['0'];
-    if (metadata === undefined || newPath[0] === '0') return this.provider.setMetadata(`transform_${key}`, newPath);
+    if (newPath.length === 0) {
+      newPath = ['0'];
+    }
+
+    if (metadata === undefined || newPath[0] === '0') {
+      return this.provider.setMetadata(`transform_${key}`, newPath);
+    }
 
     const diff = newPath.filter((x) => x !== '0' && !metadata.includes(x));
 
-    if (diff.length === 0) return;
+    if (diff.length === 0) {
+      return;
+    }
 
     const paths = this.mergeMetadataPaths(metadata, diff);
 

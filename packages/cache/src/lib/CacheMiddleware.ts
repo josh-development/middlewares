@@ -26,10 +26,10 @@ import { getProperty } from 'property-helpers';
 
 @ApplyMiddlewareOptions({ name: 'cache' })
 export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<CacheMiddleware.ContextData<StoredValue>, StoredValue> {
-  public pollingInterval?: NodeJS.Timer;
+  public pollingInterval?: NodeJS.Timeout;
 
   public get version(): Semver {
-    return resolveVersion('[VI]{version}[/VI]');
+    return resolveVersion('[VI]{{inject}}[/VI]');
   }
 
   public override async init(store: JoshMiddlewareStore<StoredValue>) {
@@ -65,7 +65,9 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
     if (isPayloadWithData<CacheMiddleware.Document<Value>>(getPayload)) {
       const { data } = getPayload;
 
-      if (await this.isNotExpired(data, key)) payload.data = data.value;
+      if (await this.isNotExpired(data, key)) {
+        payload.data = data.value;
+      }
     }
 
     return payload;
@@ -651,8 +653,13 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
   }
 
   private async isNotExpired(data: CacheMiddleware.Document<unknown>, key: string): Promise<boolean> {
-    if (!this.context.ttl) return true;
-    if (new Date().getTime() - new Date(data.created).getTime() <= (this.context.ttl.timeout ?? 1000)) return true;
+    if (!this.context.ttl) {
+      return true;
+    }
+
+    if (new Date().getTime() - new Date(data.created).getTime() <= (this.context.ttl.timeout ?? 1000)) {
+      return true;
+    }
 
     const { provider: cache } = this.context;
 
