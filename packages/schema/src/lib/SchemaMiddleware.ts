@@ -15,7 +15,7 @@ import type { BaseValidator } from '@sapphire/shapeshift';
 @ApplyMiddlewareOptions({ name: 'schema' })
 export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<SchemaMiddleware.ContextData<StoredValue>, StoredValue> {
   public get version(): Semver {
-    return resolveVersion('[VI]{version}[/VI]');
+    return resolveVersion('[VI]{{inject}}[/VI]');
   }
 
   @PreProvider()
@@ -24,7 +24,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -40,7 +42,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
 
   @PostProvider()
   public override [Method.Get]<Value = StoredValue>(payload: Payload.Get<Value>): Payload.Get<Value> {
-    if (!isPayloadWithData(payload)) return payload;
+    if (!isPayloadWithData(payload)) {
+      return payload;
+    }
 
     const { schema } = this.context;
     const { data } = payload;
@@ -57,7 +61,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
 
   @PostProvider()
   public override [Method.GetMany](payload: Payload.GetMany<StoredValue>): Payload.GetMany<StoredValue> {
-    if (!isPayloadWithData(payload)) return payload;
+    if (!isPayloadWithData(payload)) {
+      return payload;
+    }
 
     const { schema } = this.context;
     const { data } = payload;
@@ -87,7 +93,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -107,7 +115,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -127,7 +137,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -150,7 +162,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -170,7 +184,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));
@@ -214,7 +230,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
 
       const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-      if (!isPayloadWithData(getPayload)) continue;
+      if (!isPayloadWithData(getPayload)) {
+        continue;
+      }
 
       const { data } = getPayload;
       const dataResult = Result.from(() => schema.parse(data));
@@ -241,7 +259,9 @@ export class SchemaMiddleware<StoredValue = unknown> extends JoshMiddleware<Sche
     const { schema } = this.context;
     const getPayload = await this.provider[Method.Get]({ method: Method.Get, errors: [], key, path: [] });
 
-    if (!isPayloadWithData(getPayload)) return payload;
+    if (!isPayloadWithData(getPayload)) {
+      return payload;
+    }
 
     const { data } = getPayload;
     const result = Result.from(() => schema.parse(data));

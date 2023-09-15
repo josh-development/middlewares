@@ -14,7 +14,7 @@ import { mergeDefault } from '@sapphire/utilities';
 @ApplyMiddlewareOptions({ name: 'autoEnsure' })
 export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<AutoEnsureMiddleware.ContextData<StoredValue>, StoredValue> {
   public get version(): Semver {
-    return resolveVersion('[VI]{version}[/VI]');
+    return resolveVersion('[VI]{{inject}}[/VI]');
   }
 
   @PreProvider()
@@ -34,14 +34,18 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
 
   @PostProvider()
   public override async [Method.Get]<Value = StoredValue>(payload: Payload.Get<Value>): Promise<Payload.Get<Value>> {
-    if (isPayloadWithData(payload)) return payload;
+    if (isPayloadWithData(payload)) {
+      return payload;
+    }
 
     const { key } = payload;
     const { defaultValue } = this.context;
@@ -60,7 +64,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
     const { defaultValue } = this.context;
 
     for (const key of payload.keys) {
-      if (key in payload.data && payload.data[key] !== null) continue;
+      if (key in payload.data && payload.data[key] !== null) {
+        continue;
+      }
 
       await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
 
@@ -87,7 +93,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
@@ -109,7 +117,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
@@ -131,7 +141,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
@@ -156,7 +168,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
@@ -178,7 +192,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
@@ -207,7 +223,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
           path: [],
           value: mergeDefault(defaultValue as object, data as object)
         });
-      } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+      } else {
+        await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+      }
     }
 
     return payload;
@@ -232,7 +250,9 @@ export class AutoEnsureMiddleware<StoredValue = unknown> extends JoshMiddleware<
       const { data } = getPayload;
 
       await this.provider[Method.Set]({ method: Method.Set, errors: [], key, path: [], value: mergeDefault(defaultValue as object, data as object) });
-    } else await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    } else {
+      await this.provider[Method.Ensure]({ method: Method.Ensure, errors: [], key, defaultValue });
+    }
 
     return payload;
   }
