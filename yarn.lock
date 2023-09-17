@@ -592,9 +592,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/eslint-config@npm:1.1.0-next.8eae637.0":
-  version: 1.1.0-next.8eae637.0
-  resolution: "@joshdb/eslint-config@npm:1.1.0-next.8eae637.0"
+"@joshdb/eslint-config@npm:1.1.0-next.e036bff.0":
+  version: 1.1.0-next.e036bff.0
+  resolution: "@joshdb/eslint-config@npm:1.1.0-next.e036bff.0"
   dependencies:
     "@sapphire/eslint-config": ^5.0.2
     "@typescript-eslint/eslint-plugin": ^6.7.0
@@ -604,7 +604,7 @@ __metadata:
     eslint-plugin-prettier: ^5.0.0
     prettier: ^3.0.3
     typescript: ^5.2.2
-  checksum: 0e9606d171cf846e41816b46593bb590eacf1add02e085cc350745bc4ca093aef1c38b8fa4b7b8edb4e2349f73ebae35c9914f7631c913761b08dbbb78ba8e46
+  checksum: 2f16ef5e7dc5ffea0b68ed2f6ec0c96068e091f7f58319c57c21adb0c68e7b4aff9ea252e44f84052cf256bd95f0d91e928453941e298ff556418d214d179a8a
   languageName: node
   linkType: hard
 
@@ -620,12 +620,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/prettier-config@npm:1.1.0-next.8eae637.0":
-  version: 1.1.0-next.8eae637.0
-  resolution: "@joshdb/prettier-config@npm:1.1.0-next.8eae637.0"
+"@joshdb/prettier-config@npm:1.1.0-next.e036bff.0":
+  version: 1.1.0-next.e036bff.0
+  resolution: "@joshdb/prettier-config@npm:1.1.0-next.e036bff.0"
   dependencies:
     prettier: ^3.0.3
-  checksum: 4489638011e188d4fca6d9dc0b9a634bc3d22a30ca5785314e97f7f3a92850a2c587ceeb8c378a664d9447df2f2716fa956eccd82a94be940c8c67efd61579ba
+  checksum: 1394fc162cfa56d0e3ab31533207174ba0c1d738220d230e986ae1b742e9ccd31a87a883b414f8067350275cb8cc3f116cd433a2f393b64c04a66f4f213be5e5
   languageName: node
   linkType: hard
 
@@ -4813,9 +4813,9 @@ __metadata:
     "@favware/cliff-jumper": ^2.1.3
     "@favware/colorette-spinner": ^1.0.1
     "@favware/npm-deprecate": ^1.0.7
-    "@joshdb/eslint-config": 1.1.0-next.8eae637.0
+    "@joshdb/eslint-config": 1.1.0-next.e036bff.0
     "@joshdb/map": 2.0.0-next.de5b093.0
-    "@joshdb/prettier-config": 1.1.0-next.8eae637.0
+    "@joshdb/prettier-config": 1.1.0-next.e036bff.0
     "@joshdb/ts-config": 1.1.0-next.8eae637.0
     "@swc/core": ^1.3.85
     "@types/node": ^20.6.2
