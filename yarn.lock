@@ -712,14 +712,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/ts-config@npm:1.1.0-next.8eae637.0":
-  version: 1.1.0-next.8eae637.0
-  resolution: "@joshdb/ts-config@npm:1.1.0-next.8eae637.0"
+"@joshdb/ts-config@npm:1.1.0-next.a218bc7.0":
+  version: 1.1.0-next.a218bc7.0
+  resolution: "@joshdb/ts-config@npm:1.1.0-next.a218bc7.0"
   dependencies:
     "@sapphire/ts-config": ^5.0.0
     tslib: ^2.6.2
     typescript: ^5.2.2
-  checksum: 7de3d2638923299aad0b1bada5c0497c61a1e2fb6b37824d0750244fab10231fcf33a52f7734b188fa2bd0007997052433d3f5f12fe9c93de45c7bae8b70e730
+  checksum: ba8020f4a54d9313edbe09a8c1c51467b71e7c22d58704f77998ed0ae32eb2e1b0b7c32589faaa0893ca941b134fc485a51d80e392998c30833e2987fcfc9db7
   languageName: node
   linkType: hard
 
@@ -5101,7 +5101,7 @@ __metadata:
     "@joshdb/eslint-config": 1.1.0-next.e036bff.0
     "@joshdb/map": 2.0.0-next.de5b093.0
     "@joshdb/prettier-config": 1.1.0-next.e036bff.0
-    "@joshdb/ts-config": 1.1.0-next.8eae637.0
+    "@joshdb/ts-config": 1.1.0-next.a218bc7.0
     "@swc/core": ^1.3.96
     "@types/node": ^20.8.10
     "@types/prompts": ^2.4.7
