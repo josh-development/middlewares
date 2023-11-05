@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@favware/cliff-jumper": "^2.2.0",
-    "@swc/core": "^1.3.95",
+    "@swc/core": "^1.3.96",
     "@vitest/coverage-c8": "^0.33.0",
     "typedoc": "^0.25.3",
     "typedoc-json-parser": "^9.0.1",
