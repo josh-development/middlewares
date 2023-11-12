@@ -29,7 +29,7 @@
     "@sapphire/shapeshift": "^3.9.3"
   },
   "devDependencies": {
-    "@favware/cliff-jumper": "^2.2.0",
+    "@favware/cliff-jumper": "^2.2.1",
     "@swc/core": "^1.3.96",
     "@vitest/coverage-c8": "^0.33.0",
     "typedoc": "^0.25.3",
