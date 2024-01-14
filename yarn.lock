@@ -763,7 +763,7 @@ __metadata:
   resolution: "@joshdb/auto-ensure@workspace:packages/auto-ensure"
   dependencies:
     "@favware/cliff-jumper": ^2.2.3
-    "@joshdb/provider": 2.0.0-next.a699598.0
+    "@joshdb/provider": 2.0.0-next.d46f070.0
     "@sapphire/utilities": ^3.15.2
     "@swc/core": ^1.3.101
     "@vitest/coverage-c8": ^0.33.0
@@ -778,7 +778,7 @@ __metadata:
   resolution: "@joshdb/cache@workspace:packages/cache"
   dependencies:
     "@favware/cliff-jumper": ^2.2.3
-    "@joshdb/provider": 2.0.0-next.a699598.0
+    "@joshdb/provider": 2.0.0-next.d46f070.0
     "@swc/core": ^1.3.101
     "@vitest/coverage-c8": ^0.33.0
     catch-exit: ^1.2.2
@@ -835,12 +835,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@joshdb/provider@npm:2.0.0-next.d46f070.0":
+  version: 2.0.0-next.d46f070.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.d46f070.0"
+  dependencies:
+    "@sapphire/utilities": ^3.15.2
+    reflect-metadata: ^0.2.1
+  checksum: 6cf1a9b74e9908f75b8fb0ad478be500a850d478366046c06f0cc3b7d913fad87958fc164b51735420b0c635c78aeb19c981dfd1deceee6f51be8da9135cd690
+  languageName: node
+  linkType: hard
+
 "@joshdb/schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": ^2.2.3
-    "@joshdb/provider": 2.0.0-next.a699598.0
+    "@joshdb/provider": 2.0.0-next.d46f070.0
     "@sapphire/result": ^2.6.5
     "@sapphire/shapeshift": ^3.9.5
     "@swc/core": ^1.3.101
@@ -856,7 +866,7 @@ __metadata:
   resolution: "@joshdb/transform@workspace:packages/transform"
   dependencies:
     "@favware/cliff-jumper": ^2.2.3
-    "@joshdb/provider": 2.0.0-next.a699598.0
+    "@joshdb/provider": 2.0.0-next.d46f070.0
     "@sapphire/utilities": ^3.15.2
     "@swc/core": ^1.3.101
     "@vitest/coverage-c8": ^0.33.0
@@ -866,14 +876,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/ts-config@npm:1.1.0-next.a218bc7.0":
-  version: 1.1.0-next.a218bc7.0
-  resolution: "@joshdb/ts-config@npm:1.1.0-next.a218bc7.0"
+"@joshdb/ts-config@npm:1.1.0-next.d46f070.0":
+  version: 1.1.0-next.d46f070.0
+  resolution: "@joshdb/ts-config@npm:1.1.0-next.d46f070.0"
   dependencies:
     "@sapphire/ts-config": ^5.0.0
     tslib: ^2.6.2
-    typescript: ^5.2.2
-  checksum: ba8020f4a54d9313edbe09a8c1c51467b71e7c22d58704f77998ed0ae32eb2e1b0b7c32589faaa0893ca941b134fc485a51d80e392998c30833e2987fcfc9db7
+    typescript: ^5.3.3
+  checksum: 84b825cbf919bbbb59be57762670194573da37ba2b2bd47f9868293a45fea7564e7f08ba02ceebe9eb45fd834818e4683a5750d38438ea8df233e0125563e36b
   languageName: node
   linkType: hard
 
@@ -5317,6 +5327,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reflect-metadata@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "reflect-metadata@npm:0.2.1"
+  checksum: 772f552a544e04b999c1bf2c868225fef10032274e9d9e315bc3e7a687a504b8b115fa71966665b9619acfd323123a941f892b593250140da809330d41564181
+  languageName: node
+  linkType: hard
+
 "require-directory@npm:^2.1.1":
   version: 2.1.1
   resolution: "require-directory@npm:2.1.1"
@@ -5509,7 +5526,7 @@ __metadata:
     "@joshdb/eslint-config": 1.1.0-next.e036bff.0
     "@joshdb/map": 2.0.0-next.de5b093.0
     "@joshdb/prettier-config": 1.1.0-next.e036bff.0
-    "@joshdb/ts-config": 1.1.0-next.a218bc7.0
+    "@joshdb/ts-config": 1.1.0-next.d46f070.0
     "@swc/core": ^1.3.101
     "@types/node": ^20.10.6
     "@types/prompts": ^2.4.9
