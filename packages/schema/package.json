@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@joshdb/provider": "2.0.0-next.a699598.0",
-    "@sapphire/result": "^2.6.5",
-    "@sapphire/shapeshift": "^3.9.5"
+    "@sapphire/result": "^2.6.6",
+    "@sapphire/shapeshift": "^3.9.6"
   },
   "devDependencies": {
     "@favware/cliff-jumper": "^2.2.3",
