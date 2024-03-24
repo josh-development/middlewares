@@ -866,14 +866,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@joshdb/ts-config@npm:1.1.0-next.a218bc7.0":
-  version: 1.1.0-next.a218bc7.0
-  resolution: "@joshdb/ts-config@npm:1.1.0-next.a218bc7.0"
+"@joshdb/ts-config@npm:1.1.0-next.a60d862.0":
+  version: 1.1.0-next.a60d862.0
+  resolution: "@joshdb/ts-config@npm:1.1.0-next.a60d862.0"
   dependencies:
-    "@sapphire/ts-config": ^5.0.0
+    "@sapphire/ts-config": ^5.0.1
     tslib: ^2.6.2
-    typescript: ^5.2.2
-  checksum: ba8020f4a54d9313edbe09a8c1c51467b71e7c22d58704f77998ed0ae32eb2e1b0b7c32589faaa0893ca941b134fc485a51d80e392998c30833e2987fcfc9db7
+    typescript: ^5.4.2
+  checksum: b9a023a59be210d2ba6f649cda605cdadbf570ae24e6f05c097feb8c478ca6553100d108ae3f80e194e72970f0e166242989afe7df49530a186a8914d16db79e
   languageName: node
   linkType: hard
 
@@ -1125,13 +1125,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/ts-config@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@sapphire/ts-config@npm:5.0.0"
+"@sapphire/ts-config@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@sapphire/ts-config@npm:5.0.1"
   dependencies:
     tslib: ^2.6.2
-    typescript: ^5.2.2
-  checksum: 5295e70762ec4e710c44d62c0706debb3d651d994b40c55586bfa93e7fae34c4f4f63d047b4fe3e66c4f545ad696485c904e79d2ed4e9ea45c89a0bf305ca945
+    typescript: ^5.4.2
+  checksum: f29adf9e76bb2bcedde97ec36f9a1811487c70daaf2c0b5d4c33d2f648872df960c324f14c3313b73289176d12e0cd16e75db7e797461353db82212890a30811
   languageName: node
   linkType: hard
 
@@ -5509,7 +5509,7 @@ __metadata:
     "@joshdb/eslint-config": 1.1.0-next.e036bff.0
     "@joshdb/map": 2.0.0-next.de5b093.0
     "@joshdb/prettier-config": 1.1.0-next.e036bff.0
-    "@joshdb/ts-config": 1.1.0-next.a218bc7.0
+    "@joshdb/ts-config": 1.1.0-next.a60d862.0
     "@swc/core": ^1.3.101
     "@types/node": ^20.10.6
     "@types/prompts": ^2.4.9
@@ -6386,6 +6386,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:^5.4.2":
+  version: 5.4.3
+  resolution: "typescript@npm:5.4.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: d74d731527e35e64d8d2dcf2f897cf8cfbc3428be0ad7c48434218ba4ae41239f53be7c90714089db1068c05cae22436af2ecba71fd36ecc5e7a9118af060198
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>, typescript@patch:typescript@^5.2.2#~builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"
@@ -6403,6 +6413,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 4e604a9e107ce0c23b16a2f8d79d0531d4d8fe9ebbb7a8c395c66998c39892f0e0a071ef0b0d4e66420a8ec2b8d6cfd9cdb29ba24f25b37cba072e9282376df9
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^5.4.2#~builtin<compat/typescript>":
+  version: 5.4.3
+  resolution: "typescript@patch:typescript@npm%3A5.4.3#~builtin<compat/typescript>::version=5.4.3&hash=5adc0c"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 523ec29bc308b4ca0cec9a139ac08a27939891d8ad620d249cf5e1a35454e37cd7bb52613a1884f1206aa11d2fb1c4c83fb9e939bde542aaa8527ba818cb8177
   languageName: node
   linkType: hard
 
