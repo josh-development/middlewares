@@ -18,7 +18,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
-    "@favware/cliff-jumper": "^2.2.3",
+    "@favware/cliff-jumper": "^3.0.1",
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.7",
     "@joshdb/eslint-config": "1.1.0-next.e036bff.0",
