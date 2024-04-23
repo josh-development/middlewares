@@ -21,7 +21,7 @@
     "@favware/cliff-jumper": "^2.2.3",
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.7",
-    "@joshdb/eslint-config": "1.1.0-next.e036bff.0",
+    "@joshdb/eslint-config": "1.1.0-pr-148.dc48f31.0",
     "@joshdb/map": "2.0.0-next.de5b093.0",
     "@joshdb/prettier-config": "1.1.0-next.e036bff.0",
     "@joshdb/ts-config": "1.1.0-next.a60d862.0",
