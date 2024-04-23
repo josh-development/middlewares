@@ -1,4 +1,6 @@
 name: '*next*'
 package:
   - '@joshdb/auto-ensure'
+  - '@joshdb/cache'
   - '@joshdb/schema'
+  - '@joshdb/transform'
