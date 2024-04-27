@@ -716,7 +716,7 @@ __metadata:
   resolution: "@joshdb/auto-ensure@workspace:packages/auto-ensure"
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
-    "@joshdb/provider": "npm:2.0.0-next.a699598.0"
+    "@joshdb/provider": "npm:2.0.0-next.1f1f21b.0"
     "@sapphire/utilities": "npm:^3.15.3"
     "@swc/core": "npm:^1.4.17"
     "@vitest/coverage-c8": "npm:^0.33.0"
@@ -731,7 +731,7 @@ __metadata:
   resolution: "@joshdb/cache@workspace:packages/cache"
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
-    "@joshdb/provider": "npm:2.0.0-next.a699598.0"
+    "@joshdb/provider": "npm:2.0.0-next.1f1f21b.0"
     "@swc/core": "npm:^1.4.17"
     "@vitest/coverage-c8": "npm:^0.33.0"
     catch-exit: "npm:^1.2.2"
@@ -757,15 +757,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/map@npm:2.0.0-next.de5b093.0":
-  version: 2.0.0-next.de5b093.0
-  resolution: "@joshdb/map@npm:2.0.0-next.de5b093.0"
+"@joshdb/map@npm:2.0.0-next.034fbb0.0":
+  version: 2.0.0-next.034fbb0.0
+  resolution: "@joshdb/map@npm:2.0.0-next.034fbb0.0"
   dependencies:
-    "@joshdb/provider": "npm:2.0.0-next.a699598.0"
-    "@sapphire/utilities": "npm:^3.13.0"
+    "@joshdb/provider": "npm:2.0.0-next.1f1f21b.0"
+    "@sapphire/utilities": "npm:^3.15.3"
     better-serialize: "npm:^1.0.0"
     property-helpers: "npm:^2.0.0"
-  checksum: 10/0504e5e3d774baade8cbbd19bfc45c6dfdec9b2d70f39712a1a568971a8eae1d04b5be628d91486918c55c2d8dbef743fece8cfff203a4911177a18a2c8b299b
+  checksum: 10/892f5214fbae7a34efd5c677943f6150af6e4de5b04a7d3b3dbcfa48419cb6d0260f8bbbe6bb3a4a813585a7f027c196841fb1b347c6d42024411e8c101011e0
   languageName: node
   linkType: hard
 
@@ -778,13 +778,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.a699598.0":
-  version: 2.0.0-next.a699598.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.a699598.0"
+"@joshdb/provider@npm:2.0.0-next.1f1f21b.0":
+  version: 2.0.0-next.1f1f21b.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.1f1f21b.0"
   dependencies:
-    "@sapphire/utilities": "npm:^3.11.2"
-    reflect-metadata: "npm:^0.1.13"
-  checksum: 10/4338e2097e58145d0c865ce251e2e496eb73ab71f3160097081450f5a270b6491bfcc44becd0ee98e7bfd153a79f6412a7c7bbe0c112d2e1970c71ec5ad64fbd
+    "@sapphire/utilities": "npm:^3.15.3"
+    reflect-metadata: "npm:^0.2.1"
+  checksum: 10/1b14135a7d0eabe2a412a7d5bcd1c3f9fa3f7ba1635f4a4317ee23651a337d5c3accecc850042493eaac47b5f8f7791d07abc18db5acdd02f16851a5c0f49148
   languageName: node
   linkType: hard
 
@@ -793,7 +793,7 @@ __metadata:
   resolution: "@joshdb/schema@workspace:packages/schema"
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
-    "@joshdb/provider": "npm:2.0.0-next.a699598.0"
+    "@joshdb/provider": "npm:2.0.0-next.1f1f21b.0"
     "@sapphire/result": "npm:^2.6.6"
     "@sapphire/shapeshift": "npm:^3.9.7"
     "@swc/core": "npm:^1.4.17"
@@ -809,7 +809,7 @@ __metadata:
   resolution: "@joshdb/transform@workspace:packages/transform"
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
-    "@joshdb/provider": "npm:2.0.0-next.a699598.0"
+    "@joshdb/provider": "npm:2.0.0-next.1f1f21b.0"
     "@sapphire/utilities": "npm:^3.15.3"
     "@swc/core": "npm:^1.4.17"
     "@vitest/coverage-c8": "npm:^0.33.0"
@@ -1085,7 +1085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:^3.11.0, @sapphire/utilities@npm:^3.11.2, @sapphire/utilities@npm:^3.13.0":
+"@sapphire/utilities@npm:^3.11.0":
   version: 3.13.0
   resolution: "@sapphire/utilities@npm:3.13.0"
   checksum: 10/bc1da486c3a97119ff54f884b24c4da89ff90391e31ef5ade48852a3bfaebb569ec43d17d49615eaa362184ebc21074f9da289332b20550039dcff2fc828a598
@@ -4762,10 +4762,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reflect-metadata@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "reflect-metadata@npm:0.1.13"
-  checksum: 10/732570da35d2d96f8fdd5aac60fb263aa92f6512eaded5962b052bd9e90f22a9dec5aaf0d7ff4bfe97646c9530e8444e8435c2d80b24d0bdf938b5d47f6f5b83
+"reflect-metadata@npm:^0.2.1":
+  version: 0.2.2
+  resolution: "reflect-metadata@npm:0.2.2"
+  checksum: 10/1c93f9ac790fea1c852fde80c91b2760420069f4862f28e6fae0c00c6937a56508716b0ed2419ab02869dd488d123c4ab92d062ae84e8739ea7417fae10c4745
   languageName: node
   linkType: hard
 
@@ -4924,7 +4924,7 @@ __metadata:
     "@favware/colorette-spinner": "npm:^1.0.1"
     "@favware/npm-deprecate": "npm:^1.0.7"
     "@joshdb/eslint-config": "npm:2.0.0-next.1f1f21b.0"
-    "@joshdb/map": "npm:2.0.0-next.de5b093.0"
+    "@joshdb/map": "npm:2.0.0-next.034fbb0.0"
     "@joshdb/prettier-config": "npm:2.0.0-next.1f1f21b.0"
     "@joshdb/ts-config": "npm:2.0.0-next.1f1f21b.0"
     "@swc/core": "npm:^1.4.17"

@@ -22,7 +22,7 @@
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.7",
     "@joshdb/eslint-config": "2.0.0-next.1f1f21b.0",
-    "@joshdb/map": "2.0.0-next.de5b093.0",
+    "@joshdb/map": "2.0.0-next.034fbb0.0",
     "@joshdb/prettier-config": "2.0.0-next.1f1f21b.0",
     "@joshdb/ts-config": "2.0.0-next.1f1f21b.0",
     "@swc/core": "^1.4.17",
