@@ -41,7 +41,7 @@ export class CacheMiddleware<StoredValue = unknown> extends JoshMiddleware<Cache
 
   public async fetchVersion() {
     const { provider: cache } = this.context;
-    const versionPayload = await cache[Method.Random]({ method: Method.Random, errors: [], count: 1, duplicates: true });
+    const versionPayload = await cache[Method.Random]({ method: Method.Random, errors: [], count: 1, unique: false });
 
     if (isPayloadWithData<CacheMiddleware.Document<StoredValue>[]>(versionPayload)) {
       const { data } = versionPayload;
