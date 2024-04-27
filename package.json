@@ -21,10 +21,10 @@
     "@favware/cliff-jumper": "^2.2.3",
     "@favware/colorette-spinner": "^1.0.1",
     "@favware/npm-deprecate": "^1.0.7",
-    "@joshdb/eslint-config": "1.1.0-next.e036bff.0",
+    "@joshdb/eslint-config": "2.0.0-next.1f1f21b.0",
     "@joshdb/map": "2.0.0-next.de5b093.0",
-    "@joshdb/prettier-config": "1.1.0-next.e036bff.0",
-    "@joshdb/ts-config": "1.1.0-next.a60d862.0",
+    "@joshdb/prettier-config": "2.0.0-next.1f1f21b.0",
+    "@joshdb/ts-config": "2.0.0-next.1f1f21b.0",
     "@swc/core": "^1.3.101",
     "@types/node": "^20.10.6",
     "@types/prompts": "^2.4.9",
@@ -52,7 +52,7 @@
     "url": "git+https://github.com/josh-development/middlewares.git"
   },
   "engines": {
-    "node": ">=16.6.0",
+    "node": ">=20",
     "npm": ">=7.0.0"
   },
   "lint-staged": {

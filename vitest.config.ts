@@ -7,6 +7,6 @@ export default createVitestConfig({
     }
   },
   esbuild: {
-    target: 'es2021'
+    target: 'es2022'
   }
 });
