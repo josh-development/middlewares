@@ -323,42 +323,42 @@ describe('SchemaMiddleware', () => {
           path: [],
           value: { str: 'test', num: 1, arr: [] }
         });
+      });
 
-        test('GIVEN valid data THEN passes', async () => {
-          await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 'test', num: 1, arr: [] } });
+      test('GIVEN valid data THEN passes', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 'test', num: 1, arr: [] } });
 
-          await expect(schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: ['str'], value: 'test' })).resolves.toStrictEqual({
-            method: Method.Set,
-            errors: [],
-            key: 'key',
-            path: ['str'],
-            value: 'test'
-          });
+        await expect(schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: ['str'], value: 'test' })).resolves.toStrictEqual({
+          method: Method.Set,
+          errors: [],
+          key: 'key',
+          path: ['str'],
+          value: 'test'
         });
+      });
 
-        test('GIVEN invalid data THEN throws', async () => {
-          await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 1, num: 'test', arr: [] } });
+      test('GIVEN invalid data THEN throws', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 1, num: 'test', arr: [] } });
 
-          const payload = await schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: ['str'], value: 'test' });
-          const { method, key, path, errors } = payload;
-          const { context } = errors[0];
+        const payload = await schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: ['str'], value: 'test' });
+        const { method, key, path, errors } = payload;
+        const { context } = errors[0];
 
-          expect(method).toBe(Method.Set);
-          expect(key).toBe('key');
-          expect(path).toStrictEqual(['str']);
-          expect(context.shapeshiftError).toBeInstanceOf(CombinedPropertyError);
-        });
+        expect(method).toBe(Method.Set);
+        expect(key).toBe('key');
+        expect(path).toStrictEqual(['str']);
+        expect(context.shapeshiftError).toBeInstanceOf(CombinedPropertyError);
+      });
 
-        test('GIVEN invalid value THEN throws', async () => {
-          const payload = await schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 1, num: 'test', arr: [] } });
-          const { method, key, path, errors } = payload;
-          const { context } = errors[0];
+      test('GIVEN invalid value THEN throws', async () => {
+        const payload = await schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 1, num: 'test', arr: [] } });
+        const { method, key, path, errors } = payload;
+        const { context } = errors[0];
 
-          expect(method).toBe(Method.Set);
-          expect(key).toBe('key');
-          expect(path).toStrictEqual([]);
-          expect(context.shapeshiftError).toBeInstanceOf(CombinedPropertyError);
-        });
+        expect(method).toBe(Method.Set);
+        expect(key).toBe('key');
+        expect(path).toStrictEqual([]);
+        expect(context.shapeshiftError).toBeInstanceOf(CombinedPropertyError);
       });
 
       describe(Method.SetMany, () => {
