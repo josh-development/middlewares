@@ -413,13 +413,13 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
 
   @PostProvider()
   public override async [Method.Random]<ReturnValue = BeforeValue>(payload: Payload.Random<ReturnValue>): Promise<Payload.Random<ReturnValue>> {
-    const { data, count, duplicates } = payload;
+    const { data, count, unique } = payload;
     const { after } = this.context;
 
     if (data) {
       payload.data = data.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
     } else {
-      const { data } = await this.provider[Method.Random]({ method: Method.Random, errors: [], count, duplicates });
+      const { data } = await this.provider[Method.Random]({ method: Method.Random, errors: [], count, unique });
 
       payload.data = data!.map((v) => after(v as unknown as AfterValue, null, null)) as unknown as ReturnValue[];
     }
