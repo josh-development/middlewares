@@ -123,7 +123,11 @@ export class TransformMiddleware<BeforeValue = unknown, AfterValue = unknown> ex
       payload = (await this.provider[Method.Map](payload)) as unknown as Payload.Map.ByPath<ReturnValue>;
     }
 
-    payload.data?.map(async (v) => (await after(v as unknown as AfterValue, null, null)) as ReturnValue);
+    if (payload.data) {
+      for (const value of payload.data) {
+        (await after(value as unknown as AfterValue, null, null)) as StoredValue;
+      }
+    }
 
     payload.metadata ??= {};
     payload.metadata.skipProvider = true;
