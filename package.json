@@ -30,7 +30,7 @@
     "@types/prompts": "^2.4.9",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1.5.2",
     "colorette": "^2.0.20",
     "esbuild-plugin-version-injector": "^1.2.1",
     "eslint": "^8.57.0",
@@ -45,7 +45,7 @@
     "tsup": "^8.0.2",
     "turbo": "^1.13.3",
     "typescript": "^5.4.5",
-    "vitest": "^0.34.6"
+    "vitest": "^1.5.2"
   },
   "repository": {
     "type": "git",
