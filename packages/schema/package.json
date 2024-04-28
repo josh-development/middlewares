@@ -24,7 +24,7 @@
     "check-update": "cliff-jumper --dry-run"
   },
   "dependencies": {
-    "@joshdb/provider": "2.0.0-next.a089b2d.0",
+    "@joshdb/provider": "2.0.0-next.c7aa6bf.0",
     "@sapphire/result": "^2.6.6",
     "@sapphire/shapeshift": "^3.9.7"
   },
