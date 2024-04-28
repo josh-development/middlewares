@@ -351,6 +351,8 @@ describe('SchemaMiddleware', () => {
       });
 
       test('GIVEN invalid value THEN throws', async () => {
+        await store.provider[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 'test', num: 1, arr: [] } });
+
         const payload = await schema[Method.Set]({ method: Method.Set, errors: [], key: 'key', path: [], value: { str: 1, num: 'test', arr: [] } });
         const { method, key, path, errors } = payload;
         const { context } = errors[0];
