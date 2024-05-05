@@ -802,15 +802,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/map@npm:2.0.0-next.38103c9.0":
-  version: 2.0.0-next.38103c9.0
-  resolution: "@joshdb/map@npm:2.0.0-next.38103c9.0"
+"@joshdb/map@npm:2.0.0-next.9fcabe9.0":
+  version: 2.0.0-next.9fcabe9.0
+  resolution: "@joshdb/map@npm:2.0.0-next.9fcabe9.0"
   dependencies:
     "@joshdb/provider": "npm:2.0.0-next.b88aca0.0"
     "@sapphire/utilities": "npm:^3.15.3"
     better-serialize: "npm:^2.0.0"
     property-helpers: "npm:^2.0.0"
-  checksum: 10/265aa8ff57a5db15ca6f055fee14e0437c452e0f3d17a13f4e70a7d3933c6c8255bb3302a97f6cb2f1a7dbcbbe02105af6bf3d839afde915e6d35de06e79e246
+  checksum: 10/a0bbae093d122ce3d6b111b1fa514a07a53236c68d6835f18aad461a36b414254adea65770a884253d7fbb4bea58fa8997a6622107d2e4172af3ba032834a16b
   languageName: node
   linkType: hard
 
@@ -5268,7 +5268,7 @@ __metadata:
     "@favware/colorette-spinner": "npm:^1.0.1"
     "@favware/npm-deprecate": "npm:^1.0.7"
     "@joshdb/eslint-config": "npm:2.0.0-next.b88aca0.0"
-    "@joshdb/map": "npm:2.0.0-next.38103c9.0"
+    "@joshdb/map": "npm:2.0.0-next.9fcabe9.0"
     "@joshdb/prettier-config": "npm:2.0.0-next.b88aca0.0"
     "@joshdb/ts-config": "npm:2.0.0-next.b88aca0.0"
     "@swc/core": "npm:^1.4.17"
