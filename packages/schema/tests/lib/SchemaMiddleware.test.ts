@@ -18,9 +18,9 @@ describe('SchemaMiddleware', () => {
     const store = new JoshMiddlewareStore({ provider: new MapProvider() });
     const schema = new SchemaMiddleware<unknown>({
       schema: s.object({
-        str: s.string,
-        num: s.number,
-        arr: s.array(s.string)
+        str: s.string(),
+        num: s.number(),
+        arr: s.array(s.string())
       })
     });
 
