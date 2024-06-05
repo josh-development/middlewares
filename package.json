@@ -5,15 +5,15 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "rimraf coverage \"packages/**/dist\" \"packages/**/build\" \"packages/**/.turbo\" \"packages/**/node_modules/.cache\" \"node_modules/.cache\"",
+    "clean": "node scripts/clean.mjs",
+    "clean:full": "node scripts/clean-full.mjs",
     "docs": "turbo run docs",
     "lint": "eslint packages scripts --ext mjs,js,ts --fix",
     "format": "prettier --write \"packages/**/{src,tests}/**/*.{mjs,js,ts}\"",
     "test": "vitest run",
     "build": "turbo run build",
     "update": "yarn upgrade-interactive",
-    "check-update": "turbo run check-update",
-    "postinstall": "husky"
+    "check-update": "turbo run check-update"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
@@ -36,11 +36,9 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "husky": "^9.0.11",
     "lint-staged": "^15.2.5",
     "prettier": "^3.3.1",
     "prompts": "^2.4.2",
-    "rimraf": "^5.0.7",
     "tslib": "^2.6.3",
     "tsup": "^8.1.0",
     "turbo": "^1.13.4",
@@ -55,8 +53,14 @@
     "node": ">=20",
     "npm": ">=7.0.0"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "lint-staged": {
-    "*.{mjs,ts}": "eslint --fix --ext mjs,ts"
+    "*": "prettier --ignore-unknown --write",
+    "*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts"
   },
   "prettier": "@joshdb/prettier-config",
   "packageManager": "yarn@4.2.2"

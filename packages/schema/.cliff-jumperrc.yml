@@ -1,3 +1,4 @@
 name: schema
 org: joshdb
+install: true
 packagePath: packages/schema

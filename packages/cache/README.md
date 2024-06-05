@@ -2,14 +2,14 @@
 
 ![Josh Logo](https://evie.codes/josh-light.png)
 
-# @joshdb/auto-ensure
+# @joshdb/cache
 
 **An auto ensure middleware for Josh.**
 
 [![GitHub](https://img.shields.io/github/license/josh-development/middlewares)](https://github.com/josh-development/middlewares/blob/main/LICENSE.md)
 [![codecov](https://codecov.io/gh/josh-development/middlewares/branch/main/graph/badge.svg?token=JnJcjxqT3k)](https://codecov.io/gh/josh-development/middlewares)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/@joshdb/auto-ensure?logo=webpack&style=flat-square)](https://bundlephobia.com/result?p=@joshdb/auto-ensure)
-[![npm](https://img.shields.io/npm/v/@joshdb/auto-ensure?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@joshdb/auto-ensure)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/@joshdb/cache?logo=webpack&style=flat-square)](https://bundlephobia.com/result?p=@joshdb/cache)
+[![npm](https://img.shields.io/npm/v/@joshdb/cache?color=crimson&logo=npm&style=flat-square)](https://www.npmjs.com/package/@joshdb/cache)
 
 [![Support Server](https://discord.com/api/guilds/298508738623438848/embed.png?style=banner2)](https://discord.gg/N7ZKH3P)
 
@@ -17,7 +17,7 @@
 
 ## Description
 
-An auto ensure middleware for Josh.
+A cache middleware for Josh.
 
 ## Features
 
@@ -30,7 +30,7 @@ An auto ensure middleware for Josh.
 You can use the following command to install this package, or replace `npm install` with your package manager of choice.
 
 ```sh
-npm install @joshdb/auto-ensure
+npm install @joshdb/cache
 ```
 
 ## Middleware Context Data
@@ -38,15 +38,28 @@ npm install @joshdb/auto-ensure
 ```typescript
 interface ContextData<StoredValue = unknown> {
   /**
-   * The default value to set if the key does not exist.
+   * The JoshProvider to use for cache
    * @since 1.0.0
    */
-  defaultValue: StoredValue;
+  provider: JoshProvider<Document<StoredValue>>;
 
   /**
-   * Whether to merge the `ContextData#defaultValue` with existing values.
+   * When true, fetches all entries from the provider on startup
+   * @since 1.0.0
+   * @default true
+   */
+  fetchAll: boolean;
+
+  /**
+   * When enabled fetches from the cache provider on a set interval
    * @since 1.0.0
    */
-  ensureProperties?: boolean;
+  polling?: PollingOptions;
+
+  /**
+   * When enabled invalidates entries from the cache provider when they expire
+   * @since 1.0.0
+   */
+  ttl?: TTLOptions;
 }
 ```

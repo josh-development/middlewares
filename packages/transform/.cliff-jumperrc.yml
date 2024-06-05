@@ -1,3 +1,4 @@
 name: transform
 org: joshdb
+install: true
 packagePath: packages/transform
