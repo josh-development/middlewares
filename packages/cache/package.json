@@ -2,10 +2,12 @@
   "name": "@joshdb/cache",
   "version": "1.0.0",
   "description": "A cache middleware for Josh",
-  "author": "@joshdb",
+  "author": "Évelyne Lachance <eslachance@gmail.com> (https://evie.codes/)",
   "contributors": [
+    "Hezekiah Hendry <hezekiah.hendry@gmail.com>",
     "DanCodes <dan@dancodes.online> (https://dancodes.online/)"
   ],
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -15,6 +17,7 @@
     "types": "./dist/index.d.ts"
   },
   "sideEffects": false,
+  "homepage": "https://github.com/josh-development/middlewares/main/packages/cache",
   "scripts": {
     "test": "vitest run",
     "docs": "typedoc-json-parser",
@@ -54,7 +57,6 @@
   "bugs": {
     "url": "https://github.com/josh-development/middlewares/issues"
   },
-  "homepage": "https://josh.evie.dev",
   "publishConfig": {
     "access": "public"
   }

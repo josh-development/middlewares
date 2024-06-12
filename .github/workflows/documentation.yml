@@ -21,26 +21,28 @@ jobs:
       NAME: ${{ steps.env.outputs.NAME }}
       TYPE: ${{ steps.env.outputs.TYPE }}
       SHA: ${{ steps.env.outputs.SHA }}
+
     steps:
       - name: Checkout Project
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
-      - name: Use Node.js v20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+
+      - name: Setup Node & Install Dependencies
+        uses: josh-development/.github/setup-node@main
         with:
-          node-version: 20
-          cache: yarn
-          registry-url: https://registry.yarnpkg.com/
-      - name: Install Dependencies
-        run: yarn --immutable
+          turbo: true
+
       - name: Build Packages
         run: yarn build
+
       - name: Build Documentation
         run: yarn docs
+
       - name: Upload Documentation Artifacts
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4
         with:
           name: docs
           path: packages/*/docs/api.json
+
       - name: Set Output
         id: env
         run: |
@@ -50,34 +52,36 @@ jobs:
 
   upload:
     name: Upload Documentation
-    needs: build
+    runs-on: ubuntu-latest
+    needs: [build]
+
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         package:
-          - auto-ensure
-          - schema
-    runs-on: ubuntu-latest
+          - provider
+
     env:
       NAME: ${{ needs.build.outputs.NAME }}
       TYPE: ${{ needs.build.outputs.TYPE }}
       SHA: ${{ needs.build.outputs.SHA }}
+
     steps:
       - name: Checkout Project
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
-      - name: Use Node.js v20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+
+      - name: Setup Node & Install Dependencies
+        uses: josh-development/.github/setup-node@main
         with:
-          node-version: 20
-          cache: yarn
-          registry-url: https://registry.yarnpkg.com/
-      - name: Install Dependencies
-        run: yarn --immutable
+          turbo: true
+
       - name: Download Documentation Artifacts
         uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4
         with:
           name: docs
           path: docs
+
       - name: Checkout Documentation Project
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
         with:
@@ -100,6 +104,7 @@ jobs:
         run: |
           mkdir -p out/docs/middlewares/${PACKAGE}
           mv docs/${PACKAGE}/docs/api.json out/docs/middlewares/${PACKAGE}/${SEMVER}.json
+
       - name: Move Documentation
         if: ${{ env.TYPE == 'branch' }}
         env:

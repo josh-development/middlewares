@@ -30,16 +30,12 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.branch || 'main' }}
-      - name: Add TypeScript Problem Matcher
-        run: echo "::add-matcher::.github/problemMatchers/tsc.json"
-      - name: Use Node.js v20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+
+      - name: Setup Node
+        uses: josh-development/.github/setup-node@main
         with:
-          node-version: 20
-          cache: yarn
-          registry-url: https://registry.yarnpkg.com/
-      - name: Install Dependencies
-        run: yarn --immutable
+          turbo: true
+
       - name: Bump Versions & Publish
         run: |
           # Resolve the tag to be used. "next" for push events, "pr-{prNumber}" for dispatch events.
@@ -49,6 +45,10 @@ jobs:
           yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
 
           for d in packages/*; do
+            if grep -q '"private": true' "$d/package.json"; then
+              continue
+            fi
+
             pushd $d
 
             yarn bump --preid "${TAG}.$(git rev-parse --verify --short HEAD)"

@@ -14,14 +14,12 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
-      - name: Use Node.js v20
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+
+      - name: Setup Node
+        uses: josh-development/.github/setup-node@main
         with:
-          node-version: 20
-          cache: yarn
-          registry-url: https://registry.yarnpkg.com/
-      - name: Install Dependencies
-        run: yarn --immutable
+          turbo: true
+
       - name: Deprecate Versions
         run: yarn npm-deprecate --name "*pr-${PR_NUMBER}*" -d -v
         env:

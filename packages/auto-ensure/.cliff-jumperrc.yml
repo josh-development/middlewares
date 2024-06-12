@@ -1,3 +1,4 @@
 name: auto-ensure
 org: joshdb
+install: true
 packagePath: packages/auto-ensure

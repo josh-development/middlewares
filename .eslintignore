@@ -4,7 +4,6 @@ node_modules/
 
 # Ignore build artifacts
 dist/
-build/
 docs/
 coverage/
 .turbo/
@@ -22,3 +21,9 @@ gh
 # Ignore Yarn files
 .yarn/install-state.gz
 .yarn/build-state.yml
+
+# Ignore changelogs
+CHANGELOG.md
+
+# Ignore toml files
+*.toml

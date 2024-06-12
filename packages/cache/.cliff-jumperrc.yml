@@ -1,3 +1,4 @@
 name: cache
 org: joshdb
+install: true
 packagePath: packages/cache

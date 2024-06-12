@@ -2,7 +2,11 @@
   "name": "@joshdb/auto-ensure",
   "version": "1.0.0",
   "description": "An auto ensure middleware for Josh",
-  "author": "@joshdb",
+  "author": "Évelyne Lachance <eslachance@gmail.com> (https://evie.codes/)",
+  "contributors": [
+    "Hezekiah Hendry <hezekiah.hendry@gmail.com>"
+  ],
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "browser": "dist/index.umd.js",
@@ -14,6 +18,7 @@
     "types": "./dist/index.d.ts"
   },
   "sideEffects": false,
+  "homepage": "https://github.com/josh-development/middlewares/main/packages/auto-ensure",
   "scripts": {
     "test": "vitest run",
     "docs": "typedoc-json-parser",
@@ -53,7 +58,6 @@
   "bugs": {
     "url": "https://github.com/josh-development/middlewares/issues"
   },
-  "homepage": "https://josh.evie.dev",
   "publishConfig": {
     "access": "public"
   }

@@ -4,14 +4,13 @@ node_modules/
 
 # Ignore build artifacts
 dist/
-build/
-docs/
-coverage/
 .turbo/
 
 # Ignore heapsnapshot and log files
 *.heapsnapshot
 *.log
+coverage/
+docs/
 
 # Ignore package locks
 package-lock.json

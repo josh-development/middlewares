@@ -1,12 +1,4 @@
 /packages/auto-ensure/**/*.ts @RealShadowNova
 /packages/cache/**/*.ts @dan-online
-/packages/transform/**/*.ts @c0reme
-
-/.github/ @RealShadowNova
-/.husky/ @RealShadowNova
-/.vscode/ @RealShadowNova
-/.yarn/ @RealShadowNova
-/scripts/ @RealShadowNova
-LICENSE @eslachance
-package.json @RealShadowNova
-README.md @RealShadowNova
+/packages/schema/**/*.ts @RealShadowNova
+/packages/transform/**/*.ts @RealShadowNova @c0reme
