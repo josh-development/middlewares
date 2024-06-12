@@ -60,7 +60,10 @@ jobs:
       max-parallel: 1
       matrix:
         package:
-          - provider
+          - auto-ensure
+          - cache
+          - schema
+          - transform
 
     env:
       NAME: ${{ needs.build.outputs.NAME }}
