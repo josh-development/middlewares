@@ -25,7 +25,7 @@
     "@joshdb/map": "2.0.0-next.c343260.0",
     "@joshdb/prettier-config": "2.0.0-next.b88aca0.0",
     "@joshdb/ts-config": "2.0.0-next.b88aca0.0",
-    "@swc/core": "^1.6.0",
+    "@swc/core": "^1.6.1",
     "@types/node": "^20.14.2",
     "@types/prompts": "^2.4.9",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
