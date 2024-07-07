@@ -809,15 +809,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/map@npm:2.0.0-next.c343260.0":
-  version: 2.0.0-next.c343260.0
-  resolution: "@joshdb/map@npm:2.0.0-next.c343260.0"
+"@joshdb/map@npm:2.0.0-next.f1e0d87.0":
+  version: 2.0.0-next.f1e0d87.0
+  resolution: "@joshdb/map@npm:2.0.0-next.f1e0d87.0"
   dependencies:
-    "@joshdb/provider": "npm:2.0.0-next.b88aca0.0"
+    "@joshdb/provider": "npm:2.0.0-next.cd2b620.0"
     "@sapphire/utilities": "npm:^3.16.2"
     better-serialize: "npm:^2.0.0"
     property-helpers: "npm:^2.0.0"
-  checksum: 10/23c37d93fe057650c0facb997e621160eb8582302f305961338e852e84564be571cc98346f203d944565b194a24c25fe7b51a02ab06b49554b5759e9d6a1cbeb
+  checksum: 10/6735540743dc055f934b3e8c0272a106fc6756b0f022a18abd937f35b692c62508598d917e6efa07886cebaf64ed91faa66c3946a05e759eec6b9eb321a8d18f
   languageName: node
   linkType: hard
 
@@ -830,16 +830,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@joshdb/provider@npm:2.0.0-next.b88aca0.0":
-  version: 2.0.0-next.b88aca0.0
-  resolution: "@joshdb/provider@npm:2.0.0-next.b88aca0.0"
-  dependencies:
-    "@sapphire/utilities": "npm:^3.15.3"
-    reflect-metadata: "npm:^0.2.1"
-  checksum: 10/a7f21e7f0871593ff639357363508db14ef5d83c93bdcee035ad77b6a928173619b585c738cb1c27c9c004bf416d874f4557c49fbeba9a688adf469f061b5d67
-  languageName: node
-  linkType: hard
-
 "@joshdb/provider@npm:2.0.0-next.c52cfc9.0":
   version: 2.0.0-next.c52cfc9.0
   resolution: "@joshdb/provider@npm:2.0.0-next.c52cfc9.0"
@@ -847,6 +837,16 @@ __metadata:
     "@sapphire/utilities": "npm:^3.16.2"
     reflect-metadata: "npm:^0.2.1"
   checksum: 10/97980a506e140a07306d4012ca4b286601edb89e31c9c41abd9405fe704b46b315bf0edbf79e8eb6fbe355ea9e17dd6b9854f06abad5fa52db9fe2f14000a37a
+  languageName: node
+  linkType: hard
+
+"@joshdb/provider@npm:2.0.0-next.cd2b620.0":
+  version: 2.0.0-next.cd2b620.0
+  resolution: "@joshdb/provider@npm:2.0.0-next.cd2b620.0"
+  dependencies:
+    "@sapphire/utilities": "npm:^3.16.2"
+    reflect-metadata: "npm:^0.2.1"
+  checksum: 10/15e57fba4725a6a6743b3d1cd9e2dd53c726906b2cc0d187d76ebf87c8b803318da5cd37c40465e09066d45cae255e52b4098aa43565fb354a01205fa47e3846
   languageName: node
   linkType: hard
 
@@ -1266,7 +1266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:3.15.3, @sapphire/utilities@npm:^3.15.3":
+"@sapphire/utilities@npm:3.15.3":
   version: 3.15.3
   resolution: "@sapphire/utilities@npm:3.15.3"
   checksum: 10/966db788486c01719d3d54cf00eccbc378fcd79f143c994480644f3af4dd22daa65f5e9ea7da6af0973d9730e5d10b762eaf391770d746278023fd012438eb13
@@ -5135,7 +5135,7 @@ __metadata:
     "@favware/colorette-spinner": "npm:^1.0.1"
     "@favware/npm-deprecate": "npm:^1.0.7"
     "@joshdb/eslint-config": "npm:2.0.0-next.c52cfc9.0"
-    "@joshdb/map": "npm:2.0.0-next.c343260.0"
+    "@joshdb/map": "npm:2.0.0-next.f1e0d87.0"
     "@joshdb/prettier-config": "npm:2.0.0-next.c52cfc9.0"
     "@joshdb/ts-config": "npm:2.0.0-next.c52cfc9.0"
     "@swc/core": "npm:^1.6.1"
