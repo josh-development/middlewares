@@ -32,7 +32,7 @@
     "catch-exit": "^1.2.2"
   },
   "devDependencies": {
-    "@favware/cliff-jumper": "^3.0.3",
+    "@favware/cliff-jumper": "^4.1.0",
     "@swc/core": "^1.6.1",
     "@vitest/coverage-v8": "^1.6.0",
     "tsup": "^8.1.0",
