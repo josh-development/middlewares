@@ -63,5 +63,5 @@
     "*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts"
   },
   "prettier": "@joshdb/prettier-config",
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@4.5.1"
 }
