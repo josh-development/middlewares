@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout Project
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Setup Node & Install Dependencies
         uses: josh-development/.github/setup-node@main
@@ -72,7 +72,7 @@ jobs:
 
     steps:
       - name: Checkout Project
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Setup Node & Install Dependencies
         uses: josh-development/.github/setup-node@main
@@ -86,7 +86,7 @@ jobs:
           path: docs
 
       - name: Checkout Documentation Project
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: 'josh-development/docs'
           token: ${{ secrets.ACCESS_TOKEN }}
