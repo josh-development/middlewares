@@ -802,7 +802,7 @@ __metadata:
     "@joshdb/provider": "npm:2.0.0-next.fb00a2d.0"
     "@swc/core": "npm:^1.6.1"
     "@vitest/coverage-v8": "npm:^1.6.0"
-    catch-exit: "npm:^1.2.2"
+    catch-exit: "npm:^2.0.0"
     tsup: "npm:^8.1.0"
     typedoc: "npm:^0.25.13"
     typedoc-json-parser: "npm:^10.0.0"
@@ -2184,12 +2184,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"catch-exit@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "catch-exit@npm:1.2.2"
+"catch-exit@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "catch-exit@npm:2.0.0"
   dependencies:
-    human-signals: "npm:2.1.0"
-  checksum: 10/21acc06d87b9967abd170f955fa10fb007287d8d53cd840737b4d2b8790925602e0064314312b5aa1a2cc31b06385383c07371233746be54636c9c004467c8c8
+    human-signals: "npm:8.0.0"
+  checksum: 10/e9c03dafc62f9ca877fd318529c46397120226cb859409bf1edf5b5f6a9cfa5712472fc2f57426e0d12032f56afae0e6c308becabe2b3a5b1a71e73661847346
   languageName: node
   linkType: hard
 
@@ -3653,7 +3653,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"human-signals@npm:2.1.0, human-signals@npm:^2.1.0":
+"human-signals@npm:8.0.0":
+  version: 8.0.0
+  resolution: "human-signals@npm:8.0.0"
+  checksum: 10/89acdc7081ac2a065e41cca7351c4b0fe2382e213b7372f90df6a554e340f31b49388a307adc1d6f4c60b2b4fe81eeff0bc1f44be6f5d844311cd92ccc7831c6
+  languageName: node
+  linkType: hard
+
+"human-signals@npm:^2.1.0":
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
   checksum: 10/df59be9e0af479036798a881d1f136c4a29e0b518d4abb863afbd11bf30efa3eeb1d0425fc65942dcc05ab3bf40205ea436b0ff389f2cd20b75b8643d539bf86
