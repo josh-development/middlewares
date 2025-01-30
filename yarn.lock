@@ -783,7 +783,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
     "@joshdb/provider": "npm:2.0.0-next.fb00a2d.0"
-    "@sapphire/utilities": "npm:^3.17.0"
+    "@sapphire/utilities": "npm:^3.18.2"
     "@swc/core": "npm:^1.6.1"
     "@vitest/coverage-v8": "npm:^1.6.0"
     tsup: "npm:^8.1.0"
@@ -874,7 +874,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
     "@joshdb/provider": "npm:2.0.0-next.fb00a2d.0"
-    "@sapphire/result": "npm:^2.6.6"
+    "@sapphire/result": "npm:^2.7.2"
     "@sapphire/shapeshift": "npm:^4.0.0"
     "@swc/core": "npm:^1.6.1"
     "@vitest/coverage-v8": "npm:^1.6.0"
@@ -892,7 +892,7 @@ __metadata:
   dependencies:
     "@favware/cliff-jumper": "npm:^3.0.3"
     "@joshdb/provider": "npm:2.0.0-next.fb00a2d.0"
-    "@sapphire/utilities": "npm:^3.17.0"
+    "@sapphire/utilities": "npm:^3.18.2"
     "@swc/core": "npm:^1.6.1"
     "@vitest/coverage-v8": "npm:^1.6.0"
     tsup: "npm:^8.1.0"
@@ -1271,6 +1271,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/result@npm:^2.7.2":
+  version: 2.7.2
+  resolution: "@sapphire/result@npm:2.7.2"
+  checksum: 10/8456a23c1e5fa20f74ba976097dcd5358df0e962aaf89c36aefb656dbe78a8fc93478ae29de88721784b93a4a1b0cbd3780a9cd13c61d842e5e5e3b511bfd59b
+  languageName: node
+  linkType: hard
+
 "@sapphire/shapeshift@npm:^4.0.0":
   version: 4.0.0
   resolution: "@sapphire/shapeshift@npm:4.0.0"
@@ -1309,6 +1316,13 @@ __metadata:
   version: 3.17.0
   resolution: "@sapphire/utilities@npm:3.17.0"
   checksum: 10/cfdf604be06e1e4f7fd26f10c198586eef9012001b83dcc8178886d88145334db06e164725aadf5bfb065b39ecdefaa8286c695576e7674b5a3bc9280ce02e0d
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.18.2":
+  version: 3.18.2
+  resolution: "@sapphire/utilities@npm:3.18.2"
+  checksum: 10/d7433b4231f56e3b07b93daaad7c43cb129f4a4e01ecf36ac22a6fcb1cedbd9059c124427002839006e3ee16fae7faa29bc48f6d40338873ac5c84dc28757ab8
   languageName: node
   linkType: hard
 
