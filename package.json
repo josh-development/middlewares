@@ -20,7 +20,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@favware/cliff-jumper": "^3.0.3",
     "@favware/colorette-spinner": "^1.0.1",
-    "@favware/npm-deprecate": "^1.0.7",
+    "@favware/npm-deprecate": "^2.0.0",
     "@joshdb/eslint-config": "2.0.0-next.fb00a2d.0",
     "@joshdb/map": "2.0.0-next.f471ef7.0",
     "@joshdb/prettier-config": "2.0.0-next.fb00a2d.0",
